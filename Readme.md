@@ -1,6 +1,6 @@
 ## College Project
 
-## Gradeup - A Seamless Examination Portal
+## Intercord - A Seamless Examination Portal
 
 This project allows login access as a teacher or a student
 
