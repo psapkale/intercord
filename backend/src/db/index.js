@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+mongoose.connect(process.env.MONGO_URL);
+
 const TeacherSchema = new mongoose.Schema({
    name: String,
    email: String,
