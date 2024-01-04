@@ -28,7 +28,7 @@ const SignUp = () => {
     const toastID = toast.loading("loading");
     setTimeout(() => {
       toast.dismiss(toastID);
-      toast.success("Submitted", {
+      toast.success("Signup Successfull", {
         duration: 3000,
       });
     }, 2000);

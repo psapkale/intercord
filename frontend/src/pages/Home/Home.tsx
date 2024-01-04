@@ -90,7 +90,7 @@ const Home = () => {
           }}
           transition={{
             duration: 1,
-            delay: 0.7,
+            delay: 0.6,
           }}
           src={downArrow}
           alt=""

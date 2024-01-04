@@ -10,14 +10,17 @@ import toast from "react-hot-toast";
 type userType = {
   username: string;
   password: string;
+  role: string;
 };
 
 const Login = () => {
   const [userInfo, setUserInfo] = useState<userType>({
     username: "",
     password: "",
+    role: "student",
   });
 
+  // Handling login submit
   const submitHandler = (e: React.FormEvent<HTMLButtonElement>): void => {
     e.preventDefault();
 
@@ -25,13 +28,13 @@ const Login = () => {
     const toastID = toast.loading("loading");
     setTimeout(() => {
       toast.dismiss(toastID);
-      toast.success("Submitted", {
+      toast.success("Login Successfull", {
         duration: 3000,
       });
     }, 2000);
     toast.loading;
-    console.log(userInfo);
   };
+  
   return (
     <div className="h-[100vh] w-full flex justify-center items-center bg-[#F5F5F5]">
       <img
@@ -79,17 +82,28 @@ const Login = () => {
               });
             }}
           />
-          <p className="text-[1rem] mt-1">
-            Need an account?{" "}
-            <Link to={"/signup"} className="text-[#059CE8] underline">
-              Sign up
-            </Link>{" "}
-          </p>
         </div>
 
+        <select
+          onChange={(e) => {
+            setUserInfo({ ...userInfo, role: e.target.value.toLowerCase() });
+          }}
+          className="mt-4 -mb-2 text-black w-[50%] py-1 px-1 rounded-sm text-[1rem]"
+        >
+          <option selected>Student</option>
+          <option>Teacher</option>
+          <option>Admin</option>
+        </select>
+
+        <p className="text-[1rem]">
+          Need an account?{" "}
+          <Link to={"/signup"} className="text-[#059CE8] underline">
+            Sign up
+          </Link>{" "}
+        </p>
         <button
           type="submit"
-          className="mt-4 bg-[#5865F2] w-full py-2 rounded-md text-[1.1rem] hover:bg-[#3c4cf8] transition-all duration-500"
+          className="mt-2 bg-[#5865F2] w-full py-2 rounded-md text-[1.1rem] hover:bg-[#3c4cf8] transition-all duration-500"
           onClick={submitHandler}
         >
           Continue
