@@ -1,11 +1,12 @@
 import mongoose from 'mongoose';
+require('dotenv').config();
 
 mongoose.connect(process.env.MONGO_URL);
 
 const AdminSchema = new mongoose.Schema({
    name: String,
    username: String,
-   name: String,
+   email: String,
    password: String,
 });
 
@@ -51,7 +52,10 @@ const StudentSubmissionsSchema = new mongoose.Schema({
 const QuestionSchema = new mongoose.Schema({
    description: String,
    options: [String],
-   answerIndex: 1 | 2 | 3 | 4,
+   answerIndex: {
+      type: Number,
+      enum: [1, 2, 3, 4],
+   },
 });
 
 const TestSchema = new mongoose.Schema({
@@ -98,7 +102,7 @@ const StudentSubmissions = mongoose.model(
    StudentSubmissionsSchema
 );
 const Test = mongoose.model('Test', TestSchema);
-const TestSubmissions = mongoose.modal(
+const TestSubmissions = mongoose.model(
    'TestSubmissions',
    TestSubmissionsSchema
 );

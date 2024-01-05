@@ -3,7 +3,6 @@ import { router as adminRouter } from './routes/admin';
 import { router as teacherRouter } from './routes/teacher';
 import { router as studentRouter } from './routes/student';
 import cors from 'cors';
-require('dotenv').config();
 
 const app = express();
 const port = 3000;
