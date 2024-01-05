@@ -35,20 +35,12 @@ const StudentSchema = new mongoose.Schema({
    ],
 });
 
-const SubmissionSchema = new mongoose.Schema({
-   student: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Student',
-   },
+const StudentSubmissionsSchema = new mongoose.Schema({
    test: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Test',
    },
    submittedAnswers: [Number],
-   totalMarks: {
-      type: Number,
-      default: 10,
-   },
    marksObtained: Number,
    submittedAt: {
       type: Date,
@@ -69,6 +61,10 @@ const TestSchema = new mongoose.Schema({
       type: Number,
       default: 0,
    },
+   totalMarks: {
+      type: Number,
+      default: 0,
+   },
    questions: [QuestionSchema],
    createdBy: {
       type: mongoose.Schema.Types.ObjectId,
@@ -78,12 +74,33 @@ const TestSchema = new mongoose.Schema({
       type: Date,
       default: Date.now,
    },
+   submissions: [
+      {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: 'TestSubmission',
+      },
+   ],
+});
+
+const TestSubmissionsSchema = mongoose.Schema({
+   candidate: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Student',
+   },
+   marksObtained: Number,
 });
 
 const Admin = mongoose.model('Admin', AdminSchema);
 const Teacher = mongoose.model('Teacher', TeacherSchema);
 const Student = mongoose.model('Student', StudentSchema);
-const Submission = mongoose.model('Submission', SubmissionSchema);
+const StudentSubmissions = mongoose.model(
+   'StudentSubmissions',
+   StudentSubmissionsSchema
+);
 const Test = mongoose.model('Test', TestSchema);
+const TestSubmissions = mongoose.modal(
+   'TestSubmissions',
+   TestSubmissionsSchema
+);
 
-export { Admin, Teacher, Student, Submission, Test };
+export { Admin, Teacher, Student, StudentSubmissions, Test, TestSubmissions };
