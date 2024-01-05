@@ -5,14 +5,14 @@ import { Teacher } from '../db';
 // Todo all mongo logic here
 export const teacherLogin = async (req: Request, res: Response) => {
    try {
-      const { name, username, password } = req.body;
-      if (!name || !username || !password) {
+      const { username, email, password } = req.body;
+      if (!username || !email || !password) {
          return res
             .status(400)
             .json({ message: 'Please provide name, username, and password' });
       }
 
-      const teacher = await Teacher.find({ name, username, password });
+      const teacher = await Teacher.find({ email, password });
 
       if (!teacher) {
          return res

@@ -5,14 +5,20 @@ import { Student } from '../db';
 // Todo all mongo logic here
 export const studentRegister = async (req: Request, res: Response) => {
    try {
-      const { name, username, password } = req.body;
-      if (!name || !username || !password) {
+      const { name, email, username, password } = req.body;
+      if (!name || !email || !username || !password) {
          return res
             .status(400)
             .json({ message: 'Please provide name, username, and password' });
       }
 
-      const student = await Student.create({ name, username, password });
+      const student = await Student.create({
+         username,
+         name,
+         email,
+         password,
+         submissions: [],
+      });
       if (!student) {
          return res.status(500).json({ message: 'Failed to create student' });
       }
@@ -30,14 +36,14 @@ export const studentRegister = async (req: Request, res: Response) => {
 
 export const studentLogin = async (req: Request, res: Response) => {
    try {
-      const { name, username, password } = req.body;
-      if (!name || !username || !password) {
+      const { username, email, password } = req.body;
+      if (!email || !username || !password) {
          return res
             .status(400)
             .json({ message: 'Please provide name, username, and password' });
       }
 
-      const student = await Student.find({ name, username, password });
+      const student = await Student.find({ email, password });
 
       if (!student) {
          return res

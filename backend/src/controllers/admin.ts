@@ -3,28 +3,6 @@ import { Request, Response } from 'express';
 import { Admin, Teacher } from '../db/index';
 
 // Todo all mongo logic here
-export const adminRegister = async (req: Request, res: Response) => {
-   try {
-      const { name, username, email, password } = req.body;
-      if (!name || !username || !email || !password) {
-         return res
-            .status(400)
-            .json({ message: 'Please provide name, username, and password' });
-      }
-
-      const admin = await Admin.create({ name, username, email, password });
-      if (!admin) {
-         return res.status(500).json({ message: 'Failed to create admin' });
-      }
-
-      res.status(200).json({ message: 'Admin created successfully', admin });
-   } catch (e) {
-      // ! Remove 'e' which might potentially show authorised details
-      console.error('Error creating admin:', e);
-      res.status(500);
-   }
-};
-
 export const adminLogin = async (req: Request, res: Response) => {
    try {
       const { username, email, password } = req.body;
@@ -53,8 +31,8 @@ export const adminLogin = async (req: Request, res: Response) => {
 
 export const createTeacher = async (req: Request, res: Response) => {
    try {
-      const { name, username, password } = req.body;
-      if (!name || !username || !password) {
+      const { name, email, username, password } = req.body;
+      if (!name || !email || !username || !password) {
          return res
             .status(400)
             .json({ message: 'Please provide name, username, and password' });
@@ -70,7 +48,13 @@ export const createTeacher = async (req: Request, res: Response) => {
       }
 
       // @ts-ignore
-      teacher = await Teacher.create({ name, username, password });
+      teacher = await Teacher.create({
+         username,
+         name,
+         email,
+         password,
+         createdTests: [],
+      });
       if (!teacher) {
          return res.status(500).json({ message: 'Failed to create teacher' });
       }
