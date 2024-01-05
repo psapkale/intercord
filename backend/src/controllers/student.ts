@@ -1,6 +1,15 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { Student } from '../db';
+
+interface StudentType extends Document {
+   username: string;
+   name: string;
+   email: string;
+   password: string;
+   submissions: [];
+}
 
 // Todo all mongo logic here
 export const studentRegister = async (req: Request, res: Response) => {
@@ -12,11 +21,13 @@ export const studentRegister = async (req: Request, res: Response) => {
             .json({ message: 'Please provide name, username, and password' });
       }
 
+      const hashedPassword = await bcrypt.hash(password, 10);
+
       const student = await Student.create({
          username,
          name,
          email,
-         password,
+         password: hashedPassword,
          submissions: [],
       });
       if (!student) {
@@ -43,9 +54,15 @@ export const studentLogin = async (req: Request, res: Response) => {
             .json({ message: 'Please provide name, username, and password' });
       }
 
-      const student = await Student.find({ email, password });
+      const student: StudentType | null = await Student.findOne({ email });
 
       if (!student) {
+         return res.status(404).json({ message: 'Student not found' });
+      }
+
+      const isMatch = await bcrypt.compare(password, student.password);
+
+      if (!isMatch) {
          return res
             .status(411)
             .json({ message: 'Incorrect username or password' });
