@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 mongoose.connect(process.env.MONGO_URL);
 
 const AdminSchema = new mongoose.Schema({
+   name: String,
    username: String,
    name: String,
    password: String,
