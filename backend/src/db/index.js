@@ -85,4 +85,4 @@ const Student = mongoose.model('Student', StudentSchema);
 const Submission = mongoose.model('Submission', SubmissionSchema);
 const Test = mongoose.model('Test', TestSchema);
 
-module.exports = { Admin, Teacher, Student, Submission, Test };
+export { Admin, Teacher, Student, Submission, Test };
