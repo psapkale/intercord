@@ -2,7 +2,14 @@ import mongoose from 'mongoose';
 
 mongoose.connect(process.env.MONGO_URL);
 
+const AdminSchema = new mongoose.Schema({
+   username: String,
+   name: String,
+   password: String,
+});
+
 const TeacherSchema = new mongoose.Schema({
+   username: String,
    name: String,
    email: String,
    password: String,
@@ -15,6 +22,7 @@ const TeacherSchema = new mongoose.Schema({
 });
 
 const StudentSchema = new mongoose.Schema({
+   username: String,
    name: String,
    email: String,
    password: String,
@@ -35,8 +43,11 @@ const SubmissionSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Test',
    },
-   answers: [Number],
-   totalMarks: Number,
+   submittedAnswers: [Number],
+   totalMarks: {
+      type: Number,
+      default: 10,
+   },
    marksObtained: Number,
    submittedAt: {
       type: Date,
@@ -53,10 +64,6 @@ const QuestionSchema = new mongoose.Schema({
 const TestSchema = new mongoose.Schema({
    subject: String,
    description: String,
-   author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Teacher',
-   },
    totalQuestions: {
       type: Number,
       default: 0,
@@ -72,9 +79,10 @@ const TestSchema = new mongoose.Schema({
    },
 });
 
+const Admin = mongoose.model('Admin', AdminSchema);
 const Teacher = mongoose.model('Teacher', TeacherSchema);
 const Student = mongoose.model('Student', StudentSchema);
 const Submission = mongoose.model('Submission', SubmissionSchema);
 const Test = mongoose.model('Test', TestSchema);
 
-module.exports = { Teacher, Student, Submission, Test };
+module.exports = { Admin, Teacher, Student, Submission, Test };
