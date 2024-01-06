@@ -28,12 +28,7 @@ const StudentSchema = new mongoose.Schema({
    name: String,
    email: String,
    password: String,
-   submissions: [
-      {
-         type: mongoose.Schema.Types.ObjectId,
-         ref: 'Submission',
-      },
-   ],
+   submissions: [StudentSubmissionsSchema],
 });
 
 const StudentSubmissionsSchema = new mongoose.Schema({
@@ -78,6 +73,7 @@ const TestSchema = new mongoose.Schema({
       type: Date,
       default: Date.now,
    },
+   // Todo add test submissions schema
    submissions: [
       {
          type: mongoose.Schema.Types.ObjectId,
@@ -86,25 +82,18 @@ const TestSchema = new mongoose.Schema({
    ],
 });
 
-const TestSubmissionsSchema = mongoose.Schema({
+const ScoreSchema = mongoose.Schema({
    candidate: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Student',
    },
-   marksObtained: Number,
+   score: Number,
 });
 
 const Admin = mongoose.model('Admin', AdminSchema);
 const Teacher = mongoose.model('Teacher', TeacherSchema);
 const Student = mongoose.model('Student', StudentSchema);
-const StudentSubmissions = mongoose.model(
-   'StudentSubmissions',
-   StudentSubmissionsSchema
-);
 const Test = mongoose.model('Test', TestSchema);
-const TestSubmissions = mongoose.model(
-   'TestSubmissions',
-   TestSubmissionsSchema
-);
+const Score = mongoose.model('Score', ScoreSchema);
 
-export { Admin, Teacher, Student, StudentSubmissions, Test, TestSubmissions };
+export { Admin, Teacher, Student, Test, Score };
