@@ -21,7 +21,7 @@ const Home = () => {
               opacity: 1,
             }}
             transition={{
-              duration: 1.3,
+              duration: 1.4,
               delay: 0.5,
             }}
           >
@@ -37,8 +37,8 @@ const Home = () => {
               opacity: 1,
             }}
             transition={{
-              duration: 1.3,
-              delay: 0.6,
+              duration: 1.4,
+              delay: 0.5,
             }}
             className="flex justify-center mt-3"
           >
