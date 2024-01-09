@@ -47,3 +47,45 @@ export const teacherLogin = async (req: Request, res: Response) => {
     res.status(500);
   }
 };
+
+export const createTest = async (req: Request, res: Response) => {
+   try {
+      const { subject, description, totalQuestions, totalMarks, questions } =
+         req.body;
+
+      const teacherId = (req as CustomRequest).teacherId;
+
+      const payload = {
+         subject,
+         description,
+         totalQuestions,
+         totalMarks,
+         questions,
+         createdBy: teacherId,
+         submissions: [],
+      };
+
+      const test = await Test.create(payload);
+
+      if (!test) {
+         return res.status(500).json({ message: 'Failed to create test' });
+      }
+
+      await Teacher.findOneAndUpdate(
+         { _id: teacherId },
+         {
+            $push: { createdTests: test._id },
+         },
+         { new: true }
+      );
+
+      res.status(200).json({
+         message: 'Test created successfully',
+         test,
+      });
+   } catch (e) {
+      // ! Remove 'e' which might potentially show authorised details
+      console.error('Error logging teacher:', e);
+      res.status(500);
+   }
+};
