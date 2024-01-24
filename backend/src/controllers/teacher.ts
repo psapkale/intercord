@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
-import { Teacher } from "../db";
+import { Teacher, Test } from "../db";
+import { CustomRequest } from "../middlewares/teacher";
 
 interface TeacherType extends Document {
   username: string;
