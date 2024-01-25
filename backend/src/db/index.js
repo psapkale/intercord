@@ -23,14 +23,6 @@ const TeacherSchema = new mongoose.Schema({
    ],
 });
 
-const StudentSchema = new mongoose.Schema({
-   username: String,
-   name: String,
-   email: String,
-   password: String,
-   submissions: [StudentSubmissionsSchema],
-});
-
 const StudentSubmissionsSchema = new mongoose.Schema({
    test: {
       type: mongoose.Schema.Types.ObjectId,
@@ -42,6 +34,14 @@ const StudentSubmissionsSchema = new mongoose.Schema({
       type: Date,
       default: Date.now,
    },
+});
+
+const StudentSchema = new mongoose.Schema({
+   username: String,
+   name: String,
+   email: String,
+   password: String,
+   submissions: [StudentSubmissionsSchema],
 });
 
 const QuestionSchema = new mongoose.Schema({
