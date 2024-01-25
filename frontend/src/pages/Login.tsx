@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import bgImg from "./../assets/svgexport-3.svg";
-import { Link } from "react-router-dom";
+// import bgImg from "./../assets/banner.png";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 // how to diable toast
@@ -13,12 +14,15 @@ type userType = {
   role: string;
 };
 
+//  regix
+
 const Login = () => {
   const [userInfo, setUserInfo] = useState<userType>({
     username: "",
     password: "",
     role: "student",
   });
+  const navigate = useNavigate();
 
   // Handling login submit
   const submitHandler = (e: React.FormEvent<HTMLButtonElement>): void => {
@@ -31,18 +35,23 @@ const Login = () => {
       toast.success("Login Successfull", {
         duration: 3000,
       });
+      navigate("/dashboard/profile");
     }, 2000);
     toast.loading;
   };
-  
+
   return (
     <div className="h-[100vh] w-full flex justify-center items-center bg-[#F5F5F5]">
       <img
         src={bgImg}
+        // width={"100vw"}
+        // height={"100vh"}
         alt=""
         className="absolute h-full w-full object-cover -z-0"
       />
-      <form className="auth-page h-fit relative z-10 w-[30rem] bg-[#313338] text-white px-6 py-12 flex flex-col gap-5 rounded-lg">
+      <div className="w-full h-full absolute bg-black opacity-30"></div>
+
+      <form className="auth-page h-fit absolute z-10 w-[30rem] bg-[#313338] text-white px-6 py-12 flex flex-col gap-5 rounded-lg">
         <h1 className="text-2xl -mb-4">Login</h1>
         <p className="text-white tracking-wide font-light text-[0.9rem]">
           Enter your username and password so u can start!

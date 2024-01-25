@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import bgImg from "./../assets/svgexport-3.svg";
-import { Link } from "react-router-dom";
+// import bgImg from "./../assets/banner.png";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 // how to diable toast
@@ -21,9 +22,31 @@ const SignUp = () => {
     email: "",
   });
 
+  // using useNavigate
+  const navigate = useNavigate();
   const submitHandler = (e: React.FormEvent<HTMLButtonElement>): void => {
     e.preventDefault();
 
+    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(userInfo.email)) {
+      toast.error("Enter valid email", {
+        duration: 3000,
+      });
+      return;
+    }
+
+    if (
+      !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(
+        userInfo.password
+      )
+    ) {
+      toast.error(
+        "Enter valid password, enter atleast 1 small char, 1 capital char and 1 number and password should be more than 8 digit",
+        {
+          duration: 3000,
+        }
+      );
+      return;
+    }
     // Demo testing of toast
     const toastID = toast.loading("loading");
     setTimeout(() => {
@@ -31,6 +54,9 @@ const SignUp = () => {
       toast.success("Signup Successfull", {
         duration: 3000,
       });
+      setTimeout(() => {
+        navigate("/dashboard/profile");
+      }, 500);
     }, 2000);
     toast.loading;
     console.log(userInfo);
@@ -43,7 +69,8 @@ const SignUp = () => {
         alt=""
         className="absolute h-full w-full object-cover -z-0"
       />
-      <form className="auth-page h-fit relative z-10 w-[30rem] bg-[#313338] text-white px-6 py-12 flex flex-col gap-5 rounded-lg">
+      <div className="w-full h-full absolute bg-black opacity-30"></div>
+      <form className="auth-page h-fit absolute z-10 w-[30rem] bg-[#313338] text-white px-6 py-12 flex flex-col gap-5 rounded-lg">
         <h1 className="text-2xl -mb-4">Sign Up</h1>
         <p className="text-white tracking-wide font-light text-[0.9rem]">
           Fill the below details to create a student account!

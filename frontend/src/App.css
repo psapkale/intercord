@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Zeyada&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -12,6 +12,15 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 @layer base {
@@ -60,8 +69,6 @@
     --ring: 0 0% 83.1%;
   }
 }
-
-
 
 @layer base {
   * {
