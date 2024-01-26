@@ -1,5 +1,5 @@
 const ProfilePage = () => {
-  return <div>ProfilePage</div>;
+  return <div className="w-full h-full pl-[6rem] pt-[2rem]">ProfilePage</div>;
 };
 
 export default ProfilePage;

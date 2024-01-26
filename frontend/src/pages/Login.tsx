@@ -35,7 +35,7 @@ const Login = () => {
       toast.success("Login Successfull", {
         duration: 3000,
       });
-      navigate("/dashboard/profile");
+      navigate("/dashboard/account");
     }, 2000);
     toast.loading;
   };
