@@ -4,10 +4,6 @@ import bgImg from "./../assets/svgexport-3.svg";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-// how to diable toast
-// const toastId = toast.loading('Loading...');
-// toast.dismiss(toastId);
-
 // user type
 type userType = {
   username: string;
@@ -21,13 +17,14 @@ const SignUp = () => {
     password: "",
     email: "",
   });
+  const [loading, setLoading] = useState(false);
 
   // using useNavigate
   const navigate = useNavigate();
   const submitHandler = (e: React.FormEvent<HTMLButtonElement>): void => {
     e.preventDefault();
 
-    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(userInfo.email)) {
+    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(userInfo.email)) {
       toast.error("Enter valid email", {
         duration: 3000,
       });
@@ -48,18 +45,18 @@ const SignUp = () => {
       return;
     }
     // Demo testing of toast
+    setLoading(true);
     const toastID = toast.loading("loading");
     setTimeout(() => {
       toast.dismiss(toastID);
+      setLoading(false);
       toast.success("Signup Successfull", {
         duration: 3000,
       });
       setTimeout(() => {
-        navigate("/dashboard/profile");
+        navigate("/dashboard/account");
       }, 500);
     }, 2000);
-    toast.loading;
-    console.log(userInfo);
   };
 
   return (
@@ -137,8 +134,13 @@ const SignUp = () => {
         </div>
 
         <button
+          disabled={loading}
           type="submit"
-          className="mt-4 bg-[#5865F2] w-full py-2 rounded-md text-[1.1rem] hover:bg-[#3c4cf8] transition-all duration-500"
+          className={`mt-4  w-full py-2 rounded-md text-[1.1rem] duration-500 ${
+            loading
+              ? "bg-white text-black cursor-not-allowed"
+              : "bg-[#5865F2] hover:bg-[#3c4cf8] transition-all "
+          }`}
           onClick={submitHandler}
         >
           Continue

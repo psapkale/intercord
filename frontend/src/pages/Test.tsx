@@ -1,5 +1,5 @@
 const Test = () => {
-  return <div>Test</div>;
+  return <div className="w-full h-full pl-[6rem] pt-[2rem]">Test</div>;
 };
 
 export default Test;

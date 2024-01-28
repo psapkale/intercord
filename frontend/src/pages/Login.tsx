@@ -17,6 +17,7 @@ type userType = {
 //  regix
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
   const [userInfo, setUserInfo] = useState<userType>({
     username: "",
     password: "",
@@ -29,15 +30,16 @@ const Login = () => {
     e.preventDefault();
 
     // Demo testing of toast
+    setLoading(true);
     const toastID = toast.loading("loading");
     setTimeout(() => {
       toast.dismiss(toastID);
+      setLoading(false);
       toast.success("Login Successfull", {
         duration: 3000,
       });
       navigate("/dashboard/account");
     }, 2000);
-    toast.loading;
   };
 
   return (
@@ -111,8 +113,13 @@ const Login = () => {
           </Link>{" "}
         </p>
         <button
+          disabled={loading}
           type="submit"
-          className="mt-2 bg-[#5865F2] w-full py-2 rounded-md text-[1.1rem] hover:bg-[#3c4cf8] transition-all duration-500"
+          className={`mt-4  w-full py-2 rounded-md text-[1.1rem]  duration-500 ${
+            loading
+              ? "bg-white text-black cursor-not-allowed"
+              : "bg-[#5865F2] hover:bg-[#3c4cf8] transition-all"
+          }`}
           onClick={submitHandler}
         >
           Continue

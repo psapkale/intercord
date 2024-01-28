@@ -1,5 +1,5 @@
 const LeaderBoard = () => {
-  return <div>LeaderBoard</div>;
+  return <div className="w-full h-full pl-[6rem] pt-[2rem]">LeaderBoard</div>;
 };
 
 export default LeaderBoard;

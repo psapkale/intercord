@@ -1,10 +1,18 @@
+/* eslint-disable no-constant-condition */
 import { useEffect, useState } from "react";
+import { callSideBarDriver } from "./../utils/driver.js";
 import SideBar from "./SideBar";
 import "./SideBarAndOC.css";
-import gsap from "gsap";
 
 const SideBarAndOpenCloseContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
+  // closing hamburger
+  const RemoveActive = () => {
+    const btn = document.querySelector(".btn") as HTMLButtonElement;
+    btn.classList.remove("active");
+    btn.classList.add("not-active");
+  };
+
   useEffect(() => {
     // Hamburger
     const btn = document.querySelector(".btn") as HTMLButtonElement;
@@ -14,23 +22,18 @@ const SideBarAndOpenCloseContainer = () => {
         btn.classList.remove("not-active");
         btn.classList.add("active");
         i++;
-        gsap.to(".ham-items-div", {
-          opacity: 1,
-          duration: 0.3,
-          x: 0,
-        });
       } else {
         btn.classList.remove("active");
         btn.classList.add("not-active");
         i++;
-        gsap.to(".ham-items-div", {
-          opacity: 0,
-          duration: 0.3,
-          x: 100,
-        });
       }
     });
   }, []);
+
+  //calling driver && checking if already done with instructions
+  if (isOpen && true) {
+    setTimeout(callSideBarDriver, 200);
+  }
   return (
     <div>
       <div className="box z-30">
@@ -45,7 +48,11 @@ const SideBarAndOpenCloseContainer = () => {
           <span></span>
         </div>
       </div>
-      <SideBar isOpen={isOpen} setIsOpen={setIsOpen} />
+      <SideBar
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        RemoveActive={RemoveActive}
+      />
     </div>
   );
 };

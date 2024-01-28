@@ -9,8 +9,35 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <>
-      <div className="h-[100vh] w-full flex-col tracking-tight flex justify-center items-center text-[4rem] bg-[#0F0F0F] text-white">
-        <p className="font-bold w-[60%] text-center leading-[4rem] relative z-10 mt-5">
+      {/* gradient-background */}
+      <div className="area">
+        <ul className="circles top-0 left-0">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul className="circles top-[44rem] left-0">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+      <div className="absolute top-0 h-[100vh] w-full flex-col tracking-tight flex justify-center items-center text-[4rem] text-white">
+        <p className="font-bold w-[80%] text-center leading-[4rem] relative z-10 mt-5">
           <motion.p
             initial={{
               y: 100,
@@ -25,7 +52,7 @@ const Home = () => {
               delay: 0.5,
             }}
           >
-            Welcome to DEOGIRI COLLEGE{" "}
+            Welcome to DEOGIRI COLLEGE
           </motion.p>
           <motion.div
             initial={{
@@ -42,7 +69,7 @@ const Home = () => {
             }}
             className="flex justify-center mt-3"
           >
-            <span className="font-zyada tracking-wide text-[4.5rem] bg-[#9D98FE] text-[#0F0F0F] font-semibold rounded-3xl py-3 mr-5 inline-block">
+            <span className="font-zyada tracking-wide text-[4.5rem] bg-white text-[#0F0F0F] font-semibold rounded-3xl py-3 mr-5 inline-block shadow-2xl">
               Assignment{" "}
             </span>
             <p className="flex justify-center items-center mb-5">
@@ -54,27 +81,25 @@ const Home = () => {
             </p>
           </motion.div>
         </p>
-        <Link to={"/login"}>
+        <Link to={"/signup"}>
           <motion.button
             initial={{
-              y: 100,
+              // x: 100,
               opacity: 0,
             }}
             animate={{
-              y: 0,
+              // x: 0,
               opacity: 1,
             }}
             transition={{
               duration: 1,
-              delay: 0.7,
+              delay: 1,
             }}
-            className="bg-[#9D98FE] text-[#0F0F0F] font-zyada text-[2.5rem] 
-        mt-20 flex justify-center items-center rounded-2xl px-2 gap-3 h-[3.5rem]
-        hover:bg-[#665eff] relative transition-colors duration-300
+            className="w-[12rem] mt-12 rounded-md tracking-wider text-3xl font-semibold hover:bg-transparent hover:text-white transition-all duration-300 font-zyada py-2 bg-white text-black flex justify-center items-center gap-2 pt-4 shadow-2xl
       "
           >
-            <p className="mt-3 font-bold">Let's Start!</p>
-            <Sparkles />
+            Let's Start
+            <Sparkles className="mb-2" />
           </motion.button>
         </Link>
 
