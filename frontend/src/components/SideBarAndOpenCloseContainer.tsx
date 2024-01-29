@@ -34,6 +34,7 @@ const SideBarAndOpenCloseContainer = () => {
   if (isOpen && true) {
     setTimeout(callSideBarDriver, 200);
   }
+
   return (
     <div>
       <div className="box z-30">

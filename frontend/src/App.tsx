@@ -8,6 +8,7 @@ import ProfilePage from "./pages/ProfilePage";
 import LeaderBoard from "./pages/LeaderBoard";
 import Test from "./pages/Test";
 import DashBoardLayout from "./Layout/DashBoard";
+import StudentProfile from "./pages/StudentProfile";
 // import { lazy } from "react";
 
 const appRouter = createBrowserRouter([
@@ -38,6 +39,10 @@ const appRouter = createBrowserRouter([
       {
         path: "test",
         element: <Test />,
+      },
+      {
+        path: "student/:id",
+        element: <StudentProfile />,
       },
     ],
   },

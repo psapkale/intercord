@@ -15,6 +15,7 @@ module.exports = {
       bebas: ["Bebas Neue", "sans-serif"],
       sans: ["sans-serif"],
       mono: ["monospace"],
+      brygada: ["Vesper Libre"],
     },
     container: {
       center: true,

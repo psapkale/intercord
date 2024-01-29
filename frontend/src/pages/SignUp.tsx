@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import bgImg from "./../assets/svgexport-3.svg";
+import React, { useEffect, useState } from "react";
 // import bgImg from "./../assets/banner.png";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { firstSectionAnimation } from "@/utils/Animation";
 
 // user type
 type userType = {
   username: string;
+  fullname: string;
   password: string;
   email: string;
 };
@@ -16,6 +17,7 @@ const SignUp = () => {
     username: "",
     password: "",
     email: "",
+    fullname: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -59,93 +61,115 @@ const SignUp = () => {
     }, 2000);
   };
 
+  // Calling Animation
+  useEffect(() => {
+    firstSectionAnimation();
+  }, []);
+
   return (
-    <div className="h-[100vh] w-full flex justify-center items-center bg-[#F5F5F5]">
-      <img
-        src={bgImg}
-        alt=""
-        className="absolute h-full w-full object-cover -z-0"
-      />
-      <div className="w-full h-full absolute bg-black opacity-30"></div>
-      <form className="auth-page h-fit absolute z-10 w-[30rem] bg-[#313338] text-white px-6 py-12 flex flex-col gap-5 rounded-lg">
-        <h1 className="text-2xl -mb-4">Sign Up</h1>
-        <p className="text-white tracking-wide font-light text-[0.9rem]">
-          Fill the below details to create a student account!
-        </p>
-        <div className="flex flex-col gap-1">
-          <label htmlFor="username" className="text-[1.1rem]">
-            Username<span className="text-red-600">*</span>
-          </label>
-          <input
-            required
-            type="text"
-            id="username"
-            className="w-full py-2 px-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black"
-            value={userInfo.username}
-            onChange={(e) => {
-              setUserInfo({
-                ...userInfo,
-                username: e.target.value,
-              });
-            }}
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <label htmlFor="password" className="text-[1.1rem]">
-            Password<span className="text-red-600">*</span>
-          </label>
-          <input
-            required
-            type="password"
-            id="password"
-            className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black"
-            value={userInfo.password}
-            onChange={(e) => {
-              setUserInfo({
-                ...userInfo,
-                password: e.target.value,
-              });
-            }}
-          />
-        </div>
-        <div className="flex flex-col gap-1">
-          <label htmlFor="email" className="text-[1.1rem]">
-            Email<span className="text-red-600">*</span>
-          </label>
-          <input
-            required
-            type="email"
-            id="email"
-            className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black"
-            value={userInfo.email}
-            onChange={(e) => {
-              setUserInfo({
-                ...userInfo,
-                email: e.target.value,
-              });
-            }}
-          />
-          <p className="text-[1rem] mt-1">
-            Already have an account?{" "}
+    <div className="h-[100vh] w-full flex items-center justify-center bg-[#F5F5F5]">
+      <div className="flex justify-center items-center h-full font-zyada font-semibold">
+        <form
+          className="auth-page h-fit absolute z-10 w-[30rem]  px-6 py-12 flex flex-col gap-5 rounded-lg login
+        "
+        >
+          <h1 className="text-[3rem] -mb-8">SignUp</h1>
+          <p className="tracking-wide font-medium text-[1.2rem]">
+            Enter your username and password so u can start!
+          </p>
+          <div className="flex flex-col">
+            <label htmlFor="fullname" className="text-[1.8rem] -mb-2">
+              Fullname<span className="text-red-600">*</span>
+            </label>
+            <input
+              required
+              type="text"
+              id="fullname"
+              className="w-full py-2 px-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black"
+              value={userInfo.fullname}
+              onChange={(e) => {
+                setUserInfo({
+                  ...userInfo,
+                  fullname: e.target.value,
+                });
+              }}
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label htmlFor="email" className="text-[1.6rem] -mb-2">
+              email<span className="text-red-600">*</span>
+            </label>
+            <input
+              required
+              type="email"
+              id="email"
+              className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black"
+              value={userInfo.email}
+              onChange={(e) => {
+                setUserInfo({
+                  ...userInfo,
+                  email: e.target.value,
+                });
+              }}
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label htmlFor="username" className="text-[1.6rem] -mb-2">
+              username<span className="text-red-600">*</span>
+            </label>
+            <input
+              required
+              type="text"
+              id="username"
+              className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black"
+              value={userInfo.username}
+              onChange={(e) => {
+                setUserInfo({
+                  ...userInfo,
+                  username: e.target.value,
+                });
+              }}
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label htmlFor="password" className="text-[1.6rem] -mb-2">
+              Password<span className="text-red-600">*</span>
+            </label>
+            <input
+              required
+              type="text"
+              id="password"
+              className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black"
+              value={userInfo.password}
+              onChange={(e) => {
+                setUserInfo({
+                  ...userInfo,
+                  password: e.target.value,
+                });
+              }}
+            />
+          </div>
+
+          <p className="text-[1.8rem]">
+            Already have a account?{" "}
             <Link to={"/login"} className="text-[#059CE8] underline">
-              Login
+              login
             </Link>{" "}
           </p>
-        </div>
-
-        <button
-          disabled={loading}
-          type="submit"
-          className={`mt-4  w-full py-2 rounded-md text-[1.1rem] duration-500 ${
-            loading
-              ? "bg-white text-black cursor-not-allowed"
-              : "bg-[#5865F2] hover:bg-[#3c4cf8] transition-all "
-          }`}
-          onClick={submitHandler}
-        >
-          Continue
-        </button>
-      </form>
+          <button
+            disabled={loading}
+            type="submit"
+            className={`mt-4 tracking-wider w-full rounded-md text-[1.8rem]  duration-500 ${
+              loading
+                ? "bg-white text-black cursor-not-allowed"
+                : "bg-[#313338] hover:bg-[#27292c] transition-all text-white"
+            }`}
+            onClick={submitHandler}
+          >
+            Continue
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
