@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { firstSectionAnimation } from "@/utils/Animation";
+import { useUserDetails } from "@/utils/store";
 
 type userType = {
   email: string;
@@ -11,6 +12,7 @@ type userType = {
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
+  const setUserDetails = useUserDetails((state) => state.setUserDetails);
   const [userInfo, setUserInfo] = useState<userType>({
     email: "",
     password: "",
@@ -30,6 +32,12 @@ const Login = () => {
       setLoading(false);
       toast.success("Login Successfull", {
         duration: 3000,
+      });
+      setUserDetails({
+        email: userInfo.email,
+        fullname: "Abhay",
+        username: "abhxyy",
+        isSignedUp: false,
       });
       navigate("/dashboard/account");
     }, 2000);
@@ -59,7 +67,7 @@ const Login = () => {
               required
               type="text"
               id="username"
-              className="w-full py-2 px-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black"
+              className="w-full py-2 px-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black text-[1.2rem]"
               value={userInfo.email}
               onChange={(e) => {
                 setUserInfo({
@@ -77,7 +85,7 @@ const Login = () => {
               required
               type="password"
               id="password"
-              className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black"
+              className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black text-[1.2rem]"
               value={userInfo.password}
               onChange={(e) => {
                 setUserInfo({

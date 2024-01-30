@@ -3,16 +3,19 @@ import { useEffect, useState } from "react";
 import { callSideBarDriver } from "./../utils/driver.js";
 import SideBar from "./SideBar";
 import "./SideBarAndOC.css";
+import { useUserDetails } from "@/utils/store.js";
 
 const SideBarAndOpenCloseContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const user = useUserDetails((state) => state.user);
+  const updateTutorial = useUserDetails((state) => state.updateTutorial);
+
   // closing hamburger
   const RemoveActive = () => {
     const btn = document.querySelector(".btn") as HTMLButtonElement;
     btn.classList.remove("active");
     btn.classList.add("not-active");
   };
-
   useEffect(() => {
     // Hamburger
     const btn = document.querySelector(".btn") as HTMLButtonElement;
@@ -31,13 +34,16 @@ const SideBarAndOpenCloseContainer = () => {
   }, []);
 
   //calling driver && checking if already done with instructions
-  if (isOpen && true) {
-    setTimeout(callSideBarDriver, 200);
+  if (isOpen && user.isSignedUp && user.leaderboardDriverJs) {
+    setTimeout(() => {
+      callSideBarDriver();
+      updateTutorial("sideBarDriverJs");
+    }, 200);
   }
 
   return (
     <div>
-      <div className="box z-30">
+      <div className="box z-40">
         <div
           className="btn"
           onClick={() => {

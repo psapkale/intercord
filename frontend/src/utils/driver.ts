@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 
@@ -49,6 +50,44 @@ export function callSideBarDriver() {
           title: "Logout",
           description: "By clicking here you can logout",
           side: "top",
+          align: "start",
+        },
+      },
+    ],
+  });
+
+  driverObj.drive();
+}
+
+export function callLeaderBoardDriver() {
+  const driverObj = driver({
+    showProgress: true,
+    steps: [
+      {
+        element: "#title",
+        popover: {
+          title: "Leaderboard",
+          description: "This is Leaderboard, here you can see all the rankings",
+          side: "top",
+          align: "start",
+        },
+      },
+      {
+        element: "#rankingTable",
+        popover: {
+          title: "Ranking Table",
+          description:
+            "Ranking table here you all the students ranking get displayed",
+          side: "bottom",
+          align: "start",
+        },
+      },
+      {
+        element: "#rank",
+        popover: {
+          title: "Rank",
+          description: "Based on total score students ranking gets decide",
+          side: "bottom",
           align: "start",
         },
       },

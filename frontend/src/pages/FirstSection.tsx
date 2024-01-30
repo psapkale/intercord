@@ -3,8 +3,10 @@ import skyImg from "./../assets/study.jpeg";
 import studyImg2 from "./../assets/studyImg2.jpeg";
 import { firstSectionAnimation } from "./../utils/Animation";
 import { Link } from "react-router-dom";
+import { useUserDetails } from "@/utils/store";
 
 const FirstSection = () => {
+  const user = useUserDetails((state) => state.user);
   useEffect(() => {
     firstSectionAnimation();
   }, []);
@@ -48,13 +50,16 @@ const FirstSection = () => {
         <div className="w-full flex flex-col">
           <div className="w-full overflow-hidden">
             <p className="font-semibold font-zyada text-3xl right-para pb-1">
-              Make sure you are not breaking and rules and regulations
+              Make sure you are not breaking any rules and regulations
             </p>
           </div>
           <div className="w-full overflow-hidden">
             <p className="right-para">
               Click the button to Proceed.{" "}
-              <Link to={"/login"} className="underline">
+              <Link
+                to={user.fullname ? "/dashboard/account" : "/login"}
+                className="underline"
+              >
                 Start
               </Link>
             </p>

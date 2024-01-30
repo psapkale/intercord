@@ -9,6 +9,7 @@ import LeaderBoard from "./pages/LeaderBoard";
 import Test from "./pages/Test";
 import DashBoardLayout from "./Layout/DashBoard";
 import StudentProfile from "./pages/StudentProfile";
+import CreateTest from "./pages/CreateTest";
 // import { lazy } from "react";
 
 const appRouter = createBrowserRouter([
@@ -39,6 +40,10 @@ const appRouter = createBrowserRouter([
       {
         path: "test",
         element: <Test />,
+      },
+      {
+        path: "createtest",
+        element: <CreateTest />,
       },
       {
         path: "student/:id",

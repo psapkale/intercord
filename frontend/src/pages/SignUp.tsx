@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { firstSectionAnimation } from "@/utils/Animation";
+import { useUserDetails } from "@/utils/store";
 
 // user type
 type userType = {
@@ -20,6 +21,7 @@ const SignUp = () => {
     fullname: "",
   });
   const [loading, setLoading] = useState(false);
+  const setUserDetails = useUserDetails((state) => state.setUserDetails);
 
   // using useNavigate
   const navigate = useNavigate();
@@ -46,6 +48,7 @@ const SignUp = () => {
       );
       return;
     }
+
     // Demo testing of toast
     setLoading(true);
     const toastID = toast.loading("loading");
@@ -56,6 +59,15 @@ const SignUp = () => {
         duration: 3000,
       });
       setTimeout(() => {
+        setUserDetails({
+          email: userInfo.email,
+          fullname: userInfo.fullname,
+          username: userInfo.username,
+          isSignedUp: true,
+          leaderboardDriverJs: true,
+          sideBarDriverJs: true,
+          testDriverJs: true,
+        });
         navigate("/dashboard/account");
       }, 500);
     }, 2000);
@@ -78,14 +90,14 @@ const SignUp = () => {
             Enter your username and password so u can start!
           </p>
           <div className="flex flex-col">
-            <label htmlFor="fullname" className="text-[1.8rem] -mb-2">
+            <label htmlFor="fullname" className="text-[1.2rem] -mb-2">
               Fullname<span className="text-red-600">*</span>
             </label>
             <input
               required
               type="text"
               id="fullname"
-              className="w-full py-2 px-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black"
+              className="w-full py-2 px-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black text-[1.2rem]"
               value={userInfo.fullname}
               onChange={(e) => {
                 setUserInfo({
@@ -103,7 +115,7 @@ const SignUp = () => {
               required
               type="email"
               id="email"
-              className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black"
+              className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black text-[1.2rem]"
               value={userInfo.email}
               onChange={(e) => {
                 setUserInfo({
@@ -121,7 +133,7 @@ const SignUp = () => {
               required
               type="text"
               id="username"
-              className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black"
+              className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black text-[1.2rem]"
               value={userInfo.username}
               onChange={(e) => {
                 setUserInfo({
@@ -132,14 +144,14 @@ const SignUp = () => {
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="password" className="text-[1.6rem] -mb-2">
+            <label htmlFor="password" className="text-[1.2rem] -mb-2">
               Password<span className="text-red-600">*</span>
             </label>
             <input
               required
               type="text"
               id="password"
-              className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black"
+              className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black text-[1.2rem]"
               value={userInfo.password}
               onChange={(e) => {
                 setUserInfo({
