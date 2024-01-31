@@ -14,7 +14,7 @@ const QuestionModel = ({
   const [mcq, setMcq] = useState<question>({
     answerIndex: 1,
     question: "",
-    options: [],
+    options: ["", "", "", ""],
   });
 
   const handleNewSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,8 +22,8 @@ const QuestionModel = ({
     handleNext(mcq);
     setMcq({
       answerIndex: 1,
-      options: [],
       question: "",
+      options: ["", "", "", ""],
     });
 
     if (step === 9) handleSubmit();
