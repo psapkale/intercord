@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
-import { Admin, Teacher } from '../db/index';
+import { Admin, Student, Teacher } from '../db/index';
 import { AdminType } from '../types';
 
 // Todo all mongo logic here
@@ -46,13 +46,23 @@ export const createTeacher = async (req: Request, res: Response) => {
             .json({ message: 'Please provide name, username, and password' });
       }
 
-      const hashedPassword = await bcrypt.hash(password, 10);
-
       let teacher = await Teacher.findOne({ email });
 
       if (teacher) {
-         return res.status(411).json({ message: 'Teacher already exists' });
+         return res.status(400).json({
+            message: 'Teacher already exists with this email',
+         });
       }
+
+      teacher = await Teacher.findOne({ username });
+
+      if (teacher) {
+         return res.status(400).json({
+            message: 'Username already taken',
+         });
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10);
 
       teacher = await Teacher.create({
          username,
@@ -75,4 +85,50 @@ export const createTeacher = async (req: Request, res: Response) => {
       console.error('Error creating teacher:', e);
       res.status(500);
    }
+};
+
+export const removeTeacher = async (req: Request, res: Response) => {
+   const { username } = req.params;
+
+   if (!username) {
+      return res.status(400).json({
+         message: 'Please provide username',
+      });
+   }
+
+   const teacher = await Teacher.findOneAndDelete({ username });
+
+   if (!teacher) {
+      return res.status(404).json({
+         message: 'Teacher not found in the database',
+      });
+   }
+
+   res.status(200).json({
+      message: 'Teacher deleted successfully',
+      teacher,
+   });
+};
+
+export const removeStudent = async (req: Request, res: Response) => {
+   const { username } = req.params;
+
+   if (!username) {
+      return res.status(400).json({
+         message: 'Please provide username',
+      });
+   }
+
+   const student = await Student.findOneAndDelete({ username });
+
+   if (!student) {
+      return res.status(404).json({
+         message: 'Student not found in the database',
+      });
+   }
+
+   res.status(200).json({
+      message: 'Student deleted successfully',
+      student,
+   });
 };

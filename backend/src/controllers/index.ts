@@ -7,7 +7,7 @@ export const serachStudent = async (req: Request, res: Response) => {
 
    if (!username) {
       return res.status(400).json({
-         message: 'Please provide student id',
+         message: 'Please provide username',
       });
    }
 
