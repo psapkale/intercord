@@ -8,20 +8,47 @@ import { StudentType, TestType } from '../types';
 // Todo restrict creating duplicate users
 export const studentRegister = async (req: Request, res: Response) => {
    try {
-      const { name, email, username, password } = req.body;
+      const {
+         name,
+         email,
+         username,
+         password,
+         linkedinUrl,
+         githubUrl,
+         twitterUrl,
+      } = req.body;
       if (!name || !email || !username || !password) {
          return res
             .status(400)
             .json({ message: 'Please provide name, username, and password' });
       }
 
+      let student = await Student.findOne({ email });
+
+      if (student) {
+         return res.status(400).json({
+            message: 'Student already exists with this email',
+         });
+      }
+
+      student = await Student.findOne({ username });
+
+      if (student) {
+         return res.status(400).json({
+            message: 'Username already taken',
+         });
+      }
+
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      const student = await Student.create({
+      student = await Student.create({
          username,
          name,
          email,
          password: hashedPassword,
+         linkedinUrl,
+         githubUrl,
+         twitterUrl,
          submissions: [],
       });
       if (!student) {

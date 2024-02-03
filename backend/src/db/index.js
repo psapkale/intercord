@@ -44,6 +44,9 @@ const StudentSchema = new mongoose.Schema({
    name: String,
    email: String,
    password: String,
+   linkedinUrl: String,
+   githubUrl: String,
+   twitterUrl: String,
    submissions: [StudentSubmissionsSchema],
 });
 
