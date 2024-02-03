@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
-import { Student } from '../db';
-import { StudentType } from '../types';
+import { Score, Student, Test } from '../db';
+import { StudentType, TestType } from '../types';
 
 // Todo all mongo logic here
 // Todo restrict creating duplicate users
@@ -77,18 +77,75 @@ export const studentLogin = async (req: Request, res: Response) => {
 
 export const getMyTests = async (req: Request, res: Response) => {
    // passing username from auth middleware
-   // const username = req.headers['x-username'];
    const { username } = res.locals;
-   console.log(username);
 
-   const student = await Student.find({ username });
+   const student: StudentType | null = await Student.findOne({ username });
 
-   console.log(student);
+   const submissions = student?.submissions;
 
-   // const submissions = student?.submissions;
+   res.status(200).json({
+      submissions,
+   });
+};
+
+export const testSubmission = async (req: Request, res: Response) => {
+   const { testId } = req.params;
+   const { submittedAnswersIndex, marksObtained } = req.body; // from frontend
+   const { username } = res.locals;
+
+   if (!testId) {
+      return res.status(400).json({
+         message: 'Please provide test id',
+      });
+   }
+
+   let student: StudentType | null = await Student.findOne({ username });
+
+   const test: TestType | null = await Test.findOneAndUpdate(
+      { _id: testId },
+      {
+         $push: {
+            submissions: {
+               submittedBy: student._id,
+               obtainedMarks: marksObtained,
+            },
+         },
+      },
+      {
+         new: true,
+      }
+   );
+
+   student = await Student.findOneAndUpdate(
+      { username },
+      {
+         $push: {
+            submissions: {
+               test: test._id,
+               submittedAnswersIndex: submittedAnswersIndex,
+               marksObtained: marksObtained,
+               submittedAt: new Date(Date.now()),
+            },
+         },
+      },
+      { new: true }
+   );
+
+   // Todo resove score data
+   const score = await Score.findOneAndUpdate(
+      { candidate: student._id },
+      {
+         $inc: {
+            score: marksObtained,
+         },
+      },
+      { new: true }
+   );
 
    res.json({
-      message: 'In',
-      username,
+      message: 'Test submitted successfully',
+      test,
+      student,
+      score,
    });
 };

@@ -33,9 +33,6 @@ export async function studentMiddleware(
          return res.status(403).json({ message: 'You are not authenticated' });
       }
 
-      // res.setHeader('X-Username', username);
-      console.log(username);
-
       res.locals.username = username;
 
       next();

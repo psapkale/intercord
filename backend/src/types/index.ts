@@ -1,4 +1,4 @@
-import { Types } from 'mongoose';
+import { ObjectId, Types } from 'mongoose';
 
 export interface AdminType {
    name: string;
@@ -8,6 +8,7 @@ export interface AdminType {
 }
 
 export interface TeacherType {
+   _id: ObjectId;
    username: string;
    name: string;
    email: string;
@@ -15,22 +16,24 @@ export interface TeacherType {
    createdTests: TestType[];
 }
 
-export interface StudentType {
+export interface StudentType extends Document {
+   _id: ObjectId;
    username: string;
    name: string;
    email: string;
    password: string;
    // resolve submissions
-   submissions: [];
+   submissions: StudentSubmissionType[];
 }
 
 export interface TestType {
+   _id: ObjectId;
    subject: string;
    description: string;
    questions: QuestionType[];
-   createdBy: Types.ObjectId | string | null;
+   createdBy: ObjectId | string | null;
    createdAt: Date;
-   submissions: SubmissionType[];
+   submissions: TestSubmissionType[];
 }
 
 interface QuestionType {
@@ -39,7 +42,14 @@ interface QuestionType {
    answerIndex: 1 | 2 | 3 | 4;
 }
 
-interface SubmissionType {
-   submittedBy: Types.ObjectId | string | null;
+interface TestSubmissionType {
+   submittedBy: ObjectId | string | null;
    obtainedMarks: number;
+}
+
+interface StudentSubmissionType {
+   test: ObjectId | string | null;
+   submittedAnswersIndex: number[];
+   marksObtained: number;
+   submittedAt: Date;
 }
