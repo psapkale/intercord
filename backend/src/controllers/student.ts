@@ -2,16 +2,10 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { Student } from '../db';
-
-interface StudentType extends Document {
-   username: string;
-   name: string;
-   email: string;
-   password: string;
-   submissions: [];
-}
+import { StudentType } from '../types';
 
 // Todo all mongo logic here
+// Todo restrict creating duplicate users
 export const studentRegister = async (req: Request, res: Response) => {
    try {
       const { name, email, username, password } = req.body;
@@ -51,7 +45,7 @@ export const studentLogin = async (req: Request, res: Response) => {
       if (!email || !username || !password) {
          return res
             .status(400)
-            .json({ message: 'Please provide name, username, and password' });
+            .json({ message: 'Please provide username, email and password' });
       }
 
       const student: StudentType | null = await Student.findOne({ email });
@@ -79,4 +73,22 @@ export const studentLogin = async (req: Request, res: Response) => {
       console.error('Error logging student:', e);
       res.status(500);
    }
+};
+
+export const getMyTests = async (req: Request, res: Response) => {
+   // passing username from auth middleware
+   // const username = req.headers['x-username'];
+   const { username } = res.locals;
+   console.log(username);
+
+   const student = await Student.find({ username });
+
+   console.log(student);
+
+   // const submissions = student?.submissions;
+
+   res.json({
+      message: 'In',
+      username,
+   });
 };

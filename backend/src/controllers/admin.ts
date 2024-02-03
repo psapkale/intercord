@@ -2,13 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { Admin, Teacher } from '../db/index';
-
-interface AdminType extends Document {
-   name: string;
-   username: string;
-   email: string;
-   password: string;
-}
+import { AdminType } from '../types';
 
 // Todo all mongo logic here
 export const adminLogin = async (req: Request, res: Response) => {
