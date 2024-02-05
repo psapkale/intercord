@@ -33,6 +33,7 @@ export const teacherLogin = async (req: Request, res: Response) => {
 
       res.status(200).json({
          message: 'Teacher logged in successfully',
+         teacher,
          token,
       });
    } catch (e) {
