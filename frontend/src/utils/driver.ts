@@ -45,6 +45,15 @@ export function callSideBarDriver() {
         },
       },
       {
+        element: "#search",
+        popover: {
+          title: "Search",
+          description: "You can search here other students",
+          side: "top",
+          align: "start",
+        },
+      },
+      {
         element: "#logoutacc",
         popover: {
           title: "Logout",
@@ -77,7 +86,7 @@ export function callLeaderBoardDriver() {
         popover: {
           title: "Ranking Table",
           description:
-            "Ranking table here you all the students ranking get displayed",
+            "Ranking table. here all the students ranking get displayed",
           side: "bottom",
           align: "start",
         },
@@ -89,6 +98,36 @@ export function callLeaderBoardDriver() {
           description: "Based on total score students ranking gets decide",
           side: "bottom",
           align: "start",
+        },
+      },
+    ],
+  });
+
+  driverObj.drive();
+  return true;
+}
+
+export function callTestDriver() {
+  const driverObj = driver({
+    showProgress: true,
+    steps: [
+      {
+        element: "#testdiv",
+        popover: {
+          title: "Test",
+          description:
+            "This is the test section where you can see your all tests.",
+          side: "top",
+          align: "start",
+        },
+      },
+      {
+        element: "#text-card",
+        popover: {
+          title: "Test Card",
+          description: "From here you can start your test",
+          side: "top",
+          align: "center",
         },
       },
     ],

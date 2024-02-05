@@ -38,6 +38,7 @@ const Login = () => {
         fullname: "Abhay",
         username: "abhxyy",
         isSignedUp: false,
+        role: userInfo.role,
       });
       navigate("/dashboard/account");
     }, 2000);

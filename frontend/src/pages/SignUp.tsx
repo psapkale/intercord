@@ -63,10 +63,12 @@ const SignUp = () => {
           email: userInfo.email,
           fullname: userInfo.fullname,
           username: userInfo.username,
+          role: "student",
           isSignedUp: true,
           leaderboardDriverJs: true,
           sideBarDriverJs: true,
           testDriverJs: true,
+          searchDriverJs: true,
         });
         navigate("/dashboard/account");
       }, 500);

@@ -10,6 +10,8 @@ import Test from "./pages/Test";
 import DashBoardLayout from "./Layout/DashBoard";
 import StudentProfile from "./pages/StudentProfile";
 import CreateTest from "./pages/CreateTest";
+import TeachersTable from "./pages/TeachersTable";
+import Stundents from "./pages/Search";
 // import { lazy } from "react";
 
 const appRouter = createBrowserRouter([
@@ -44,6 +46,14 @@ const appRouter = createBrowserRouter([
       {
         path: "createtest",
         element: <CreateTest />,
+      },
+      {
+        path: "teachers",
+        element: <TeachersTable />,
+      },
+      {
+        path: "search",
+        element: <Stundents />,
       },
       {
         path: "student/:id",
