@@ -82,18 +82,16 @@ const SignUp = () => {
          // get token from response.data.token
          // get student data from response.data.student
 
-         setTimeout(() => {
-            setUserDetails({
-               email: userInfo.email,
-               fullname: userInfo.fullname,
-               username: userInfo.username,
-               isSignedUp: true,
-               leaderboardDriverJs: true,
-               sideBarDriverJs: true,
-               testDriverJs: true,
-            });
-            navigate('/dashboard/account');
-         }, 500);
+         // setUserDetails({
+         //    email: userInfo.email,
+         //    fullname: userInfo.fullname,
+         //    username: userInfo.username,
+         //    isSignedUp: true,
+         //    leaderboardDriverJs: true,
+         //    sideBarDriverJs: true,
+         //    testDriverJs: true,
+         // });
+         navigate('/dashboard/account');
       } catch (err: any) {
          toast.error(err.response.data.message);
       }

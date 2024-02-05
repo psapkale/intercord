@@ -5,7 +5,10 @@ import {
   LogOut,
   Pen,
   PlusCircle,
+  Search,
 } from "lucide-react";
+import { MdOutlinePeopleOutline } from "react-icons/md";
+
 import { Link, useLocation } from "react-router-dom";
 
 const SideBar = ({
@@ -19,6 +22,9 @@ const SideBar = ({
 }) => {
   const location = useLocation();
   const logoutHandler = useUserDetails((state) => state.logoutUser);
+  const user = useUserDetails((state) => state.user);
+
+  console.log(user.role);
 
   const handleOnClick = () => {
     setIsOpen(false);
@@ -90,10 +96,10 @@ const SideBar = ({
               <p>Tests</p>
             </Link>
             <Link
-              to="/dashboard/createtest"
+              to="/dashboard/search"
               className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
                   ${
-                    location.pathname == "/dashboard/createtest"
+                    location.pathname == "/dashboard/search"
                       ? "text-black bg-[#ebeaea]"
                       : "text-gray-600"
                   }`}
@@ -101,11 +107,49 @@ const SideBar = ({
                 RemoveActive();
                 handleOnClick();
               }}
-              id="tests"
+              id="search"
             >
-              <PlusCircle className="w-4" />
-              <p>Create Test</p>
+              <Search className="w-4" />
+              <p>Search</p>
             </Link>
+            {user.role == "teacher" && (
+              <Link
+                to="/dashboard/createtest"
+                className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
+            ${
+              location.pathname == "/dashboard/createtest"
+                ? "text-black bg-[#ebeaea]"
+                : "text-gray-600"
+            }`}
+                onClick={() => {
+                  RemoveActive();
+                  handleOnClick();
+                }}
+                id="tests"
+              >
+                <PlusCircle className="w-4" />
+                <p>Create Test</p>
+              </Link>
+            )}
+            {user.role == "admin" && (
+              <Link
+                to="/dashboard/teachers"
+                className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
+                  ${
+                    location.pathname == "/dashboard/teachers"
+                      ? "text-black bg-[#ebeaea]"
+                      : "text-gray-600"
+                  }`}
+                onClick={() => {
+                  RemoveActive();
+                  handleOnClick();
+                }}
+                id="tests"
+              >
+                <MdOutlinePeopleOutline className="scale-150" />
+                <p>Teachers</p>
+              </Link>
+            )}
           </div>
           <Link to={"/"} onClick={logoutHandler}>
             <button

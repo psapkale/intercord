@@ -6,20 +6,24 @@ type UserType = {
   fullname: string;
   email: string;
   username: string;
+  role: string;
   isSignedUp?: boolean;
   sideBarDriverJs?: boolean;
   leaderboardDriverJs?: boolean;
   testDriverJs?: boolean;
+  searchDriverJs?: boolean;
 };
 
 const defaultParam: UserType = {
   fullname: "",
   email: "",
   username: "",
+  role: "",
   isSignedUp: false,
   sideBarDriverJs: true,
   leaderboardDriverJs: true,
   testDriverJs: true,
+  searchDriverJs: true,
 };
 
 type UserDetailsFnType = {

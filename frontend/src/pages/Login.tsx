@@ -74,12 +74,12 @@ const Login = () => {
          // get user data from response.data.`user`
          console.log(response);
 
-         setUserDetails({
-            email: userInfo.email,
-            fullname: 'Abhay',
-            username: 'abhxyy',
-            isSignedUp: false,
-         });
+         //  setUserDetails({
+         //     email: userInfo.email,
+         //     fullname: 'Abhay',
+         //     username: 'abhxyy',
+         //     isSignedUp: false,
+         //  });
          navigate('/dashboard/account');
       } catch (err: any) {
          toast.error(err.response.data.message);
