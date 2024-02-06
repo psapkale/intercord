@@ -3,7 +3,8 @@ import { create } from "zustand";
 
 // user Types
 type UserType = {
-  fullname: string;
+  _id: string;
+  name: string;
   email: string;
   username: string;
   role: string;
@@ -15,7 +16,8 @@ type UserType = {
 };
 
 const defaultParam: UserType = {
-  fullname: "",
+  _id: "",
+  name: "",
   email: "",
   username: "",
   role: "",

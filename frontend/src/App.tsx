@@ -11,7 +11,7 @@ import DashBoardLayout from "./Layout/DashBoard";
 import StudentProfile from "./pages/StudentProfile";
 import CreateTest from "./pages/CreateTest";
 import TeachersTable from "./pages/TeachersTable";
-import Stundents from "./pages/Search";
+import Stundents from "./pages/Students";
 // import { lazy } from "react";
 
 const appRouter = createBrowserRouter([

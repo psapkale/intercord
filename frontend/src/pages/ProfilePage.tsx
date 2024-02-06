@@ -4,9 +4,11 @@ import { BsSave } from "react-icons/bs";
 import { FaXTwitter } from "react-icons/fa6";
 import { InputLabel } from "./../components/PrimeSkeleton";
 import { useEffect, useState } from "react";
+import { useUserDetails } from "@/utils/store";
 
 const ProfilePage = () => {
   const [loading, setLoading] = useState<boolean>(true);
+  const user = useUserDetails((state) => state.user);
 
   useEffect(() => {
     setTimeout(() => {
@@ -29,7 +31,7 @@ const ProfilePage = () => {
                   type="text"
                   id="fn"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[20rem] outline-none"
-                  placeholder="Abhay Balasaheb Panchal"
+                  placeholder={user.name}
                 />
               </>
             ) : (
@@ -48,7 +50,7 @@ const ProfilePage = () => {
                   type="text"
                   id="username"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[20rem] outline-none"
-                  placeholder="abhxyy"
+                  placeholder={user.username}
                 />
               </>
             ) : (
@@ -94,7 +96,7 @@ const ProfilePage = () => {
                   type="email"
                   id="email"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[20rem] outline-none"
-                  placeholder="abpanchal@gmail.com"
+                  placeholder={user.email}
                 />
               </>
             ) : (

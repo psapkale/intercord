@@ -19,6 +19,7 @@ type userType = {
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const setUserDetails = useUserDetails((state) => state.setUserDetails);
+  const user = useUserDetails((state) => state.user);
   const [userInfo, setUserInfo] = useState<userType>({
     username: "",
     email: "",
@@ -34,10 +35,8 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      console.log(userInfo);
-
       let response;
-
+      // checking user role and as per role hitting the api
       if (userInfo.role === "student") {
         response = await axios.post("http://localhost:3000/api/student/login", {
           username: userInfo.username,
@@ -45,7 +44,6 @@ const Login = () => {
           password: userInfo.password,
         });
       }
-
       if (userInfo.role === "teacher") {
         response = await axios.post("http://localhost:3000/api/teacher/login", {
           username: userInfo.username,
@@ -53,7 +51,6 @@ const Login = () => {
           password: userInfo.password,
         });
       }
-
       if (userInfo.role === "admin") {
         response = await axios.post("http://localhost:3000/api/admin/login", {
           username: userInfo.username,
@@ -65,29 +62,20 @@ const Login = () => {
       toast.success(response?.data?.message);
       //  get token from response.data.token
       // get user data from response.data.`user`
-      console.log(response);
 
-      //  setUserDetails({
-      //     email: userInfo.email,
-      //     fullname: 'Abhay',
-      //     username: 'abhxyy',
-      //     isSignedUp: false,
-      //  });
+      if (userInfo.role == "student") {
+        setUserDetails({ ...response?.data?.student, role: "student" });
+      } else if (userInfo.role == "admin") {
+        setUserDetails({ ...response?.data?.admin, role: "admin" });
+      } else if (userInfo.role == "teacher") {
+        setUserDetails({ ...response?.data?.teacher, role: "teacher" });
+      }
+
+      sessionStorage.setItem("token", response?.data?.token);
       navigate("/dashboard/account");
     } catch (err: any) {
       toast.error(err.response.data.message);
     }
-
-    // Demo testing of toast
-    // setLoading(true);
-    // const toastID = toast.loading('loading');
-    // setTimeout(() => {
-    //    toast.dismiss(toastID);
-    //    setLoading(false);
-    //    toast.success('Login Successfull', {
-    //       duration: 3000,
-    //    });
-    // }, 2000);
   };
 
   // Calling Animation

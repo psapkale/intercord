@@ -21,7 +21,7 @@ const Test = () => {
       >
         {Array(10)
           .fill(0)
-          .map((val, i) => (
+          .map((_, i) => (
             <TestCard key={i} idx={i} />
           ))}
       </div>

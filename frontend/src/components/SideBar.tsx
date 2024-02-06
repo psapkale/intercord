@@ -24,8 +24,6 @@ const SideBar = ({
   const logoutHandler = useUserDetails((state) => state.logoutUser);
   const user = useUserDetails((state) => state.user);
 
-  console.log(user.role);
-
   const handleOnClick = () => {
     setIsOpen(false);
   };
