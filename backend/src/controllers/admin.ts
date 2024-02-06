@@ -29,7 +29,11 @@ export const adminLogin = async (req: Request, res: Response) => {
       }
 
       const token = jwt.sign({ username }, process.env.JWT_SECRET);
-      res.status(200).json({ message: 'Admin logged in successfully', token });
+      res.status(200).json({
+         message: 'Admin logged in successfully',
+         admin,
+         token,
+      });
    } catch (e) {
       // ! Remove 'e' which might potentially show authorised details
       console.error('Error logging admin:', e);

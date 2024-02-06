@@ -55,9 +55,12 @@ export const studentRegister = async (req: Request, res: Response) => {
          return res.status(500).json({ message: 'Failed to create student' });
       }
 
+      const token = jwt.sign({ username }, process.env.JWT_SECRET);
+
       res.status(200).json({
          message: 'Student created successfully',
          student,
+         token,
       });
    } catch (e) {
       // ! Remove 'e' which might potentially show authorised details
