@@ -16,6 +16,7 @@ const SideBarAndOpenCloseContainer = () => {
     btn.classList.remove("active");
     btn.classList.add("not-active");
   };
+
   useEffect(() => {
     // Hamburger
     const btn = document.querySelector(".btn") as HTMLButtonElement;
@@ -34,7 +35,7 @@ const SideBarAndOpenCloseContainer = () => {
   }, []);
 
   //calling driver && checking if already done with instructions
-  if (isOpen && user.isSignedUp && user.leaderboardDriverJs) {
+  if (isOpen && user.isSignedUp && user.sideBarDriverJs) {
     setTimeout(() => {
       callSideBarDriver();
       updateTutorial("sideBarDriverJs");
