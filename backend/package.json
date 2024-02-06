@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx tsc & node dist/index.js"
+    "dev": "tsc -w",
+    "build": "tsc",
+    "watch": "nodemon ./dist/index.js",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
