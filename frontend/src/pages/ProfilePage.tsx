@@ -17,11 +17,11 @@ const ProfilePage = () => {
   }, []);
   return (
     <div className="w-full h-fit pl-[1.5rem] sm:pl-[2rem] md:pl-[6rem] pt-[2rem] overflow-y-scroll py-8">
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-[1.5rem]">
         <h1 className="font-semibold text-5xl max-md:mt-[1rem]  font-mono">
           Account
         </h1>
-        <div className="flex w-full gap-[2rem] lg:gap-[5rem] lg:flex-row flex-col">
+        <div className="flex w-full gap-[1.5rem] lg:gap-[5rem] lg:flex-row flex-col">
           {/* FullName */}
           <div className="flex flex-col font-zyada ">
             {!loading ? (

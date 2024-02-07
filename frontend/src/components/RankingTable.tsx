@@ -20,11 +20,11 @@ const RankingTable = () => {
       </div>
       {Array(30)
         .fill(0)
-        .map((val, idx) => {
+        .map((_, idx) => {
           return (
             <ScoreCard
               name="Prem"
-              rank="1"
+              rank={idx + 1 + ""}
               score="100"
               submission="10"
               key={idx}
