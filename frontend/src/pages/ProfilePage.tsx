@@ -108,7 +108,7 @@ const ProfilePage = () => {
         </div>
       </div>
       {/* Social Links */}
-      <div className="w-full h-fit mt-[5rem] overflow-scroll">
+      <div className="w-full h-fit mt-[2rem] md:mt-[3rem] lg:mt-[5rem] overflow-scroll">
         <h1 className="font-semibold text-5xl font-mono">Social Media</h1>
         <div className="w-full flex gap-[0.5rem] flex-col lg:flex-row lg:gap-[5rem] flex-wrap">
           {/* Github */}
