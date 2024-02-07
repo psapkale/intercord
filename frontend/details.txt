@@ -1,0 +1,5 @@
+// Teacher Details for login
+"name" : "Ritesh Sir",
+"email": "riteshsir@gmail.com",
+"username":"yoyoriteshsir",
+"password":"aA198765"    
