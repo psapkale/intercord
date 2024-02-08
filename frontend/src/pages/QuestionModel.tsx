@@ -3,6 +3,7 @@
 /* eslint-disable prefer-const */
 import { useState } from "react";
 import { question } from "./CreateTest";
+import toast from "react-hot-toast";
 
 const QuestionModel = ({
   handleNext,
@@ -11,6 +12,8 @@ const QuestionModel = ({
   totalNumberOfQuestions,
   setStep,
   test,
+  description,
+  marksPerQuestion,
 }: {
   handleNext: (question: question) => void;
   handleSubmit: () => void;
@@ -18,6 +21,8 @@ const QuestionModel = ({
   step: number;
   totalNumberOfQuestions: number;
   test: question[];
+  description: string;
+  marksPerQuestion: number;
 }) => {
   const [mcq, setMcq] = useState<question>({
     answerIndex: test[step] != undefined ? test[step]?.answerIndex : 1,
@@ -29,13 +34,25 @@ const QuestionModel = ({
   const handleNewSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleNext(mcq);
-    setMcq({
-      answerIndex: 1,
-      question: "",
-      options: ["", "", "", ""],
-    });
 
-    if (step === totalNumberOfQuestions - 1) handleSubmit();
+    if (step === totalNumberOfQuestions - 1) {
+      if (!description) {
+        toast.error("Fill the description");
+        return;
+      }
+
+      if (marksPerQuestion <= 0) {
+        toast.error("Marks should be greater than 0");
+        return;
+      }
+
+      handleSubmit();
+      setMcq({
+        answerIndex: 1,
+        question: "",
+        options: ["", "", "", ""],
+      });
+    }
   };
 
   //! handling going to the previous

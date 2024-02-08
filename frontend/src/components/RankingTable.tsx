@@ -8,13 +8,13 @@ const RankingTable = () => {
         id="rank"
       >
         <h1 className="w-[10%] font-zyada font-semibold text-xl ">Rank.</h1>
-        <h1 className="w-[50%] truncate font-zyada font-semibold text-xl ml-[1rem] ">
+        <h1 className="w-[60%] truncate font-zyada font-semibold text-xl ml-[1rem] ">
           Student Name
         </h1>
-        <h1 className="w-[20%] font-zyada font-semibold text-xl truncate">
+        <h1 className="w-[20%] hidden md:block font-zyada font-semibold text-xl truncate">
           Submissions
         </h1>
-        <h1 className="w-[20%] truncate font-zyada font-semibold text-xl ">
+        <h1 className="w-[20%] max-md:w-[30%] truncate font-zyada font-semibold text-xl ">
           Total Score
         </h1>
       </div>

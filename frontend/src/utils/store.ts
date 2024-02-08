@@ -13,6 +13,7 @@ type UserType = {
   leaderboardDriverJs?: boolean;
   testDriverJs?: boolean;
   searchDriverJs?: boolean;
+  token: string;
 };
 
 const defaultParam: UserType = {
@@ -26,6 +27,7 @@ const defaultParam: UserType = {
   leaderboardDriverJs: true,
   testDriverJs: true,
   searchDriverJs: true,
+  token: "",
 };
 
 type UserDetailsFnType = {
