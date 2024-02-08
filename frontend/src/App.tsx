@@ -13,6 +13,8 @@ import CreateTest from "./pages/CreateTest";
 import TeachersTable from "./pages/TeachersTable";
 import Stundents from "./pages/Students";
 import TestPage from "./pages/TestPage";
+import Announcment from "./pages/Announcment";
+import Favourite from "./pages/Favourite";
 // import { lazy } from "react";
 
 const appRouter = createBrowserRouter([
@@ -59,6 +61,14 @@ const appRouter = createBrowserRouter([
       {
         path: "search",
         element: <Stundents />,
+      },
+      {
+        path: "announcment",
+        element: <Announcment />,
+      },
+      {
+        path: "favourite",
+        element: <Favourite />,
       },
       {
         path: "student/:id",
