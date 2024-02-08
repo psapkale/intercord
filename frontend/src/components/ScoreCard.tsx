@@ -13,7 +13,7 @@ const ScoreCard = ({
 }) => {
   return (
     <Link to={"/dashboard/student/prem"}>
-      <div className="flex w-full py-2 px-2 mb-4 pl-4">
+      <div className="flex w-full py-2 px-2 mb-4 pl-4 hover:bg-gray-50">
         <h1 className="w-[10%]">{rank}</h1>
         <h1 className="w-[50%]">{name}</h1>
         <h1 className="w-[30%]">{submission}</h1>

@@ -5,8 +5,10 @@ import { RouterProvider } from "react-router-dom";
 import appRouter from "./App.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <>
     <Toaster position="top-center" />
     <RouterProvider router={appRouter} />
-  </React.StrictMode>
+  </>
+  // </React.StrictMode>
 );
