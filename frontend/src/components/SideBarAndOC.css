@@ -3,10 +3,12 @@
     top: 4%;
     left: 2rem;
     z-index: 30;
+    background-color: white;
 }
 
 .btn {
     position: absolute;
+    background-color: white;
     transform: translate(-50%, -50%);
     width: 2.5rem;
     height: 2.5rem;

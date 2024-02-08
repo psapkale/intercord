@@ -39,23 +39,27 @@ const LeaderBoard = () => {
   }, [selectedOptionField]);
 
   return (
-    <div className="w-full h-[100vh] pl-[6rem] pt-[2rem] overflow-scroll py-8">
-      <div className="w-[95%] h-[95%]">
+    <div className="w-full h-[100vh]  sm:pl-[1.5rem] md:pl-[3rem] lg:pl-[6rem] pt-[2rem] overflow-y-scroll overflow-x-hidden py-8">
+      <div className="w-full md:w-[95%] h-[95%]">
         <div className="flex flex-col">
           <div>
             <h1
-              className="font-mono font-semibold text-[3.5rem] -mb-4"
+              className="font-mono font-semibold text-[3.3rem] sm:text-[3.5rem] -mb-4"
               id="title"
             >
               Leaderboard
             </h1>
             <p className="pl-1">Here you can see your and others's ranking</p>
           </div>
-          <div className="pl-1 w-full flex justify-between items-center mt-4">
-            <div className="flex gap-4">
+          <div className="px-[1rem] pl-1 w-full flex justify-between items-center mt-4">
+            <div className="flex gap-2 sm:gap-4">
               <button
                 className={`px-2 py-1 rounded-md bg-gray-100 ${
                   selectedOptionField === "all" && "cursor-not-allowed"
+                } ${
+                  !isRankingOpen &&
+                  selectedOptionField !== "all" &&
+                  "bg-gray-300"
                 }`}
                 disabled={selectedOptionField === "all"}
                 onClick={() => {
@@ -68,6 +72,10 @@ const LeaderBoard = () => {
               <button
                 className={`px-2 py-1 rounded-md bg-gray-100 ${
                   selectedOptionField === "all" && "cursor-not-allowed"
+                } ${
+                  isRankingOpen &&
+                  selectedOptionField !== "all" &&
+                  "bg-gray-300"
                 }`}
                 disabled={selectedOptionField === "all"}
                 onClick={() => {
