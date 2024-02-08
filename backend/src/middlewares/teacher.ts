@@ -22,7 +22,6 @@ async function teacherMiddleware(
   next: NextFunction
 ) {
   // Todo add authentication with jwt logic here
-
   const token: string | undefined = req.headers.authorization;
   if (!token) {
     return res

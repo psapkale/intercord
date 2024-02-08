@@ -86,7 +86,8 @@ const QuestionModel = ({
             id="fn"
             required={true}
             value={mcq.question}
-            className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[50rem] h-[6rem] outline-none"
+            placeholder="question...."
+            className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[97%] h-[6rem] outline-none"
             onChange={(e) => {
               setMcq({ ...mcq, question: e.target.value });
             }}

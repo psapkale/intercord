@@ -4,6 +4,7 @@ import { useState } from "react";
 import QuestionModel from "./QuestionModel";
 import { useUserDetails } from "@/utils/store";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 // Question type
 export type question = {
@@ -16,7 +17,7 @@ const CreateTest = () => {
   const [test, setTest] = useState<question[]>([]);
   const [step, setStep] = useState(0);
   const [totalNumberOfQuestions, setTotalNumberOfQuestions] = useState(0);
-  const [subjectName, setSubjectName] = useState("C++");
+  const [subjectName, setSubjectName] = useState("c++");
   const [description, setDescription] = useState("");
   const [marksPerQuestion, setMarksPerQuestion] = useState(0);
 
@@ -34,7 +35,15 @@ const CreateTest = () => {
     if (step !== totalNumberOfQuestions - 1) setStep((step) => step + 1);
   };
 
-  console.log(user.token);
+  // Resetting the values after successfull test creation
+  const resetValues = () => {
+    setTest([]);
+    setStep(0);
+    setTotalNumberOfQuestions(0);
+    setSubjectName("c++");
+    setDescription("");
+    setMarksPerQuestion(0);
+  };
 
   // sending test to the backend
   const handleSubmit = async () => {
@@ -55,19 +64,19 @@ const CreateTest = () => {
         }
       );
 
-      console.log(data);
+      toast.success(data.data?.message);
+      resetValues();
     } catch (error) {
       console.log("Error in Create test", error);
     }
-    setStep(0);
   };
 
   return (
-    <div className="w-full h-full pl-[6rem] pt-[2rem]">
+    <div className="w-full h-full pl-[1rem] sm:pl-[2rem] lg:pl-[6rem] pt-[2rem]">
       <div className="flex flex-col gap-4 mb-[3rem]">
         <div>
           <h1
-            className="font-b uppercase font-bold text-[4rem] -mb-4"
+            className="font-b uppercase font-bold text-[3rem] sm:text-[4rem] -mb-4"
             id="title"
           >
             Create Test
@@ -75,7 +84,7 @@ const CreateTest = () => {
           <p className="pl-1">Here you can create the test (10 mcq)</p>
         </div>
         <div>
-          <div className="flex flex-wrap gap-8 pl-1">
+          <div className="flex max-lg:flex-col max-lg:pr-4 flex-wrap gap-8 pl-1">
             <div className="flex flex-col">
               <label
                 htmlFor="totalNumberOfQuestions"
