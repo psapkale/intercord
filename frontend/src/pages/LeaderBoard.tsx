@@ -39,12 +39,12 @@ const LeaderBoard = () => {
   }, [selectedOptionField]);
 
   return (
-    <div className="w-full h-[100vh]  sm:pl-[1.5rem] md:pl-[3rem] lg:pl-[6rem] pt-[2rem] overflow-y-scroll overflow-x-hidden py-8">
+    <div className="w-full h-[100vh] max-sm:px-[1rem] sm:pl-[1.5rem] md:pl-[3rem] lg:pl-[6rem] pt-[2rem] overflow-y-scroll overflow-x-hidden py-8">
       <div className="w-full md:w-[95%] h-[95%]">
         <div className="flex flex-col">
           <div>
             <h1
-              className="font-mono font-semibold text-[3.3rem] sm:text-[3.5rem] -mb-4"
+              className="font-mono font-semibold text-[3rem] sm:text-[3.5rem] -mb-4"
               id="title"
             >
               Leaderboard
