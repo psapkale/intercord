@@ -13,7 +13,7 @@ const TestPage = () => {
 
    return (
       <div className='w-full h-full pl-[6rem] pt-[2rem]'>
-         {/* Header */}
+         {/* Headerr */}
          <div className='w-[96%] flex items-center justify-between'>
             <h1 className='text-5xl font-bold font-mono'>Test</h1>
             <button className='hover:bg-white hover:text-black border-black transition-all duration-300 p-0.5 px-8  text-center bg-[#0f0f0f] text-white rounded-md text-xl'>
