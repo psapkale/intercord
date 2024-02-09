@@ -50,7 +50,7 @@ export function firstSectionAnimation() {
   gsap.fromTo(
     ".right-para",
     {
-      y: 100,
+      y: 200,
     },
     {
       y: 0,

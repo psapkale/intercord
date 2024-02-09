@@ -72,7 +72,6 @@ const SignUp = () => {
       );
 
       toast.success(response.data.message);
-      sessionStorage.setItem("token", response?.data?.token);
       // get token from response.data.token
       // get student data from response.data.student
       setUserDetails({
@@ -82,6 +81,7 @@ const SignUp = () => {
         leaderboardDriverJs: true,
         sideBarDriverJs: true,
         testDriverJs: true,
+        token: response?.data?.token,
       });
 
       setLoading(false);

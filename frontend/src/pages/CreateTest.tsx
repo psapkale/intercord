@@ -2,6 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import QuestionModel from "./QuestionModel";
+import { useUserDetails } from "@/utils/store";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 // Question type
 export type question = {
@@ -10,14 +13,15 @@ export type question = {
   answerIndex: number;
 };
 
-// Subject name
-type subjectType = "C++" | "PHP" | "JAVA" | "TypeScript";
-
 const CreateTest = () => {
   const [test, setTest] = useState<question[]>([]);
   const [step, setStep] = useState(0);
   const [totalNumberOfQuestions, setTotalNumberOfQuestions] = useState(0);
-  const [subjectName, setSubjectName] = useState<subjectType>("C++");
+  const [subjectName, setSubjectName] = useState("c++");
+  const [description, setDescription] = useState("");
+  const [marksPerQuestion, setMarksPerQuestion] = useState(0);
+
+  const user = useUserDetails((state) => state.user);
 
   // handling next question
   const handleNext = ({ question, options, answerIndex }: question) => {
@@ -28,20 +32,51 @@ const CreateTest = () => {
       modifiedTest[step] = { question, options, answerIndex };
       setTest(modifiedTest);
     }
-    setStep((step) => step + 1);
+    if (step !== totalNumberOfQuestions - 1) setStep((step) => step + 1);
+  };
+
+  // Resetting the values after successfull test creation
+  const resetValues = () => {
+    setTest([]);
+    setStep(0);
+    setTotalNumberOfQuestions(0);
+    setSubjectName("c++");
+    setDescription("");
+    setMarksPerQuestion(0);
   };
 
   // sending test to the backend
-  const handleSubmit = () => {
-    setStep(0);
+  const handleSubmit = async () => {
+    try {
+      const data = await axios.post(
+        "http://localhost:3000/api/teacher/create-test",
+        {
+          subject: subjectName,
+          description: description,
+          totalQuestions: totalNumberOfQuestions,
+          totalMarks: marksPerQuestion * totalNumberOfQuestions,
+          questions: test,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+
+      toast.success(data.data?.message);
+      resetValues();
+    } catch (error) {
+      console.log("Error in Create test", error);
+    }
   };
 
   return (
-    <div className="w-full h-full pl-[6rem] pt-[2rem]">
+    <div className="w-full h-full pl-[1rem] sm:pl-[2rem] lg:pl-[6rem] pt-[2rem]">
       <div className="flex flex-col gap-4 mb-[3rem]">
         <div>
           <h1
-            className="font-b uppercase font-bold text-[4rem] -mb-4"
+            className="font-b uppercase font-bold text-[3rem] sm:text-[4rem] -mb-4"
             id="title"
           >
             Create Test
@@ -49,7 +84,7 @@ const CreateTest = () => {
           <p className="pl-1">Here you can create the test (10 mcq)</p>
         </div>
         <div>
-          <div className="flex gap-8 pl-1">
+          <div className="flex max-lg:flex-col max-lg:pr-4 flex-wrap gap-8 pl-1">
             <div className="flex flex-col">
               <label
                 htmlFor="totalNumberOfQuestions"
@@ -74,15 +109,6 @@ const CreateTest = () => {
               >
                 Subject:
               </label>
-              {/* <input
-                type="text"
-                id="totalNumberOfQuestions"
-                className="outline-none bg-gray-100 p-2 rounded-md"
-                value={subjectName}
-                onChange={(e) => {
-                  setSubjectName(e.target.value);
-                }}
-              /> */}
               <select
                 className="outline-none bg-gray-100 p-2 rounded-md"
                 onChange={(e) => {
@@ -101,6 +127,42 @@ const CreateTest = () => {
                 <option value="JAVA">JAVA</option>
               </select>
             </div>
+            <div className="flex flex-col">
+              <label
+                htmlFor="totalNumberOfQuestions"
+                className="font-zyada font-bold text-2xl rounded-md"
+              >
+                Test Description:
+              </label>
+              <textarea
+                placeholder="short description about test..."
+                id="totalNumberOfQuestions"
+                className="outline-none bg-gray-100 p-2"
+                cols={30}
+                rows={5}
+                value={description}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label
+                htmlFor="totalNumberOfQuestions"
+                className="font-zyada font-bold text-2xl rounded-md"
+              >
+                Marks per question:
+              </label>
+              <input
+                id="totalNumberOfQuestions"
+                type="number"
+                className="outline-none bg-gray-100 p-2"
+                value={marksPerQuestion}
+                onChange={(e) => {
+                  setMarksPerQuestion(Number(e.target.value));
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -113,6 +175,8 @@ const CreateTest = () => {
           totalNumberOfQuestions={totalNumberOfQuestions}
           test={test}
           setStep={setStep}
+          description={description}
+          marksPerQuestion={marksPerQuestion}
         />
       ) : (
         <h1 className="text-5xl font-zyada">

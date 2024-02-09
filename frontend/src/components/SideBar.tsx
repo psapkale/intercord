@@ -1,11 +1,13 @@
 import { useUserDetails } from "@/utils/store";
 import {
+  BellRing,
   CircleUserRound,
   ClipboardList,
   LogOut,
   Pen,
   PlusCircle,
   Search,
+  Star,
 } from "lucide-react";
 import { MdOutlinePeopleOutline } from "react-icons/md";
 
@@ -41,7 +43,7 @@ const SideBar = ({
           </h1>
         </div>
         <div className="h-full flex flex-col">
-          <div className="w-full flex flex-col gap-1 mt-4">
+          <div className="w-full flex flex-col mt-4">
             <Link
               to="/dashboard/account"
               className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
@@ -109,6 +111,40 @@ const SideBar = ({
             >
               <Search className="w-4" />
               <p>Search</p>
+            </Link>
+            <Link
+              to="/dashboard/announcment"
+              className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
+                  ${
+                    location.pathname == "/dashboard/announcment"
+                      ? "text-black bg-[#ebeaea]"
+                      : "text-gray-600"
+                  }`}
+              onClick={() => {
+                RemoveActive();
+                handleOnClick();
+              }}
+              id="search"
+            >
+              <BellRing className="w-4 mt-[3px]" />
+              <p>Announcment</p>
+            </Link>
+            <Link
+              to="/dashboard/favourite"
+              className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
+                  ${
+                    location.pathname == "/dashboard/favourite"
+                      ? "text-black bg-[#ebeaea]"
+                      : "text-gray-600"
+                  }`}
+              onClick={() => {
+                RemoveActive();
+                handleOnClick();
+              }}
+              id="search"
+            >
+              <Star className="w-4" />
+              <p>Favourite</p>
             </Link>
             {user.role == "teacher" && (
               <Link

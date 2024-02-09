@@ -60,18 +60,29 @@ const Login = () => {
       }
 
       toast.success(response?.data?.message);
+
       //  get token from response.data.token
       // get user data from response.data.`user`
-
       if (userInfo.role == "student") {
-        setUserDetails({ ...response?.data?.student, role: "student" });
+        setUserDetails({
+          ...response?.data?.student,
+          role: "student",
+          token: response?.data?.token,
+        });
       } else if (userInfo.role == "admin") {
-        setUserDetails({ ...response?.data?.admin, role: "admin" });
+        setUserDetails({
+          ...response?.data?.admin,
+          role: "admin",
+          token: response?.data?.token,
+        });
       } else if (userInfo.role == "teacher") {
-        setUserDetails({ ...response?.data?.teacher, role: "teacher" });
+        setUserDetails({
+          ...response?.data?.teacher,
+          role: "teacher",
+          token: response?.data?.token,
+        });
       }
 
-      sessionStorage.setItem("token", response?.data?.token);
       navigate("/dashboard/account");
     } catch (err: any) {
       toast.error(err.response.data.message);
