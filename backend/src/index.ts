@@ -4,7 +4,7 @@ import { router as teacherRouter } from "./routes/teacher";
 import { router as studentRouter } from "./routes/student";
 import cors from "cors";
 import dotenv from "dotenv";
-import { serachStudent } from "./controllers";
+import { getAllTests, serachStudent } from "./controllers";
 
 const app = express();
 const port = 3000;
@@ -19,6 +19,9 @@ app.use("/api/student", studentRouter);
 
 // common routes
 app.use("/api/search/:username", serachStudent);
+
+// getting all tests
+app.use("/test/all", getAllTests);
 
 // Start the server
 app.listen(port, () => {

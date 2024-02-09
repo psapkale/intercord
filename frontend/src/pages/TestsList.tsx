@@ -1,11 +1,14 @@
+import { TestSkeleton } from "@/components/PrimeSkeleton";
 import TestCard from "@/components/TestCard";
+import useTestsAsPerTime from "@/hook/useTestsAsPerTime";
 import { callTestDriver } from "@/utils/driver";
 import { useUserDetails } from "@/utils/store";
 import { ArrowUpLeftFromCircle, Timer, X } from "lucide-react";
 import { useState } from "react";
 
 const TestsList = () => {
-  const [typeOfTestShowing, setTypeOfTestShowing] = useState("upcoming");
+  const [typeOfTestShowing, setTypeOfTestShowing] =
+    useState<string>("upcoming");
   const user = useUserDetails((state) => state.user);
   const updateTutorial = useUserDetails((state) => state.updateTutorial);
   // const [tests, setTests] = useState<Object[]>([]);
@@ -18,23 +21,28 @@ const TestsList = () => {
   // handling add to favourite test
   const handelAddTofavourite = () => {};
 
+  // custome hook which will provide me tests according to selected from -> upcoming, live and Closed!
+  const { loading, tests } = useTestsAsPerTime(typeOfTestShowing);
+
   return (
     <div className="w-full h-full pl-[2rem] md:pl-[6rem] pt-[2rem] pr-[1rem] sm:pr-[2rem] flex flex-col gap-4">
       <div className="flex mt-4 pl-1 gap-4">
         <button
           className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-zyada text-xl sm:text-2xl font-semibold ${
             typeOfTestShowing === "upcoming" ? "bg-gray-300" : "bg-gray-200"
-          }`}
+          } ${loading && "cursor-not-allowed"}`}
           onClick={() => {
             setTypeOfTestShowing("upcoming");
           }}
+          disabled={loading}
         >
           Up Coming <Timer className="mb-1 size-5" />
         </button>
         <button
           className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-zyada text-xl sm:text-2xl font-semibold ${
             typeOfTestShowing === "live" ? "bg-gray-300" : " bg-gray-200"
-          }`}
+          } ${loading && "cursor-not-allowed"}`}
+          disabled={loading}
           onClick={() => {
             setTypeOfTestShowing("live");
           }}
@@ -45,7 +53,8 @@ const TestsList = () => {
         <button
           className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-zyada text-xl sm:text-2xl font-semibold ${
             typeOfTestShowing === "closed" ? "bg-gray-300" : "bg-gray-200"
-          }`}
+          } ${loading && "cursor-not-allowed"}`}
+          disabled={loading}
           onClick={() => {
             setTypeOfTestShowing("closed");
           }}
@@ -53,19 +62,23 @@ const TestsList = () => {
           Closed <X strokeWidth={2.75} className="mb-1 size-5" />
         </button>
       </div>
-      <div className="h-full w-full flex flex-col gap-4">
-        {Array(10)
-          .fill("")
-          .map((_, idx) => {
-            return (
-              <TestCard
-                typeOfTestShowing={typeOfTestShowing}
-                handelAddTofavourite={handelAddTofavourite}
-                key={idx}
-              />
-            );
-          })}
-      </div>
+      {loading ? (
+        <TestSkeleton />
+      ) : (
+        <div className="h-full w-full flex flex-col gap-4">
+          {Array(10)
+            .fill("")
+            .map((_, idx) => {
+              return (
+                <TestCard
+                  typeOfTestShowing={typeOfTestShowing}
+                  handelAddTofavourite={handelAddTofavourite}
+                  key={idx}
+                />
+              );
+            })}
+        </div>
+      )}
     </div>
   );
 };

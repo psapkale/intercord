@@ -20,6 +20,8 @@ const CreateTest = () => {
   const [subjectName, setSubjectName] = useState("c++");
   const [description, setDescription] = useState("");
   const [marksPerQuestion, setMarksPerQuestion] = useState(0);
+  const [date, setDate] = useState<Date>();
+  const [time, setTime] = useState("");
 
   const user = useUserDetails((state) => state.user);
 
@@ -160,6 +162,40 @@ const CreateTest = () => {
                 value={marksPerQuestion}
                 onChange={(e) => {
                   setMarksPerQuestion(Number(e.target.value));
+                }}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label
+                htmlFor="date"
+                className="font-zyada font-bold text-2xl rounded-md"
+              >
+                Date:
+              </label>
+              <input
+                id="date"
+                type="date"
+                className="outline-none bg-gray-100 p-2"
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setDate(new Date(e.target.value));
+                }}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label
+                htmlFor="time"
+                className="font-zyada font-bold text-2xl rounded-md"
+              >
+                Time:
+              </label>
+              <input
+                id="time"
+                type="time"
+                value={time}
+                className="outline-none bg-gray-100 p-2"
+                onChange={(e) => {
+                  setTime(e.target.value);
                 }}
               />
             </div>

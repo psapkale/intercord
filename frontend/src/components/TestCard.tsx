@@ -35,9 +35,9 @@ const TestCard = ({
             <Tooltip delayDuration={1}>
               <TooltipTrigger>
                 <Star
-                  fill="orange"
+                  // fill="black"
+                  strokeWidth={1.2}
                   className="cursor-pointer size-7"
-                  strokeWidth={0}
                   onClick={handelAddTofavourite}
                 />
               </TooltipTrigger>
