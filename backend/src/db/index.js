@@ -83,6 +83,7 @@ const TestSchema = new mongoose.Schema({
    subject: String,
    description: String,
    questions: [QuestionSchema],
+   totalMarks: Number,
    createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Teacher',
