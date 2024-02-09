@@ -28,6 +28,7 @@ export interface StudentType extends Document {
    subjectScore: SubjectScoreType;
    // resolve submissions
    submissions: StudentSubmissionType[];
+   save: () => Promise<Document>;
 }
 
 export interface TestType {

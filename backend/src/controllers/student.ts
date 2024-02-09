@@ -4,6 +4,11 @@ import { Request, Response } from 'express';
 import { Score, Student, Test } from '../db';
 import { StudentType, TestType } from '../types';
 
+interface SubjectScoreType {
+   subject: string;
+   score: number;
+}
+
 // Todo all mongo logic here
 // Todo restrict creating duplicate users
 export const studentRegister = async (req: Request, res: Response) => {
@@ -149,19 +154,36 @@ export const testSubmission = async (req: Request, res: Response) => {
                submittedAt: new Date(Date.now()),
             },
          },
-         //  //  if the entry doesn't exist, add it to db
-         //  $addToSet: {
-         //     subjectScore: {
-         //        subject: test.subject,
-         //     },
-         //  },
-         //  bug: marks not getting added
-         $set: {
-            ['subjectScore.${test.subject}.score']: 100,
-         },
       },
       { new: true }
    );
+
+   if (!student) {
+      return res.status(500).json({
+         message: 'Internal server error',
+      });
+   }
+
+   if (Array.isArray(student.subjectScore)) {
+      // const allSubjectScores: SubjectScoreType[];
+
+      const subjectIndex: number = student.subjectScore.findIndex(
+         (x: SubjectScoreType) => x.subject === test.subject
+      );
+
+      if (subjectIndex === -1) {
+         student.subjectScore.push({
+            subject: test.subject,
+            score: marksObtained,
+         });
+      } else {
+         student.subjectScore[subjectIndex].score += marksObtained;
+      }
+
+      await student.save();
+   } else {
+      console.error('student.subjectScore is not an array');
+   }
 
    // Todo resove score data
    const score = await Score.findOneAndUpdate(
