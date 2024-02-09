@@ -1,5 +1,5 @@
-import express from 'express';
-import { router as mainRouter } from './routes';
+import express, { Request, Response } from 'express';
+import { router } from './routes';
 import { router as adminRouter } from './routes/admin';
 import { router as teacherRouter } from './routes/teacher';
 import { router as studentRouter } from './routes/student';
@@ -18,7 +18,7 @@ app.use('/api/teacher', teacherRouter);
 app.use('/api/student', studentRouter);
 
 // common routes
-app.use('/api', mainRouter);
+app.use('/api', router);
 
 // Start the server
 app.listen(port, () => {

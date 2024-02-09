@@ -13,3 +13,19 @@ export const InputLabel = () => {
     </div>
   );
 };
+
+export const TestSkeleton = () => {
+  return (
+    <>
+      {Array(10)
+        .fill("")
+        .map((_, idx) => {
+          return (
+            <div className="w-full shadow-lg" key={idx}>
+              <Skeleton width="100%" height="5rem" />
+            </div>
+          );
+        })}
+    </>
+  );
+};
