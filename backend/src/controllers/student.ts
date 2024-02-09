@@ -44,6 +44,8 @@ export const studentRegister = async (req: Request, res: Response) => {
          return res.status(500).json({ message: 'Failed to create student' });
       }
 
+      await Score.create({ candidate: student._id });
+
       const token = jwt.sign({ username }, process.env.JWT_SECRET);
 
       res.status(200).json({
@@ -154,8 +156,8 @@ export const testSubmission = async (req: Request, res: Response) => {
          //     },
          //  },
          //  bug: marks not getting added
-         $inc: {
-            ['subjectScore.${test.subject}.score']: marksObtained,
+         $set: {
+            ['subjectScore.${test.subject}.score']: 100,
          },
       },
       { new: true }

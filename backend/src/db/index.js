@@ -61,10 +61,7 @@ const StudentSchema = new mongoose.Schema({
    subjectScore: [
       {
          subject: String,
-         score: {
-            type: Number,
-            default: 0,
-         },
+         score: Number,
       },
    ],
    submissions: [StudentSubmissionsSchema],

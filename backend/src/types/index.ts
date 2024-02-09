@@ -63,3 +63,8 @@ interface StudentSubmissionType {
    marksObtained: number;
    submittedAt: Date;
 }
+
+export interface ScoreType {
+   candidate: ObjectId | string | null;
+   score: number;
+}

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { StudentType } from '../types';
-import { Student } from '../db';
+import { ScoreType, StudentType } from '../types';
+import { Score, Student } from '../db';
 
 export const serachStudent = async (req: Request, res: Response) => {
    const { username } = req.params;
@@ -23,3 +23,18 @@ export const serachStudent = async (req: Request, res: Response) => {
       student,
    });
 };
+
+export const getScoreBoard = async (req: Request, res: Response) => {
+   // Todo check null points
+   const scoreBoard: ScoreType | null = await Score.find().sort({ score: -1 });
+
+   res.status(200).json({
+      message: 'Done Successfully',
+      scoreBoard,
+   });
+};
+
+export const getSubjectFilteredScoreBoard = async (
+   req: Request,
+   res: Response
+) => {};
