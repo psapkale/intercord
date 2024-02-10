@@ -3,19 +3,3 @@
 "email": "riteshsir@gmail.com",
 "username":"yoyoriteshsir",
 "password":"aA198765"    
-
-
-"use client"
-
-
-
-import { cn } from "@/lib/utils"
-
-
-export function DatePickerDemo() {
- 
-
-  return (
-    
-  )
-}

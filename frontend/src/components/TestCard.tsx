@@ -1,4 +1,4 @@
-import { ArrowUpLeftFromCircle, Star } from "lucide-react";
+import { ArrowUpLeftFromCircle, Bookmark } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -14,7 +14,10 @@ const TestCard = ({
   handelAddTofavourite: () => void;
 }) => {
   return (
-    <div className="rounded-md border-t-2 shadow-lg w-full h-fit py-2 px-2 flex justify-between">
+    <div
+      className="rounded-md border-t-2 shadow-md hover:shadow-xl duration-300
+     transition-shadow w-full h-fit py-2 px-2 flex justify-between"
+    >
       <div className="">
         <h1 className="font-zyada truncate text-4xl font-semibold tracking-wider">
           Java Test
@@ -34,15 +37,15 @@ const TestCard = ({
           <TooltipProvider>
             <Tooltip delayDuration={1}>
               <TooltipTrigger>
-                <Star
+                <Bookmark
                   // fill="black"
                   strokeWidth={1.2}
-                  className="cursor-pointer size-7"
+                  className="cursor-pointer size-6"
                   onClick={handelAddTofavourite}
                 />
               </TooltipTrigger>
               <TooltipContent>
-                <p>Add to favourite</p>
+                <p>bookmark</p>
               </TooltipContent>
             </Tooltip>
             <Tooltip delayDuration={1}>

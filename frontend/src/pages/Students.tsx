@@ -10,8 +10,8 @@ const Students = () => {
   };
 
   return (
-    <div className="w-full flex flex-col h-[100vh] pt-[2rem] overflow-scroll py-8">
-      <div className="w-full flex justify-center flex-col items-center gap-4">
+    <div className="w-full flex flex-col h-[100vh] md:pt-[2rem] overflow-scroll py-8">
+      <div className="w-full flex justify-start md:justify-center flex-col items-center gap-4">
         <div className="flex flex-col items-center">
           <h1 className="text-5xl font-bold uppercase flex items-center gap-2">
             Search For Student
@@ -35,7 +35,7 @@ const Students = () => {
           />
         </div>
       </div>
-      <div className="w-full h-fit flex flex-col items-center pt-14 gap-4 mb-10">
+      <div className="w-full h-fit flex flex-col px-[2rem] md:items-center pt-14 gap-4 mb-10">
         <StudentSearchCard />
         <StudentSearchCard />
         <StudentSearchCard />

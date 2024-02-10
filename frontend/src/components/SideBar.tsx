@@ -1,13 +1,13 @@
 import { useUserDetails } from "@/utils/store";
 import {
   BellRing,
+  Bookmark,
   CircleUserRound,
   ClipboardList,
   LogOut,
   Pen,
   PlusCircle,
   Search,
-  Star,
 } from "lucide-react";
 import { MdOutlinePeopleOutline } from "react-icons/md";
 
@@ -130,10 +130,10 @@ const SideBar = ({
               <p>Announcment</p>
             </Link>
             <Link
-              to="/dashboard/favourite"
+              to="/dashboard/bookmark"
               className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
                   ${
-                    location.pathname == "/dashboard/favourite"
+                    location.pathname == "/dashboard/bookmark"
                       ? "text-black bg-[#ebeaea]"
                       : "text-gray-600"
                   }`}
@@ -141,10 +141,10 @@ const SideBar = ({
                 RemoveActive();
                 handleOnClick();
               }}
-              id="search"
+              id="bookmark"
             >
-              <Star className="w-4" />
-              <p>Favourite</p>
+              <Bookmark className="w-4" />
+              <p>Bookmark</p>
             </Link>
             {user.role == "teacher" && (
               <Link
@@ -159,7 +159,6 @@ const SideBar = ({
                   RemoveActive();
                   handleOnClick();
                 }}
-                id="tests"
               >
                 <PlusCircle className="w-4" />
                 <p>Create Test</p>
