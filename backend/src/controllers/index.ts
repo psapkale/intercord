@@ -75,7 +75,7 @@ export const getSubjectFilteredScoreBoard = async (
   });
 };
 
-export const getComingTests = async (req: Request, res: Response) => {
+export const getUpComingTests = async (req: Request, res: Response) => {
   const currentDateTime = new Date();
   const options = { timeZone: "Asia/Kolkata", hour12: false };
   const indianTime = currentDateTime.toLocaleString("en-US", options);

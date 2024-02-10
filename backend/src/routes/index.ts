@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  getComingTests,
+  getUpComingTests,
   getScoreBoard,
   getSubjectFilteredScoreBoard,
   serachStudent,
@@ -11,4 +11,4 @@ export const router = Router();
 router.get("/search/:username", serachStudent);
 router.get("/score-board/all", getScoreBoard);
 router.get("/score-board/:subject", getSubjectFilteredScoreBoard);
-router.get("/getupcomingtests", getComingTests);
+router.get("/getupcomingtests", getUpComingTests);
