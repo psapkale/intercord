@@ -9,9 +9,15 @@ import {
 const TestCard = ({
   handelAddTofavourite,
   typeOfTestShowing,
+  testName = "",
+  description = "",
+  startDate = "",
 }: {
   typeOfTestShowing: string;
   handelAddTofavourite: () => void;
+  testName: string;
+  description: string;
+  startDate: string;
 }) => {
   return (
     <div
@@ -19,19 +25,16 @@ const TestCard = ({
      transition-shadow w-full h-fit py-2 px-2 flex justify-between"
     >
       <div className="">
-        <h1 className="font-zyada truncate text-4xl font-semibold tracking-wider">
-          Java Test
+        <h1 className="font-zyada text-4xl truncate font-semibold tracking-wider">
+          {testName}
         </h1>
-        <p className="font-zyada line-clamp-1 w-[90%] sm:w-[50%] font-semibold tracking-wider text-2xl">
-          description Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Iusto, voluptas? Consequatur esse quo minima assumenda, suscipit
-          impedit. Cupiditate deserunt perferendis vitae. Nisi nemo ipsam saepe
-          possimus deserunt commodi, id illo.
+        <p className="font-zyada line-clamp-2 w-full truncate font-semibold tracking-wider text-2xl">
+          {description}
         </p>
       </div>
       <div className="flex items-center justify-center flex-col gap-2">
         {typeOfTestShowing == "upcoming" && (
-          <div className="w-full">29 Jan</div>
+          <div className="w-full">{startDate}</div>
         )}
         <div className="flex items-center gap-2">
           <TooltipProvider>

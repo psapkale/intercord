@@ -187,7 +187,6 @@ const CreateTest = () => {
                 type="date"
                 className="outline-none bg-gray-100 p-2"
                 onChange={(e) => {
-                  console.log(e.target.value);
                   if (e.target.value) setDate(e.target.value);
                 }}
               />
@@ -205,7 +204,6 @@ const CreateTest = () => {
                 value={time}
                 className="outline-none bg-gray-100 p-2"
                 onChange={(e) => {
-                  console.log(e.target.value);
                   setTime(e.target.value);
                 }}
               />

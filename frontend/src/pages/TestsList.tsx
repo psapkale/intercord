@@ -11,7 +11,6 @@ const TestsList = () => {
     useState<string>("upcoming");
   const user = useUserDetails((state) => state.user);
   const updateTutorial = useUserDetails((state) => state.updateTutorial);
-  // const [tests, setTests] = useState<Object[]>([]);
 
   if (user.isSignedUp && user.testDriverJs) {
     updateTutorial("testDriverJs");
@@ -66,17 +65,18 @@ const TestsList = () => {
         <TestSkeleton />
       ) : (
         <div className="h-full w-full flex flex-col gap-4">
-          {Array(10)
-            .fill("")
-            .map((_, idx) => {
-              return (
-                <TestCard
-                  typeOfTestShowing={typeOfTestShowing}
-                  handelAddTofavourite={handelAddTofavourite}
-                  key={idx}
-                />
-              );
-            })}
+          {tests?.map((testt, idx) => {
+            return (
+              <TestCard
+                startDate={testt?.startDate}
+                testName={testt?.subject}
+                description={testt?.description}
+                typeOfTestShowing={typeOfTestShowing}
+                handelAddTofavourite={handelAddTofavourite}
+                key={idx}
+              />
+            );
+          })}
         </div>
       )}
     </div>
