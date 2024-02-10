@@ -48,7 +48,15 @@ const CreateTest = () => {
   };
 
   // sending test to the backend
-  const handleSubmit = async () => {
+  const handleSubmit = async ({
+    answerIndex,
+    question,
+    options,
+  }: {
+    answerIndex: number;
+    question: string;
+    options: string[];
+  }) => {
     try {
       const data = await axios.post(
         "http://localhost:3000/api/teacher/create-test",
@@ -57,7 +65,9 @@ const CreateTest = () => {
           description: description,
           totalQuestions: totalNumberOfQuestions,
           totalMarks: marksPerQuestion * totalNumberOfQuestions,
-          questions: test,
+          questions: [...test, { question, options, answerIndex }],
+          startDate: date,
+          time: time,
         },
         {
           headers: {
@@ -177,7 +187,6 @@ const CreateTest = () => {
                 type="date"
                 className="outline-none bg-gray-100 p-2"
                 onChange={(e) => {
-                  console.log(e.target.value);
                   setDate(new Date(e.target.value));
                 }}
               />

@@ -45,8 +45,15 @@ export const teacherLogin = async (req: Request, res: Response) => {
 
 export const createTest = async (req: Request, res: Response) => {
   try {
-    const { subject, description, totalQuestions, totalMarks, questions } =
-      req.body;
+    const {
+      subject,
+      description,
+      totalQuestions,
+      totalMarks,
+      questions,
+      startDate,
+      time,
+    } = req.body;
 
     const teacherId = (req as CustomRequest).teacherId;
 
@@ -56,6 +63,8 @@ export const createTest = async (req: Request, res: Response) => {
       totalQuestions,
       totalMarks,
       questions,
+      startDate,
+      time,
       createdBy: teacherId,
       submissions: [],
     };

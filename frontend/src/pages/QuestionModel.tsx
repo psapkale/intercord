@@ -16,7 +16,15 @@ const QuestionModel = ({
   marksPerQuestion,
 }: {
   handleNext: (question: question) => void;
-  handleSubmit: () => void;
+  handleSubmit: ({
+    answerIndex,
+    question,
+    options,
+  }: {
+    answerIndex: number;
+    question: string;
+    options: string[];
+  }) => void;
   setStep: (step: any) => void;
   step: number;
   totalNumberOfQuestions: number;
@@ -46,7 +54,11 @@ const QuestionModel = ({
         return;
       }
 
-      handleSubmit();
+      handleSubmit({
+        answerIndex: mcq.answerIndex,
+        options: [...mcq.options],
+        question: mcq.question,
+      });
       setMcq({
         answerIndex: 1,
         question: "",
