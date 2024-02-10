@@ -54,6 +54,24 @@ export function callSideBarDriver() {
         },
       },
       {
+        element: "#announcment",
+        popover: {
+          title: "Announcment",
+          description: "All the announcment done by Principle you can see here",
+          side: "top",
+          align: "start",
+        },
+      },
+      {
+        element: "#bookmark",
+        popover: {
+          title: "Bookmark",
+          description: "Here you can see all the Test that you have bookmarked",
+          side: "top",
+          align: "start",
+        },
+      },
+      {
         element: "#logoutacc",
         popover: {
           title: "Logout",

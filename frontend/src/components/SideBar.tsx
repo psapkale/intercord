@@ -124,7 +124,7 @@ const SideBar = ({
                 RemoveActive();
                 handleOnClick();
               }}
-              id="search"
+              id="announcment"
             >
               <BellRing className="w-4 mt-[3px]" />
               <p>Announcment</p>
