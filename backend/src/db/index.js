@@ -86,8 +86,8 @@ const TestSchema = new mongoose.Schema({
     ref: "Teacher",
   },
   startDate: {
-    type: Date,
-    default: Date.now,
+    type: String,
+    default: new Date().toISOString().slice(0, 10),
   },
   time: {
     type: String,

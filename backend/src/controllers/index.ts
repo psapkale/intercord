@@ -76,10 +76,24 @@ export const getSubjectFilteredScoreBoard = async (
 };
 
 export const getComingTests = async (req: Request, res: Response) => {
-  let currentDateTime = new Date();
-  const upcomingTests = await Test.find({
-    startDate: { $gt: currentDateTime },
+  const currentDateTime = new Date();
+  const options = { timeZone: "Asia/Kolkata", hour12: false };
+  const indianTime = currentDateTime.toLocaleString("en-US", options);
+
+  const notStartedTests = await Test.find({
+    $or: [
+      {
+        startDate: { $gt: currentDateTime.toISOString().slice(0, 10) },
+      },
+      {
+        startDate: currentDateTime.toISOString().slice(0, 10),
+        time: { $gt: indianTime.slice(11, 16) },
+      },
+    ],
   });
 
-  console.log(upcomingTests);
+  res.status(200).json({
+    message: "Done Successfully",
+    notStartedTests,
+  });
 };

@@ -20,7 +20,7 @@ const CreateTest = () => {
   const [subjectName, setSubjectName] = useState("c++");
   const [description, setDescription] = useState("");
   const [marksPerQuestion, setMarksPerQuestion] = useState(0);
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState("");
   const [time, setTime] = useState("");
 
   const user = useUserDetails((state) => state.user);
@@ -187,7 +187,8 @@ const CreateTest = () => {
                 type="date"
                 className="outline-none bg-gray-100 p-2"
                 onChange={(e) => {
-                  setDate(new Date(e.target.value));
+                  console.log(e.target.value);
+                  if (e.target.value) setDate(e.target.value);
                 }}
               />
             </div>
@@ -204,6 +205,7 @@ const CreateTest = () => {
                 value={time}
                 className="outline-none bg-gray-100 p-2"
                 onChange={(e) => {
+                  console.log(e.target.value);
                   setTime(e.target.value);
                 }}
               />
