@@ -53,6 +53,7 @@ export const createTest = async (req: Request, res: Response) => {
       questions,
       startDate,
       time,
+      endTime,
     } = req.body;
 
     const teacherId = (req as CustomRequest).teacherId;
@@ -65,6 +66,7 @@ export const createTest = async (req: Request, res: Response) => {
       questions,
       startDate,
       time,
+      endTime,
       createdBy: teacherId,
       submissions: [],
     };

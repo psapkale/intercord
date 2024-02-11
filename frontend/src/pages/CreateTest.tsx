@@ -22,6 +22,7 @@ const CreateTest = () => {
   const [marksPerQuestion, setMarksPerQuestion] = useState(0);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const [endTime, setEndTime] = useState("");
 
   const user = useUserDetails((state) => state.user);
 
@@ -68,6 +69,7 @@ const CreateTest = () => {
           questions: [...test, { question, options, answerIndex }],
           startDate: date,
           time: time,
+          endTime: endTime,
         },
         {
           headers: {
@@ -76,6 +78,7 @@ const CreateTest = () => {
         }
       );
 
+      console.log(data);
       toast.success(data.data?.message);
       resetValues();
     } catch (error) {
@@ -183,6 +186,7 @@ const CreateTest = () => {
                 Date:
               </label>
               <input
+                required
                 id="date"
                 type="date"
                 className="outline-none bg-gray-100 p-2"
@@ -199,6 +203,7 @@ const CreateTest = () => {
                 Time:
               </label>
               <input
+                required
                 id="time"
                 type="time"
                 value={time}
@@ -206,6 +211,24 @@ const CreateTest = () => {
                 onChange={(e) => {
                   setTime(e.target.value);
                 }}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label
+                htmlFor="endtime"
+                className="font-zyada font-bold text-2xl rounded-md"
+              >
+                End Time:
+              </label>
+              <input
+                id="endtime"
+                type="time"
+                value={endTime}
+                className="outline-none bg-gray-100 p-2"
+                onChange={(e) => {
+                  setEndTime(e.target.value);
+                }}
+                required
               />
             </div>
           </div>

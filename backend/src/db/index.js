@@ -98,6 +98,10 @@ const TestSchema = new mongoose.Schema({
     type: String,
     default: "00:00",
   },
+  endTime: {
+    type: String,
+    default: "00:00",
+  },
   createdAt: {
     type: Date,
     default: Date.now,

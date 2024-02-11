@@ -110,7 +110,7 @@ export const getClosedTests = async (req: Request, res: Response) => {
       },
       {
         startDate: currentDateTime.toISOString().slice(0, 10),
-        time: { $lt: indianTime.slice(11, 16) },
+        endTime: { $lt: indianTime.slice(11, 16) },
       },
     ],
   });
@@ -118,5 +118,24 @@ export const getClosedTests = async (req: Request, res: Response) => {
   res.status(200).json({
     message: "Done Successfully",
     closed,
+  });
+};
+
+export const getLiveTests = async (req: Request, res: Response) => {
+  const currentDateTime = new Date();
+  const options = { timeZone: "Asia/Kolkata", hour12: false };
+  const indianTime = currentDateTime.toLocaleString("en-US", options);
+
+  const live = await Test.find({
+    $and: [
+      { startDate: currentDateTime.toISOString().slice(0, 10) },
+      { time: { $lte: indianTime.slice(11, 16) } },
+      { endTime: { $gte: indianTime.slice(11, 16) } },
+    ],
+  });
+
+  res.status(200).json({
+    message: "Successfully Fetched the live test",
+    live,
   });
 };

@@ -32,7 +32,7 @@ const SideBar = ({
   return (
     <>
       <div
-        className={`w-full md:w-[40%] lg:w-[18%] z-20 rounded-sm border absolute h-full transition-all duration-300 bg-white shadow-lg ${
+        className={`w-full md:w-[40%] lg:w-[25%] xl:w-[20%] z-20 rounded-sm border absolute h-full transition-all duration-300 bg-white shadow-lg ${
           !isOpen ? "-translate-x-[100%]" : ""
         }`}
         id="sidebar"

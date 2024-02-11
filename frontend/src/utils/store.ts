@@ -15,6 +15,9 @@ type UserType = {
   searchDriverJs?: boolean;
   bookmark: string[];
   token: string;
+  linkedinUrl: string;
+  githubUrl: string;
+  twitterUrl: string;
 };
 
 const defaultParam: UserType = {
@@ -30,6 +33,9 @@ const defaultParam: UserType = {
   testDriverJs: true,
   searchDriverJs: true,
   token: "",
+  linkedinUrl: "",
+  githubUrl: "",
+  twitterUrl: "",
 };
 
 type UserDetailsFnType = {

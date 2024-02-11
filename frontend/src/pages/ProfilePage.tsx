@@ -6,15 +6,37 @@ import { InputLabel } from "./../components/PrimeSkeleton";
 import { useEffect, useState } from "react";
 import { useUserDetails } from "@/utils/store";
 
+type UserType = {
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+  linkedinUrl: string;
+  githubUrl: string;
+  twitterUrl: string;
+};
+
 const ProfilePage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const user = useUserDetails((state) => state.user);
+  const [userDetails, setUserDetails] = useState<UserType>({
+    name: user.name,
+    username: user.username,
+    email: user.email,
+    password: "",
+    linkedinUrl: user.linkedinUrl,
+    githubUrl: user.githubUrl,
+    twitterUrl: user.twitterUrl,
+  });
+
+  const updateUserProfile = () => {};
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 3000);
   }, []);
+
   return (
     <div className="w-full h-fit pl-[1.5rem] sm:pl-[2rem] md:pl-[6rem] pt-[2rem] overflow-y-scroll py-8">
       <div className="flex flex-col gap-[1.5rem]">
@@ -33,7 +55,11 @@ const ProfilePage = () => {
                   type="text"
                   id="fn"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
-                  placeholder={user.name}
+                  placeholder="Enter new Name"
+                  value={userDetails.name}
+                  onChange={(e) => {
+                    setUserDetails({ ...userDetails, name: e.target.value });
+                  }}
                 />
               </>
             ) : (
@@ -52,7 +78,14 @@ const ProfilePage = () => {
                   type="text"
                   id="username"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
-                  placeholder={user.username}
+                  placeholder="Enter new username"
+                  value={userDetails.username}
+                  onChange={(e) => {
+                    setUserDetails({
+                      ...userDetails,
+                      username: e.target.value,
+                    });
+                  }}
                 />
               </>
             ) : (
@@ -76,6 +109,13 @@ const ProfilePage = () => {
                   id="password"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
                   placeholder="Enter new password"
+                  value={userDetails.password}
+                  onChange={(e) => {
+                    setUserDetails({
+                      ...userDetails,
+                      password: e.target.value,
+                    });
+                  }}
                 />
               </>
             ) : (
@@ -98,7 +138,14 @@ const ProfilePage = () => {
                   type="email"
                   id="email"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
-                  placeholder={user.email}
+                  placeholder="Enter new Email"
+                  value={userDetails.email}
+                  onChange={(e) => {
+                    setUserDetails({
+                      ...userDetails,
+                      email: e.target.value,
+                    });
+                  }}
                 />
               </>
             ) : (
@@ -125,7 +172,14 @@ const ProfilePage = () => {
                   type="text"
                   id="github"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
-                  placeholder="www.9xVibee"
+                  placeholder="Enter Github username"
+                  value={userDetails.githubUrl}
+                  onChange={(e) => {
+                    setUserDetails({
+                      ...userDetails,
+                      githubUrl: e.target.value,
+                    });
+                  }}
                 />
               </>
             ) : (
@@ -147,6 +201,13 @@ const ProfilePage = () => {
                   id="linkdin"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
                   placeholder="@linkdinId"
+                  value={userDetails.linkedinUrl}
+                  onChange={(e) => {
+                    setUserDetails({
+                      ...userDetails,
+                      linkedinUrl: e.target.value,
+                    });
+                  }}
                 />
               </>
             ) : (
@@ -168,6 +229,13 @@ const ProfilePage = () => {
                   id="twitter"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
                   placeholder="@twitter"
+                  value={userDetails.twitterUrl}
+                  onChange={(e) => {
+                    setUserDetails({
+                      ...userDetails,
+                      twitterUrl: e.target.value,
+                    });
+                  }}
                 />
               </>
             ) : (
@@ -176,7 +244,10 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
-      <button className="w-[10rem] mt-8 rounded-md tracking-wider text-2xl font-semibold border border-black hover:bg-white hover:text-black transition-all duration-300 font-zyada py-2 bg-[#0F0F0F] text-white flex justify-center items-center gap-2">
+      <button
+        className="w-[10rem] mt-8 rounded-md tracking-wider text-2xl font-semibold border border-black hover:bg-white hover:text-black transition-all duration-300 font-zyada py-2 bg-[#0F0F0F] text-white flex justify-center items-center gap-2"
+        onClick={updateUserProfile}
+      >
         Update <BsSave className="w-4 mb-1" />
       </button>
     </div>
