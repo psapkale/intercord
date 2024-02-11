@@ -4,14 +4,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-type TestType = {
+export type TestType = {
   readonly _id: string;
   subject: string;
   description: string;
   startDate: string;
 };
 
-const useTestsAsPerTime = (typeOfTestShowing: string) => {
+const useTestsAsPerTime = (
+  typeOfTestShowing: string = "",
+  fetchByField: boolean = true
+) => {
   const [loading, setLoading] = useState(true);
   const [bookMarkLoading, setBookMarkLoading] = useState(false);
   const [tests, setTests] = useState<TestType[]>();
@@ -68,7 +71,7 @@ const useTestsAsPerTime = (typeOfTestShowing: string) => {
   };
 
   useEffect(() => {
-    fetchTestBasedOnField();
+    if (fetchByField) fetchTestBasedOnField();
   }, [typeOfTestShowing]);
   return { tests, loading, handelBookmark, bookMarkLoading };
 };

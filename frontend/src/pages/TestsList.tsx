@@ -59,25 +59,28 @@ const TestsList = () => {
           Closed <X strokeWidth={2.75} className="mb-1 size-5" />
         </button>
       </div>
-      {loading ? (
-        <TestSkeleton />
-      ) : (
-        <div className="h-full w-full grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid md:grid-cols-4 gap-4">
-          {tests?.map((testt, idx) => {
-            return (
-              <TestDemoCard
-                _id={testt?._id}
-                startDate={testt?.startDate}
-                testName={testt?.subject}
-                description={testt?.description}
-                typeOfTestShowing={typeOfTestShowing}
-                handelBookmark={handelBookmark}
-                key={idx}
-              />
-            );
-          })}
-        </div>
-      )}
+
+      <div className="h-full w-full grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid md:grid-cols-4 gap-4">
+        {loading ? (
+          <TestSkeleton />
+        ) : (
+          <>
+            {tests?.map((testt, idx) => {
+              return (
+                <TestDemoCard
+                  _id={testt?._id}
+                  startDate={testt?.startDate}
+                  testName={testt?.subject}
+                  description={testt?.description}
+                  typeOfTestShowing={typeOfTestShowing}
+                  handelBookmark={handelBookmark}
+                  key={idx}
+                />
+              );
+            })}
+          </>
+        )}
+      </div>
     </div>
   );
 };

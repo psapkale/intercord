@@ -39,7 +39,7 @@ const SideBar = ({
       >
         <div className="flex justify-center border-b  items-center py-2">
           <h1 className="text-center font-bold text-2xl flex items-center gap-2 mt-1">
-            <span className="font-zyada"> Welcome Back!</span>{" "}
+            <span className="font-zyada">MCQ.</span>{" "}
           </h1>
         </div>
         <div className="h-full flex flex-col">

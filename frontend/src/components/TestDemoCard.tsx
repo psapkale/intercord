@@ -27,7 +27,7 @@ const TestDemoCard = ({
   description: string;
   startDate: string;
 }) => {
-  const user = useUserDetails((state) => state.user);
+  const bookmark = useUserDetails((state) => state.user.bookmark);
 
   return (
     <div className="flex flex-col justify-between h-[13rem] px-2 border-2 shadow-md hover:shadow-lg transition-shadow duration-200 py-2 rounded-md">
@@ -39,7 +39,7 @@ const TestDemoCard = ({
               {typeOfTestShowing == "closed" && (
                 <Tooltip delayDuration={1}>
                   <TooltipTrigger>
-                    {user.bookmark.includes(_id) ? (
+                    {bookmark.includes(_id) ? (
                       <Bookmark
                         strokeWidth={1.5}
                         fill="black"

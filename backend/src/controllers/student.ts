@@ -238,8 +238,7 @@ export const bookMarkTest = async (req: Request, res: Response) => {
 };
 
 export const getAllBookMarkTest = async (req: Request, res: Response) => {
-  // const { username } = res.locals;
-  let username = "abhay_19";
+  const { username } = res.locals;
   try {
     const student = await Student.findOne({
       username: username,

@@ -21,8 +21,8 @@ export const TestSkeleton = () => {
         .fill("")
         .map((_, idx) => {
           return (
-            <div className="w-full shadow-lg" key={idx}>
-              <Skeleton width="100%" height="5rem" />
+            <div className="w-full h-[13rem] shadow-lg" key={idx}>
+              <Skeleton width="100%" height="100%" />
             </div>
           );
         })}
