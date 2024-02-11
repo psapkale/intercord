@@ -37,7 +37,7 @@ const useTestsAsPerTime = (typeOfTestShowing: string) => {
     }
   };
 
-  // handling add to favourite test
+  // handling bookmark/unbookmark of test
   const handelBookmark = async (_id: string) => {
     setBookMarkLoading(true);
     const toastId = toast.loading("Updating...");

@@ -1,5 +1,5 @@
 import { TestSkeleton } from "@/components/PrimeSkeleton";
-import TestCard from "@/components/TestCard";
+import TestDemoCard from "@/components/TestDemoCard";
 import useTestsAsPerTime from "@/hook/useTestsAsPerTime";
 import { callTestDriver } from "@/utils/driver";
 import { useUserDetails } from "@/utils/store";
@@ -22,10 +22,10 @@ const TestsList = () => {
     useTestsAsPerTime(typeOfTestShowing);
 
   return (
-    <div className="w-full h-full pl-[2rem] md:pl-[6rem] pt-[2rem] pr-[1rem] sm:pr-[2rem] flex flex-col gap-4">
+    <div className="w-full h-full pl-[2rem] lg:pl-[6rem] pt-[2rem] pr-[1rem] sm:pr-[2rem] flex flex-col gap-4">
       <div className="flex mt-4 pl-1 gap-4">
         <button
-          className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-zyada text-xl sm:text-2xl font-semibold ${
+          className={`flex shadow-md items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-zyada text-xl sm:text-2xl font-semibold ${
             typeOfTestShowing === "upcoming" ? "bg-gray-300" : "bg-gray-200"
           } ${loading && "cursor-not-allowed"}`}
           onClick={() => {
@@ -36,7 +36,7 @@ const TestsList = () => {
           Up Coming <Timer className="mb-1 size-5" />
         </button>
         <button
-          className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-zyada text-xl sm:text-2xl font-semibold ${
+          className={`flex shadow-md items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-zyada text-xl sm:text-2xl font-semibold ${
             typeOfTestShowing === "live" ? "bg-gray-300" : " bg-gray-200"
           } ${loading && "cursor-not-allowed"}`}
           disabled={loading}
@@ -48,7 +48,7 @@ const TestsList = () => {
           <ArrowUpLeftFromCircle className="mb-1 size-4" strokeWidth={2.5} />
         </button>
         <button
-          className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-zyada text-xl sm:text-2xl font-semibold ${
+          className={`flex shadow-md items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-zyada text-xl sm:text-2xl font-semibold ${
             typeOfTestShowing === "closed" ? "bg-gray-300" : "bg-gray-200"
           } ${loading && "cursor-not-allowed"}`}
           disabled={loading}
@@ -62,10 +62,10 @@ const TestsList = () => {
       {loading ? (
         <TestSkeleton />
       ) : (
-        <div className="h-full w-full flex flex-col gap-4">
+        <div className="h-full w-full grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid md:grid-cols-4 gap-4">
           {tests?.map((testt, idx) => {
             return (
-              <TestCard
+              <TestDemoCard
                 _id={testt?._id}
                 startDate={testt?.startDate}
                 testName={testt?.subject}
