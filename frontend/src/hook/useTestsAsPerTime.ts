@@ -21,7 +21,9 @@ const useTestsAsPerTime = (typeOfTestShowing: string) => {
       );
 
       setLoading(false);
-      setTests(data?.data?.notStartedTests);
+      console.log(data);
+
+      setTests(data?.data?.[typeOfTestShowing]);
     } catch (error) {
       console.log(error);
       setLoading(false);

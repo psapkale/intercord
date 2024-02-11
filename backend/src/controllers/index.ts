@@ -80,7 +80,7 @@ export const getUpComingTests = async (req: Request, res: Response) => {
   const options = { timeZone: "Asia/Kolkata", hour12: false };
   const indianTime = currentDateTime.toLocaleString("en-US", options);
 
-  const notStartedTests = await Test.find({
+  const upcoming = await Test.find({
     $or: [
       {
         startDate: { $gt: currentDateTime.toISOString().slice(0, 10) },
@@ -94,6 +94,29 @@ export const getUpComingTests = async (req: Request, res: Response) => {
 
   res.status(200).json({
     message: "Done Successfully",
-    notStartedTests,
+    upcoming,
+  });
+};
+
+export const getClosedTests = async (req: Request, res: Response) => {
+  const currentDateTime = new Date();
+  const options = { timeZone: "Asia/Kolkata", hour12: false };
+  const indianTime = currentDateTime.toLocaleString("en-US", options);
+
+  const closed = await Test.find({
+    $or: [
+      {
+        startDate: { $lt: currentDateTime.toISOString().slice(0, 10) },
+      },
+      {
+        startDate: currentDateTime.toISOString().slice(0, 10),
+        time: { $lt: indianTime.slice(11, 16) },
+      },
+    ],
+  });
+
+  res.status(200).json({
+    message: "Done Successfully",
+    closed,
   });
 };
