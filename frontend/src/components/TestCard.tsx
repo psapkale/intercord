@@ -5,20 +5,24 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useUserDetails } from "@/utils/store";
 
 const TestCard = ({
-  handelAddTofavourite,
+  handelBookmark,
   typeOfTestShowing,
   testName = "",
   description = "",
   startDate = "",
+  _id,
 }: {
+  _id: string;
   typeOfTestShowing: string;
-  handelAddTofavourite: () => void;
+  handelBookmark: (_id: string) => void;
   testName: string;
   description: string;
   startDate: string;
 }) => {
+  const user = useUserDetails((state) => state.user);
   return (
     <div
       className="rounded-md border-t-2 shadow-md hover:shadow-xl duration-300
@@ -36,16 +40,29 @@ const TestCard = ({
         {typeOfTestShowing == "upcoming" && (
           <div className="w-full">{startDate}</div>
         )}
+        {/* Bookmark and start test */}
         <div className="flex items-center gap-2">
           <TooltipProvider>
             <Tooltip delayDuration={1}>
               <TooltipTrigger>
-                <Bookmark
-                  // fill="black"
-                  strokeWidth={1.2}
-                  className="cursor-pointer size-6"
-                  onClick={handelAddTofavourite}
-                />
+                {user.bookmark.includes(_id) ? (
+                  <Bookmark
+                    fill="black"
+                    strokeWidth={1.2}
+                    className="cursor-pointer size-6"
+                    onClick={() => {
+                      handelBookmark(_id);
+                    }}
+                  />
+                ) : (
+                  <Bookmark
+                    strokeWidth={1.2}
+                    className="cursor-pointer size-6"
+                    onClick={() => {
+                      handelBookmark(_id);
+                    }}
+                  />
+                )}
               </TooltipTrigger>
               <TooltipContent>
                 <p>bookmark</p>

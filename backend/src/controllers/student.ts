@@ -208,16 +208,9 @@ export const bookMarkTest = async (req: Request, res: Response) => {
   const { testId } = req.body;
   const { username } = res.locals;
 
-  const student = await Student.findOneAndUpdate(
-    {
-      username: username,
-    },
-    {
-      $push: {
-        bookmark: testId,
-      },
-    }
-  );
+  const student = await Student.findOneAndUpdate({
+    username: username,
+  });
 
   if (!student) {
     return res.status(500).json({
@@ -225,8 +218,21 @@ export const bookMarkTest = async (req: Request, res: Response) => {
     });
   }
 
-  console.log(student);
+  let indexOfTest = student.bookmark.indexOf(testId);
+  if (indexOfTest == -1) {
+    student.bookmark.push(testId);
+  } else {
+    student.bookmark.splice(indexOfTest, 1);
+  }
+
+  await student.save();
+
+  if (indexOfTest == -1)
+    return res.status(200).json({
+      message: "Test Bookmark Succesfully",
+    });
+
   res.status(200).json({
-    message: "Test Bookmark Succesfully",
+    message: "Test remove from Bookmark Succesfully",
   });
 };

@@ -13,6 +13,7 @@ type UserType = {
   leaderboardDriverJs?: boolean;
   testDriverJs?: boolean;
   searchDriverJs?: boolean;
+  bookmark: string[];
   token: string;
 };
 
@@ -22,6 +23,7 @@ const defaultParam: UserType = {
   email: "",
   username: "",
   role: "",
+  bookmark: [],
   isSignedUp: false,
   sideBarDriverJs: true,
   leaderboardDriverJs: true,
@@ -35,6 +37,8 @@ type UserDetailsFnType = {
   setUserDetails: (userDetails: UserType) => void;
   updateTutorial: (tutorialName: keyof UserType) => void;
   logoutUser: () => void;
+  bookmarkUpdate: (_id: string) => void;
+  removeFromBookMark: (_id: string) => void;
 };
 
 export const useUserDetails = create<UserDetailsFnType>((set) => {
@@ -65,6 +69,23 @@ export const useUserDetails = create<UserDetailsFnType>((set) => {
         sessionStorage.removeItem("userDetails");
         return {
           user: defaultParam,
+        };
+      }),
+
+    bookmarkUpdate: (_id: string) =>
+      set((state) => {
+        state.user.bookmark.push(_id);
+        return {
+          user: state.user,
+        };
+      }),
+
+    removeFromBookMark: (_id: string) =>
+      set((state) => {
+        const indexOfTestId = state.user.bookmark.indexOf(_id);
+        state.user.bookmark.splice(indexOfTestId, 1);
+        return {
+          user: state.user,
         };
       }),
   };

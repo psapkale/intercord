@@ -17,11 +17,9 @@ const TestsList = () => {
     callTestDriver();
   }
 
-  // handling add to favourite test
-  const handelAddTofavourite = () => {};
-
   // custome hook which will provide me tests according to selected from -> upcoming, live and Closed!
-  const { loading, tests } = useTestsAsPerTime(typeOfTestShowing);
+  const { loading, tests, handelBookmark } =
+    useTestsAsPerTime(typeOfTestShowing);
 
   return (
     <div className="w-full h-full pl-[2rem] md:pl-[6rem] pt-[2rem] pr-[1rem] sm:pr-[2rem] flex flex-col gap-4">
@@ -68,11 +66,12 @@ const TestsList = () => {
           {tests?.map((testt, idx) => {
             return (
               <TestCard
+                _id={testt?._id}
                 startDate={testt?.startDate}
                 testName={testt?.subject}
                 description={testt?.description}
                 typeOfTestShowing={typeOfTestShowing}
-                handelAddTofavourite={handelAddTofavourite}
+                handelBookmark={handelBookmark}
                 key={idx}
               />
             );
