@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  bookMarkTest,
   getMyTests,
   studentLogin,
   studentRegister,
@@ -13,5 +14,6 @@ router.post("/signup", studentRegister);
 router.post("/login", studentLogin);
 router.get("/mytests", studentMiddleware, getMyTests);
 router.post("/test/:testId", studentMiddleware, testSubmission);
+router.post("/bookmark", studentMiddleware, bookMarkTest);
 
 export { router };

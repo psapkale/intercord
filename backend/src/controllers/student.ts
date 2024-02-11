@@ -203,3 +203,30 @@ export const testSubmission = async (req: Request, res: Response) => {
     score,
   });
 };
+
+export const bookMarkTest = async (req: Request, res: Response) => {
+  const { testId } = req.body;
+  const { username } = res.locals;
+
+  const student = await Student.findOneAndUpdate(
+    {
+      username: username,
+    },
+    {
+      $push: {
+        bookmark: testId,
+      },
+    }
+  );
+
+  if (!student) {
+    return res.status(500).json({
+      message: "Internal server error",
+    });
+  }
+
+  console.log(student);
+  res.status(200).json({
+    message: "Test Bookmark Succesfully",
+  });
+};

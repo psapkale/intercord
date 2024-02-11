@@ -65,6 +65,11 @@ const StudentSchema = new mongoose.Schema({
     },
   ],
   submissions: [StudentSubmissionsSchema],
+  bookmark: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: "Test",
+    default: [],
+  },
 });
 
 const QuestionSchema = new mongoose.Schema({
