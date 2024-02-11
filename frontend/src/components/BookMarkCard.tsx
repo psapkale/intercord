@@ -65,7 +65,7 @@ const BookMarkCard = ({
                   />
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Start Test</p>
+                  <p>Visit Test</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
