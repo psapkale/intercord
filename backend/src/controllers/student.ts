@@ -236,3 +236,26 @@ export const bookMarkTest = async (req: Request, res: Response) => {
     message: "Test remove from Bookmark Succesfully",
   });
 };
+
+export const getAllBookMarkTest = async (req: Request, res: Response) => {
+  // const { username } = res.locals;
+  let username = "abhay_19";
+  try {
+    const student = await Student.findOne({
+      username: username,
+    });
+
+    const allBookmarkedTests = await Test.find({
+      _id: { $in: student.bookmark },
+    });
+
+    res.status(200).json({
+      allBookmarkedTests,
+    });
+  } catch (error) {
+    res.status(500).json({
+      messsage: "Some error occured",
+    });
+    console.log(error, "Error in GetAllBookMarkedTest");
+  }
+};
