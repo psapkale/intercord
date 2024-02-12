@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const TestPage = () => {
+const GiveTest = () => {
    const [current, setCurrent] = useState(1);
 
    const handlePrev = () => {
@@ -74,4 +74,4 @@ const TestPage = () => {
    );
 };
 
-export default TestPage;
+export default GiveTest;

@@ -11,6 +11,7 @@ import {
    TooltipTrigger,
 } from './ui/tooltip';
 import { useUserDetails } from '@/utils/store';
+import { Link } from 'react-router-dom';
 
 const TestDemoCard = ({
    handelBookmark,
@@ -64,27 +65,24 @@ const TestDemoCard = ({
                         </Tooltip>
                      )}
 
-                     <Tooltip delayDuration={1}>
-                        <TooltipTrigger>
-                           <button
-                              className={
-                                 typeOfTestShowing == 'live'
-                                    ? 'cursor-pointer'
-                                    : 'cursor-not-allowed'
-                              }
-                              disabled={typeOfTestShowing !== 'live'}
-                           >
-                              <ArrowUpLeftFromCircle
-                                 className={
-                                    'mt-[0.3rem] size-4  text-gray-500 hover:text-black transition-colors duration-200'
-                                 }
-                              />
-                           </button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                           <p>Start Test</p>
-                        </TooltipContent>
-                     </Tooltip>
+                     {/* {typeOfTestShowing === 'live' && ( */}
+                     <Link to={`${_id}`}>
+                        <Tooltip delayDuration={1}>
+                           <TooltipTrigger>
+                              <button className='cursor-pointer'>
+                                 <ArrowUpLeftFromCircle
+                                    className={
+                                       'mt-[0.3rem] size-4  text-gray-500 hover:text-black transition-colors duration-200'
+                                    }
+                                 />
+                              </button>
+                           </TooltipTrigger>
+                           <TooltipContent>
+                              <p>Start Test</p>
+                           </TooltipContent>
+                        </Tooltip>
+                     </Link>
+                     {/* )} */}
                   </TooltipProvider>
                </div>
             </div>
