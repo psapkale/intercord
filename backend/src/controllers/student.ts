@@ -80,12 +80,14 @@ export const studentLogin = async (req: Request, res: Response) => {
       return res.status(404).json({ message: "Student not found" });
     }
 
+    if (student.username !== username) {
+      return res.status(411).json({ message: "Incorrect username" });
+    }
+
     const isMatch = await bcrypt.compare(password, student.password);
 
     if (!isMatch) {
-      return res
-        .status(411)
-        .json({ message: "Incorrect username or password" });
+      return res.status(411).json({ message: "Incorrect password" });
     }
 
     const token = jwt.sign({ username }, process.env.JWT_SECRET);
@@ -256,5 +258,55 @@ export const getAllBookMarkTest = async (req: Request, res: Response) => {
       messsage: "Some error occured",
     });
     console.log(error, "Error in GetAllBookMarkedTest");
+  }
+};
+
+export const updateStudentProfile = async (req: Request, res: Response) => {
+  let { username } = res.locals;
+  const {
+    name,
+    usernameNew,
+    password,
+    email,
+    githubUrl,
+    linkdinUrl,
+    twitterUrl,
+  } = req.body;
+  try {
+    const student = await Student.findOne({
+      username: username,
+    });
+
+    if (!student) {
+      return res.status(200).json({
+        message: "Student Not Found",
+      });
+    }
+
+    // changing password if it is provided
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      student.password = hashedPassword;
+    }
+
+    student.name = name || student.name;
+    student.username = usernameNew || student.username;
+    student.email = email || student.email;
+    student.githubUrl = githubUrl || student.githubUrl;
+    student.linkedinUrl = linkdinUrl || student.linkedinUrl;
+    student.twitterUrl = twitterUrl || student.twitterUrl;
+
+    await student.save();
+
+    res.status(200).json({
+      message: "Student Profile Updated",
+      user: student,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Some Error occured!",
+    });
+    console.log("Error in Update Student ", error);
   }
 };

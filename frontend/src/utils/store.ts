@@ -45,6 +45,16 @@ type UserDetailsFnType = {
   logoutUser: () => void;
   bookmarkUpdate: (_id: string) => void;
   removeFromBookMark: (_id: string) => void;
+  updateprofile: (user1: updateProfileDetails) => void;
+};
+
+export type updateProfileDetails = {
+  name: string;
+  email: string;
+  username: string;
+  linkedinUrl: string;
+  githubUrl: string;
+  twitterUrl: string;
 };
 
 export const useUserDetails = create<UserDetailsFnType>((set) => {
@@ -92,6 +102,19 @@ export const useUserDetails = create<UserDetailsFnType>((set) => {
         state.user.bookmark.splice(indexOfTestId, 1);
         return {
           user: state.user,
+        };
+      }),
+
+    updateprofile: (user1: updateProfileDetails) =>
+      set((state) => {
+        return {
+          user: {
+            ...user1,
+            _id: state.user._id,
+            role: state.user.role,
+            bookmark: state.user.bookmark,
+            token: state.user.token,
+          },
         };
       }),
   };
