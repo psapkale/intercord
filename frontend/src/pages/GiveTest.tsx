@@ -1,6 +1,33 @@
 import { useState } from 'react';
+import QuestionCard from './QuestionCard';
 
-const GiveTest = () => {
+export type QuestionType = {
+   question: string;
+   options: string[];
+   answerIndex: 1 | 2 | 3 | 4;
+};
+
+type SubmissionType = {
+   submittedBy: string;
+   obtainedMarks: number;
+};
+
+export type TestType = {
+   subject: string;
+   description: string;
+   questions: QuestionType[];
+   totalMarks: number;
+   createdBy: string;
+   startDate: string;
+   time: string;
+   endTime: string;
+   createdAt: Date;
+   submissions: SubmissionType[];
+};
+
+const GiveTest = ({ test }: { test: TestType }) => {
+   console.log(test);
+
    const [current, setCurrent] = useState(1);
 
    const handlePrev = () => {
@@ -22,31 +49,10 @@ const GiveTest = () => {
             <div>Question {current} of 10</div>
          </div>
          {/* Question */}
-         <div className='py-2 my-2 flex flex-col gap-6'>
-            <div className='h-[30%] text-lg font-bold font-mono my-2'>
-               Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-               Suscipit, sint! Lorem, ipsum dolor sit amet consectetur
-               adipisicing elit. Dicta placeat asperiores est, magnam error
-               deserunt dolores voluptates quidem repudiandae omnis saepe.
-               Suscipit quasi esse natus nulla exercitationem atque possimus aut
-               ullam cupiditate placeat. Sunt.
-            </div>
-            {/* options */}
-            <div className='w-[90%] h-[70%] grid grid-cols-1 gap-4 '>
-               <button className='h-fit p-2 text-start hover:bg-green-500 border-black transition-all duration-300 border bg-white text-black rounded-md text-[15px] font-bold font-mono cursor-pointer'>
-                  option1 Lorem ipsum, dolor sit amet consectetur adipisicing
-                  elit. Accusantium, est.
-               </button>
-               <button className='h-fit p-2 text-start hover:bg-green-500 border-black transition-all duration-300 border bg-white text-black rounded-md text-[15px] font-bold font-mono cursor-pointer'>
-                  option2
-               </button>
-               <button className='h-fit p-2 text-start hover:bg-green-500 border-black transition-all duration-300 border bg-white text-black rounded-md text-[15px] font-bold font-mono cursor-pointer'>
-                  option3
-               </button>
-               <button className='h-fit p-2 text-start hover:bg-green-500 border-black transition-all duration-300 border bg-white text-black rounded-md text-[15px] font-bold font-mono cursor-pointer'>
-                  option4
-               </button>
-            </div>
+         <div>
+            {test?.questions?.map((question) => (
+               <QuestionCard question={question} />
+            ))}
          </div>
          {/* Pagination */}
          <div className='w-[90%] flex gap-10 items-start justify-start'>
