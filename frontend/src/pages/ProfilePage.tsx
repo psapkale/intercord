@@ -3,12 +3,14 @@ import { AtSign, Github, Linkedin, LockKeyhole, MailCheck } from "lucide-react";
 import { BsSave } from "react-icons/bs";
 import { FaXTwitter } from "react-icons/fa6";
 import { InputLabel } from "./../components/PrimeSkeleton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useUserDetails } from "@/utils/store";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 type UserType = {
   name: string;
-  username: string;
+  usernameNew: string;
   email: string;
   password: string;
   linkedinUrl: string;
@@ -17,11 +19,12 @@ type UserType = {
 };
 
 const ProfilePage = () => {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const user = useUserDetails((state) => state.user);
+  const updateprofile = useUserDetails((state) => state.updateprofile);
   const [userDetails, setUserDetails] = useState<UserType>({
     name: user.name,
-    username: user.username,
+    usernameNew: user.username,
     email: user.email,
     password: "",
     linkedinUrl: user.linkedinUrl,
@@ -29,13 +32,40 @@ const ProfilePage = () => {
     twitterUrl: user.twitterUrl,
   });
 
-  const updateUserProfile = () => {};
+  // handling user profile update
+  const updateUserProfile = async () => {
+    setLoading(true);
+    try {
+      const data = await axios.put(
+        `http://localhost:3000/api/${user.role}/updateprofile`,
+        {
+          ...userDetails,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
 
-  useEffect(() => {
-    setTimeout(() => {
+      setUserDetails({
+        ...data?.data?.user,
+        usernameNew: data?.data?.user?.username,
+        password: "",
+      });
+
+      updateprofile({ ...data?.data?.user });
+      // Adding detay to show shimmer 😉
+      setTimeout(() => {
+        toast.success("Profile updated Successfully");
+        setLoading(false);
+      }, 1000);
+    } catch (error) {
+      console.log("Error in update profile", error);
+      toast.error("Some Error occured");
       setLoading(false);
-    }, 3000);
-  }, []);
+    }
+  };
 
   return (
     <div className="w-full h-fit pl-[1.5rem] sm:pl-[2rem] md:pl-[6rem] pt-[2rem] overflow-y-scroll py-8">
@@ -79,11 +109,11 @@ const ProfilePage = () => {
                   id="username"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
                   placeholder="Enter new username"
-                  value={userDetails.username}
+                  value={userDetails.usernameNew}
                   onChange={(e) => {
                     setUserDetails({
                       ...userDetails,
-                      username: e.target.value,
+                      usernameNew: e.target.value,
                     });
                   }}
                 />
@@ -247,6 +277,7 @@ const ProfilePage = () => {
       <button
         className="w-[10rem] mt-8 rounded-md tracking-wider text-2xl font-semibold border border-black hover:bg-white hover:text-black transition-all duration-300 font-zyada py-2 bg-[#0F0F0F] text-white flex justify-center items-center gap-2"
         onClick={updateUserProfile}
+        disabled={loading}
       >
         Update <BsSave className="w-4 mb-1" />
       </button>
