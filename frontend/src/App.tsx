@@ -15,6 +15,7 @@ import Announcment from "./pages/Announcment";
 import BookmarkTests from "./pages/Bookmark";
 import TestPageOutlet from "./pages/TestPageOutlet";
 import StudentProfilePage from "./pages/StudentProfile";
+import CreateAnnuncment from "./pages/CreateAnnuncment";
 // import { lazy } from "react";
 
 const appRouter = createBrowserRouter([
@@ -73,6 +74,10 @@ const appRouter = createBrowserRouter([
       {
         path: "student/:id",
         element: <StudentProfilePage />,
+      },
+      {
+        path: "create-announcment",
+        element: <CreateAnnuncment />,
       },
     ],
   },
