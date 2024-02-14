@@ -29,6 +29,7 @@ const SideBar = ({
   const handleOnClick = () => {
     setIsOpen(false);
   };
+
   return (
     <>
       <div
@@ -114,7 +115,7 @@ const SideBar = ({
             </Link>
             <Link
               to="/dashboard/announcment"
-              className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
+              className={`flex rounded-md relative items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
                   ${
                     location.pathname == "/dashboard/announcment"
                       ? "text-black bg-[#ebeaea]"
@@ -126,6 +127,18 @@ const SideBar = ({
               }}
               id="announcment"
             >
+              {user.announcements.filter((val) => val.seen == false).length >
+                0 && (
+                <div className="absolute bg-red-600 h-3 w-3 text-white rounded-full flex justify-center items-center top-2 left-6">
+                  {" "}
+                  <p className="text-[0.6rem]">
+                    {
+                      user.announcements.filter((val) => val.seen == false)
+                        .length
+                    }
+                  </p>
+                </div>
+              )}
               <BellRing className="w-4 mt-[3px]" />
               <p>Announcment</p>
             </Link>

@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
-import { Admin, Student, Teacher } from "../db/index";
+import { Admin, Announcment, Student, Teacher } from "../db/index";
 import { AdminType } from "../types";
 
 // Todo all mongo logic here
@@ -135,5 +135,24 @@ export const removeStudent = async (req: Request, res: Response) => {
   res.status(200).json({
     message: "Student deleted successfully",
     student,
+  });
+};
+
+export const createAdmin = async (req: Request, res: Response) => {
+  const { name, username, email, password } = req.body;
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const admin = await Admin.create({
+    username,
+    name,
+    email,
+    password: hashedPassword,
+    announcements: [],
+  });
+
+  res.status(200).json({
+    message: "Admin created",
+    admin,
   });
 };

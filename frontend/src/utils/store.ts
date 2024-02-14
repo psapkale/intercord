@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from "zustand";
 
+type Announcment = {
+  title: string;
+  description: string;
+  creator: string;
+  seen: boolean;
+};
+
 // user Types
 type UserType = {
   _id: string;
@@ -18,6 +25,7 @@ type UserType = {
   linkedinUrl: string;
   githubUrl: string;
   twitterUrl: string;
+  announcements: Announcment[];
 };
 
 const defaultParam: UserType = {
@@ -36,6 +44,7 @@ const defaultParam: UserType = {
   linkedinUrl: "",
   githubUrl: "",
   twitterUrl: "",
+  announcements: [],
 };
 
 type UserDetailsFnType = {
@@ -114,6 +123,7 @@ export const useUserDetails = create<UserDetailsFnType>((set) => {
             role: state.user.role,
             bookmark: state.user.bookmark,
             token: state.user.token,
+            announcements: state.user.announcements,
           },
         };
       }),
