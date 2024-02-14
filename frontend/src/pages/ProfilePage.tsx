@@ -203,7 +203,7 @@ const ProfilePage = () => {
                   type="text"
                   id="github"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
-                  placeholder="Enter Github username"
+                  placeholder="Github Url"
                   value={userDetails.githubUrl}
                   onChange={(e) => {
                     setUserDetails({
@@ -231,7 +231,7 @@ const ProfilePage = () => {
                   type="text"
                   id="linkdin"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
-                  placeholder="@linkdinId"
+                  placeholder="Linkdin Url"
                   value={userDetails.linkedinUrl}
                   onChange={(e) => {
                     setUserDetails({
@@ -259,7 +259,7 @@ const ProfilePage = () => {
                   type="text"
                   id="twitter"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
-                  placeholder="@twitter"
+                  placeholder="Twitter url"
                   value={userDetails.twitterUrl}
                   onChange={(e) => {
                     setUserDetails({

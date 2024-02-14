@@ -8,7 +8,15 @@ import {
 } from "@/components/ui/tooltip";
 import { useUserDetails } from "@/utils/store";
 import axios from "axios";
-import { AtSign, CheckCircle, Mail, Trash2 } from "lucide-react";
+import {
+  AtSign,
+  CheckCircle,
+  Github,
+  Linkedin,
+  Mail,
+  Trash2,
+} from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -51,8 +59,8 @@ const StudentProfilePage = () => {
 
   return (
     <div className="w-full h-fit pl-[1.5rem] sm:pl-[2rem] md:pl-[6rem] pt-[2rem] overflow-y-scroll py-8">
-      <div className="w-full flex justify-between pr-10">
-        <h1 className="text-5xl font-semibold uppercase">
+      <div className="w-full flex justify-between max-md:mt-10 pr-10">
+        <h1 className="text-3xl sm:text-5xl font-semibold uppercase">
           {studentDetails?.name}
         </h1>
         {user.role == "admin" && (
@@ -73,8 +81,8 @@ const StudentProfilePage = () => {
           </TooltipProvider>
         )}
       </div>
-      <div className="w-full h-full mt-8">
-        <div className="flex w-full gap-10 flex-wrap">
+      <div className="w-full h-fit mt-8">
+        <div className="flex max-md:flex-col w-full gap-10 flex-wrap">
           {/* Full Name */}
           <div className="flex flex-col font-zyada">
             {!loading ? (
@@ -97,7 +105,7 @@ const StudentProfilePage = () => {
             )}
           </div>
           {/* userName */}
-          <div className="flex flex-col font-zyada">
+          <div className="flex flex-col font-zyada max-md:-mt-10">
             {!loading ? (
               <>
                 <label
@@ -146,14 +154,14 @@ const StudentProfilePage = () => {
             {!loading ? (
               <>
                 <label
-                  htmlFor="email"
+                  htmlFor="submission"
                   className="font-bold text-2xl gap-1 items-center flex"
                 >
                   Total Test Submissions
                   <CheckCircle className="size-4 mb-2" />
                 </label>
                 <span
-                  id="email"
+                  id="submission"
                   className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none"
                 >
                   {studentDetails?.submissions.length}
@@ -163,6 +171,79 @@ const StudentProfilePage = () => {
               <InputLabel />
             )}
           </div>
+          {/* Current Rank */}
+          <div className="flex flex-col font-zyada">
+            {!loading ? (
+              <>
+                <label
+                  htmlFor="rank"
+                  className="font-bold text-2xl gap-1 items-center flex"
+                >
+                  Rank
+                  {/* <CheckCircle className="size-4 mb-2" /> */}
+                </label>
+                <span
+                  id="rank"
+                  className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none"
+                >
+                  {1}
+                </span>
+              </>
+            ) : (
+              <InputLabel />
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="w-full h-fit mt-14">
+        <h1 className="uppercase text-5xl font-semibold">Visit Social Links</h1>
+        <div className="flex mt-6">
+          <TooltipProvider>
+            <div className="flex gap-8">
+              {
+                <Tooltip delayDuration={1}>
+                  <TooltipTrigger>
+                    <a href={studentDetails?.githubUrl}>
+                      <button className="hover:bg-gray-100 rounded-full h-12 w-12 flex justify-center items-center transition-colors duration-300">
+                        <Github className="size-8" />
+                      </button>
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>GitHub</p>
+                  </TooltipContent>
+                </Tooltip>
+              }
+              {
+                <Tooltip delayDuration={1}>
+                  <TooltipTrigger>
+                    <a href={studentDetails?.linkedinUrl}>
+                      <button className="hover:bg-gray-100 rounded-full h-12 w-12 flex justify-center items-center transition-colors duration-300">
+                        <Linkedin className="size-8" />
+                      </button>
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Linkdin</p>
+                  </TooltipContent>
+                </Tooltip>
+              }
+              {
+                <Tooltip delayDuration={1}>
+                  <TooltipTrigger>
+                    <a href={studentDetails?.twitterUrl}>
+                      <button className="hover:bg-gray-100 rounded-full h-12 w-12 flex justify-center items-center transition-colors duration-300">
+                        <FaXTwitter className="size-8" />
+                      </button>
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Twitter</p>
+                  </TooltipContent>
+                </Tooltip>
+              }
+            </div>
+          </TooltipProvider>
         </div>
       </div>
     </div>
