@@ -74,6 +74,7 @@ const TestsList = () => {
                         <TestDemoCard
                            _id={testt?._id}
                            startDate={testt?.startDate}
+                           time={testt?.time}
                            testName={testt?.subject}
                            description={testt?.description}
                            typeOfTestShowing={typeOfTestShowing}

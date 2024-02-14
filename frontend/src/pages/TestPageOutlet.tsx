@@ -24,8 +24,15 @@ const TestPageOutlet = () => {
    }, []);
 
    const currentDateTime = new Date();
-   const options = { timeZone: 'Asia/Kolkata', hour12: false };
+   const options = {
+      timeZone: 'Asia/Kolkata',
+      // year: 'numeric',
+      // month: '2-digit',
+      // day: '2-digit',
+      hour12: false,
+   };
    const indianTime = currentDateTime.toLocaleString('en-US', options);
+   const formattedDate = new Date(indianTime).toISOString().split('T')[0];
 
    const getTest = async () => {
       try {
@@ -46,7 +53,8 @@ const TestPageOutlet = () => {
 
    if (!test) return;
 
-   return test.endTime >= indianTime.slice(11, 16) ? (
+   return test?.startDate === formattedDate &&
+      indianTime.slice(11, 16) <= test?.endTime ? (
       <GiveTest test={test} />
    ) : (
       <TestInfo />

@@ -26,17 +26,18 @@ export type TestType = {
 };
 
 const GiveTest = ({ test }: { test: TestType }) => {
-   console.log(test);
-
-   const [current, setCurrent] = useState(1);
+   const [testResponse, setTestResponse] = useState<number[]>([]);
+   const [current, setCurrent] = useState(0);
 
    const handlePrev = () => {
-      current !== 1 && setCurrent((c) => c - 1);
+      current !== 0 && setCurrent((c) => c - 1);
    };
 
    const handleNext = () => {
-      current !== 10 && setCurrent((c) => c + 1);
+      current !== test?.questions?.length - 1 && setCurrent((c) => c + 1);
    };
+
+   const handleSubmit = () => {};
 
    return (
       <div className='w-full h-full pl-[6rem] pt-[2rem] flex flex-col gap-4'>
@@ -46,25 +47,33 @@ const GiveTest = ({ test }: { test: TestType }) => {
          </div>
          {/* Progress */}
          <div className='mt-6 text-lg font-bold font-mono'>
-            <div>Question {current} of 10</div>
+            <div>
+               Question {current + 1} of {test?.questions?.length}
+            </div>
          </div>
          {/* Question */}
          <div>
-            {test?.questions?.map((question) => (
-               <QuestionCard question={question} />
-            ))}
+            <QuestionCard
+               question={test?.questions[current]}
+               current={current}
+               testResponse={testResponse}
+               setTestResponse={setTestResponse}
+            />
          </div>
          {/* Pagination */}
          <div className='w-[90%] flex gap-10 items-start justify-start'>
             <button
-               disabled={current === 1}
+               disabled={current === 0}
                className='h-fit hover:bg-white hover:text-black border-black hover:border transition-all duration-300 p-2 px-6 bg-[#0f0f0f] text-white rounded-md text-xl disabled:cursor-not-allowed'
                onClick={handlePrev}
             >
                Prev
             </button>
-            {current === 10 ? (
-               <button className='h-fit hover:bg-white  hover:text-black border-black hover:border transition-all duration-300 p-2 px-6 bg-[#0f0f0f] text-white rounded-md text-xl'>
+            {current === test?.questions?.length - 1 ? (
+               <button
+                  className='h-fit hover:bg-white  hover:text-black border-black hover:border transition-all duration-300 p-2 px-6 bg-[#0f0f0f] text-white rounded-md text-xl'
+                  onClick={handleSubmit}
+               >
                   Submit
                </button>
             ) : (
