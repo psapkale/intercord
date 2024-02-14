@@ -48,6 +48,7 @@ const ProfilePage = () => {
         }
       );
 
+      // updating user details in zustand store!
       setUserDetails({
         ...data?.data?.user,
         usernameNew: data?.data?.user?.username,
