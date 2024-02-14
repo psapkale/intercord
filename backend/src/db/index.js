@@ -14,11 +14,22 @@ conn.on("error", (err) => {
   console.log("Error in MongoDb ", err);
 });
 
+const AnnouncmentSchema = mongoose.Schema({
+  title: String,
+  description: String,
+  seen: {
+    type: Boolean,
+    default: false,
+  },
+  creator: String,
+});
+
 const AdminSchema = new mongoose.Schema({
   name: String,
   username: String,
   email: String,
   password: String,
+  announcements: [AnnouncmentSchema],
 });
 
 const TeacherSchema = new mongoose.Schema({
@@ -32,6 +43,7 @@ const TeacherSchema = new mongoose.Schema({
       ref: "Test",
     },
   ],
+  announcements: [AnnouncmentSchema],
 });
 
 const StudentSubmissionsSchema = new mongoose.Schema({
@@ -58,6 +70,7 @@ const StudentSchema = new mongoose.Schema({
   linkedinUrl: String,
   githubUrl: String,
   twitterUrl: String,
+  announcements: [AnnouncmentSchema],
   subjectScore: [
     {
       subject: String,
@@ -137,5 +150,6 @@ const Teacher = mongoose.model("Teacher", TeacherSchema);
 const Student = mongoose.model("Student", StudentSchema);
 const Test = mongoose.model("Test", TestSchema);
 const Score = mongoose.model("Score", ScoreSchema);
+const Announcment = mongoose.model("Announcment", AnnouncmentSchema);
 
-export { Admin, Teacher, Student, Test, Score };
+export { Admin, Teacher, Student, Test, Score, Announcment };

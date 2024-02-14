@@ -59,6 +59,7 @@ const Login = () => {
         });
       }
 
+      console.log(response?.data);
       toast.success(response?.data?.message);
 
       //  get token from response.data.token
