@@ -3,6 +3,7 @@ import QuestionCard from './QuestionCard';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { useUserDetails } from '@/utils/store';
+import { useNavigate } from 'react-router-dom';
 
 export type QuestionType = {
    question: string;
@@ -30,6 +31,7 @@ export type TestType = {
 };
 
 const GiveTest = ({ test }: { test: TestType }) => {
+   const navigate = useNavigate();
    const user = useUserDetails((state) => state.user);
    const [testResponse, setTestResponse] = useState<number[]>(
       Array(test?.questions?.length).fill(-1)
@@ -68,7 +70,6 @@ const GiveTest = ({ test }: { test: TestType }) => {
                `http://localhost:3000/api/student/test/${test?._id}`,
                {
                   submittedAnswersIndex: testResponse,
-                  marksObtained: 99,
                },
                {
                   headers: {
@@ -78,6 +79,7 @@ const GiveTest = ({ test }: { test: TestType }) => {
             );
 
             toast.success(res?.data?.message);
+            navigate('/dashboard/test');
          } catch (e: any) {
             toast.error(e?.response?.data?.message);
          }

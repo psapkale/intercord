@@ -68,44 +68,44 @@ const TestDemoCard = ({
                 </Tooltip>
               )}
 
-              {/* {typeOfTestShowing === 'live' && ( */}
-              <Link to={`${_id}`}>
-                <Tooltip delayDuration={1}>
-                  <TooltipTrigger>
-                    <button className="cursor-pointer">
-                      <ArrowUpLeftFromCircle
-                        className={
-                          "mt-[0.3rem] size-4  text-gray-500 hover:text-black transition-colors duration-200"
-                        }
-                      />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Start Test</p>
-                  </TooltipContent>
-                </Tooltip>
-              </Link>
-              {/* )} */}
-            </TooltipProvider>
-          </div>
-        </div>
-        <div className="w-full line-clamp-4 text-gray-500">
-          <p>{description}</p>
-        </div>
+                     {/* {typeOfTestShowing === 'live' && ( */}
+                     <Link to={`${_id}`}>
+                        <Tooltip delayDuration={1}>
+                           <TooltipTrigger>
+                              <button className='cursor-pointer'>
+                                 <ArrowUpLeftFromCircle
+                                    className={
+                                       'mt-[0.3rem] size-4  text-gray-500 hover:text-black transition-colors duration-200'
+                                    }
+                                 />
+                              </button>
+                           </TooltipTrigger>
+                           <TooltipContent>
+                              <p>Start Test</p>
+                           </TooltipContent>
+                        </Tooltip>
+                     </Link>
+                     {/* )} */}
+                  </TooltipProvider>
+               </div>
+            </div>
+            <div className='w-full line-clamp-4 text-gray-500'>
+               <p>{description}</p>
+            </div>
+         </div>
+         <div>
+            <div className='mt-2 flex items-center gap-2'>
+               <CalendarDays className='size-5' />
+               <p className='text-gray-600'>{startDate}</p>
+            </div>
+            <div className='mt-1 flex items-center gap-2'>
+               <Timer className='size-5' />
+               {/* <p className='text-gray-600'>10:20</p> */}
+               <p className='text-gray-600'>{time}</p>
+            </div>
+         </div>
       </div>
-      <div>
-        <div className="mt-2 flex items-center gap-2">
-          <CalendarDays className="size-5" />
-          <p className="text-gray-600">{startDate}</p>
-        </div>
-        <div className="mt-1 flex items-center gap-2">
-          <Timer className="size-5" />
-          {/* <p className='text-gray-600'>10:20</p> */}
-          <p className="text-gray-600">{time}</p>
-        </div>
-      </div>
-    </div>
-  );
+   );
 };
 
 export default TestDemoCard;

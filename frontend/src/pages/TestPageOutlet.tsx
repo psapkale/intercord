@@ -1,18 +1,11 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import GiveTest, { TestType } from './GiveTest';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import doneImg from './../assets/done1.jpg';
 import { useUserDetails } from '@/utils/store';
 import { toast } from 'react-hot-toast';
 import TestInfo from './TestInfo';
-
-// type TestType = {
-//    readonly _id: string;
-//    subject: string;
-//    description: string;
-//    startDate: string;
-//    endTime: string;
-// };
 
 const TestPageOutlet = () => {
    const user = useUserDetails((state) => state.user);
@@ -26,9 +19,6 @@ const TestPageOutlet = () => {
    const currentDateTime = new Date();
    const options = {
       timeZone: 'Asia/Kolkata',
-      // year: 'numeric',
-      // month: '2-digit',
-      // day: '2-digit',
       hour12: false,
    };
    const indianTime = currentDateTime.toLocaleString('en-US', options);
@@ -51,10 +41,18 @@ const TestPageOutlet = () => {
       }
    };
 
-   if (!test) return;
-
-   return test?.startDate === formattedDate &&
-      indianTime.slice(11, 16) <= test?.endTime ? (
+   return !test ? (
+      <div className='w-full h-full flex flex-col items-center justify-start'>
+         <img src={doneImg} className='w-1/2 h-4/5' />
+         <h1 className='w-full text-center text-lg font-[400] font-mono'>
+            Review older tests{' '}
+            <Link className='underline' to={'/dashboard/test'}>
+               here
+            </Link>
+         </h1>
+      </div>
+   ) : test?.startDate === formattedDate &&
+     indianTime.slice(11, 16) <= test?.endTime ? (
       <GiveTest test={test} />
    ) : (
       <TestInfo />
