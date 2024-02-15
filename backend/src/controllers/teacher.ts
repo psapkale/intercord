@@ -95,3 +95,22 @@ export const createTest = async (req: Request, res: Response) => {
     res.status(500);
   }
 };
+
+export const updateSeenTeacher = async (req: Request, res: Response) => {
+  const { username } = res.locals;
+  try {
+    await Teacher.updateOne(
+      {
+        username,
+      },
+      {
+        $set: { "announcements.$[].seen": true },
+      }
+    );
+    res.status(200).json({
+      message: "All Seen Successfully",
+    });
+  } catch (error) {
+    console.log(error, "Error in student updateSeen route");
+  }
+};

@@ -1,13 +1,15 @@
+import { SocketContext } from "@/context/SocketContext";
 import { useUserDetails } from "@/utils/store";
 import axios from "axios";
 import { BellRing } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 
 const CreateAnnuncment = () => {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const user = useUserDetails((state) => state.user);
+  const { socket } = useContext(SocketContext);
   const updateAnnouncement = useUserDetails(
     (state) => state.updateAnnouncement
   );
@@ -30,7 +32,12 @@ const CreateAnnuncment = () => {
       );
 
       toast.success(data?.data?.message);
-      updateAnnouncement(data?.data?.announcment);
+      socket.emit("announcement", {
+        title,
+        description,
+        creator: user.name,
+        seen: false,
+      });
       setTitle("");
       setDescription("");
     } catch (error) {

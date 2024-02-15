@@ -8,6 +8,7 @@ import {
   studentLogin,
   studentRegister,
   testSubmission,
+  updateSeenStudent,
   updateStudentProfile,
 } from "../controllers/student";
 const router = Router();
@@ -23,5 +24,6 @@ router.post("/bookmark", studentMiddleware, bookMarkTest);
 router.get("/allbookmarktest", studentMiddleware, getAllBookMarkTest);
 router.get("/studentdetails/:username", studentMiddleware, getStudentDetails);
 router.put("/updateprofile", studentMiddleware, updateStudentProfile);
+router.put("/updateseen", studentMiddleware, updateSeenStudent);
 
 export { router };
