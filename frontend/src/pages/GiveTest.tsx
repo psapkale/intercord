@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import QuestionCard from './QuestionCard';
 import { toast } from 'react-hot-toast';
+import axios from 'axios';
+import { useUserDetails } from '@/utils/store';
 
 export type QuestionType = {
    question: string;
@@ -14,6 +16,7 @@ type SubmissionType = {
 };
 
 export type TestType = {
+   _id: string;
    subject: string;
    description: string;
    questions: QuestionType[];
@@ -27,28 +30,58 @@ export type TestType = {
 };
 
 const GiveTest = ({ test }: { test: TestType }) => {
-   const [testResponse, setTestResponse] = useState<number[]>([]);
+   const user = useUserDetails((state) => state.user);
+   const [testResponse, setTestResponse] = useState<number[]>(
+      Array(test?.questions?.length).fill(-1)
+   );
    const [current, setCurrent] = useState(0);
 
    const handlePrev = () => {
-      current !== 0 && setCurrent((c) => c - 1);
+      if (current !== 0) {
+         toast.error('Ab iska answer wapis de');
+         setCurrent((c) => c - 1);
+      }
    };
+
+   console.log(testResponse);
 
    const handleNext = () => {
-      testResponse[current]
-         ? current !== test?.questions?.length - 1 && setCurrent((c) => c + 1)
-         : toast.error('Answer is mandatory');
+      current !== test?.questions?.length - 1 && setCurrent((c) => c + 1);
    };
 
-   // console.log(testResponse);
+   const handleSubmit = async () => {
+      const cl = testResponse?.find((res, i) => {
+         if (res === -1) {
+            toast.error('Bro, wtf! Iska answer kon dega');
+            setCurrent(i);
+            return true;
+         }
+         return false;
+      });
 
-   const handleSubmit = () => {
-      //    testResponse.map((res, i) => {
-      //       if (!res) {
-      //          toast.error('Answer is mandatory');
-      //          setCurrent(i);
-      //       }
-      //    });
+      // 'cl' will be undefined when all answers are filled
+      if (!cl) {
+         // further steps
+
+         try {
+            const res = await axios.post(
+               `http://localhost:3000/api/student/test/${test?._id}`,
+               {
+                  submittedAnswersIndex: testResponse,
+                  marksObtained: 99,
+               },
+               {
+                  headers: {
+                     Authorization: `Bearer ${user.token}`,
+                  },
+               }
+            );
+
+            toast.success(res?.data?.message);
+         } catch (e: any) {
+            toast.error(e?.response?.data?.message);
+         }
+      }
    };
 
    return (
