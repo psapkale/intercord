@@ -80,7 +80,11 @@ const TestDemoCard = ({
                               </button>
                            </TooltipTrigger>
                            <TooltipContent>
-                              <p>Start Test</p>
+                              <p>
+                                 {typeOfTestShowing === 'live'
+                                    ? 'Start Test'
+                                    : 'Review'}
+                              </p>
                            </TooltipContent>
                         </Tooltip>
                      </Link>

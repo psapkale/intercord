@@ -41,21 +41,18 @@ const TestPageOutlet = () => {
       }
    };
 
-   if (!test)
-      return (
-         <div className='w-full h-full flex flex-col items-center justify-start'>
-            <img src={doneImg} className='w-1/2 h-4/5' />
-            <h1 className='w-full text-center text-lg font-[400] font-mono'>
-               Review older tests{' '}
-               <Link className='underline' to={'/dashboard/test'}>
-                  here
-               </Link>
-            </h1>
-         </div>
-      );
-
-   return test?.startDate === formattedDate &&
-      indianTime.slice(11, 16) <= test?.endTime ? (
+   return !test ? (
+      <div className='w-full h-full flex flex-col items-center justify-start'>
+         <img src={doneImg} className='w-1/2 h-4/5' />
+         <h1 className='w-full text-center text-lg font-[400] font-mono'>
+            Review older tests{' '}
+            <Link className='underline' to={'/dashboard/test'}>
+               here
+            </Link>
+         </h1>
+      </div>
+   ) : test?.startDate === formattedDate &&
+     indianTime.slice(11, 16) <= test?.endTime ? (
       <GiveTest test={test} />
    ) : (
       <TestInfo />
