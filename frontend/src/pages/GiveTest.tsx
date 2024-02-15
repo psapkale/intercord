@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import QuestionCard from './QuestionCard';
+import { toast } from 'react-hot-toast';
 
 export type QuestionType = {
    question: string;
@@ -34,10 +35,21 @@ const GiveTest = ({ test }: { test: TestType }) => {
    };
 
    const handleNext = () => {
-      current !== test?.questions?.length - 1 && setCurrent((c) => c + 1);
+      testResponse[current]
+         ? current !== test?.questions?.length - 1 && setCurrent((c) => c + 1)
+         : toast.error('Answer is mandatory');
    };
 
-   const handleSubmit = () => {};
+   // console.log(testResponse);
+
+   const handleSubmit = () => {
+      //    testResponse.map((res, i) => {
+      //       if (!res) {
+      //          toast.error('Answer is mandatory');
+      //          setCurrent(i);
+      //       }
+      //    });
+   };
 
    return (
       <div className='w-full h-full pl-[6rem] pt-[2rem] flex flex-col gap-4'>

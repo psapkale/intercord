@@ -23,13 +23,18 @@ const QuestionCard = ({
             {question?.question}
          </div>
          {/* options */}
-         <div className='w-[90%] h-[70%] grid grid-cols-1 gap-4 '>
-            <select multiple required onChange={handleSelect}>
+         <div className='w-[90%] h-[70%] '>
+            <select
+               multiple
+               required
+               defaultValue={Array(question?.options?.length).fill(-1)}
+               onChange={handleSelect}
+               className='w-[90%] h-[70%] my-2 grid grid-cols-1 gap-4'
+            >
                {question?.options?.map((option, i) => {
                   // selected is still not working
                   return (
                      <option
-                        selected
                         value={i + 1}
                         key={i}
                         className='h-fit p-2 text-start hover:bg-green-500 border-black transition-all duration-300 border bg-white text-black rounded-md text-[15px] font-bold font-mono cursor-pointer'
