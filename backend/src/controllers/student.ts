@@ -119,6 +119,7 @@ export const getMyTests = async (req: Request, res: Response) => {
 
 export const getTestById = async (req: Request, res: Response) => {
   const { testId } = req.params;
+  const { username } = res.locals;
 
   if (!testId) {
     return res.status(400).json({
@@ -134,6 +135,18 @@ export const getTestById = async (req: Request, res: Response) => {
     });
   }
 
+  const student: StudentType | null = await Student.findOne({ username });
+
+  const isRepeat = test?.submissions?.find(
+    (submission) => String(student?._id) == String(submission?.submittedBy)
+  );
+
+  if (isRepeat) {
+    return res.status(400).json({
+      message: "Response already submitted",
+    });
+  }
+
   res.status(200).json({
     message: "Done Successfully",
     test,
@@ -142,7 +155,8 @@ export const getTestById = async (req: Request, res: Response) => {
 
 export const testSubmission = async (req: Request, res: Response) => {
   const { testId } = req.params;
-  const { submittedAnswersIndex, marksObtained } = req.body; // from frontend
+  const { submittedAnswersIndex } = req.body; // from frontend
+  let marksObtained = 0;
   const { username } = res.locals;
 
   if (!testId) {
@@ -151,22 +165,29 @@ export const testSubmission = async (req: Request, res: Response) => {
     });
   }
 
+  if (!submittedAnswersIndex) {
+    return res.status(400).json({
+      message: "Please provide test response",
+    });
+  }
+
   let student: StudentType | null = await Student.findOne({ username });
 
-  const test: TestType | null = await Test.findOneAndUpdate(
-    { _id: testId },
-    {
-      $push: {
-        submissions: {
-          submittedBy: student._id,
-          obtainedMarks: marksObtained,
-        },
-      },
-    },
-    {
-      new: true,
+  const test: TestType | null = await Test.findOne({ _id: testId });
+
+  const marksPerQuestion = test?.questions?.length / test?.totalMarks;
+  test?.questions?.map((question, i) => {
+    if (question?.answerIndex === submittedAnswersIndex[i]) {
+      marksObtained += marksPerQuestion;
     }
-  );
+  });
+
+  test?.submissions?.push({
+    submittedBy: student?._id,
+    obtainedMarks: marksObtained,
+  });
+
+  await test?.save();
 
   student = await Student.findOneAndUpdate(
     { username },
@@ -341,6 +362,7 @@ export const getStudentDetails = async (req: Request, res: Response) => {
     username: username,
   });
 
+  console.log(student);
   if (!student) {
     return res.status(500).json({
       message: "Student not found",
