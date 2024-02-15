@@ -9,6 +9,7 @@ export type TestType = {
    subject: string;
    description: string;
    startDate: string;
+   time: string;
    endTime: string;
 };
 
