@@ -68,7 +68,6 @@ const GiveTest = ({ test }: { test: TestType }) => {
                `http://localhost:3000/api/student/test/${test?._id}`,
                {
                   submittedAnswersIndex: testResponse,
-                  marksObtained: 99,
                },
                {
                   headers: {
