@@ -5,6 +5,7 @@ import {
   createTeacher,
   removeStudent,
   removeTeacher,
+  updateSeenAdmin,
 } from "../controllers/admin";
 import { adminMiddleware } from "../middlewares/admin";
 import { createAnnouncment } from "../controllers";
@@ -16,6 +17,7 @@ router.post("/create-teacher", adminMiddleware, createTeacher);
 router.post("/remove-teacher/:username", adminMiddleware, removeTeacher);
 router.post("/remove-student/:username", adminMiddleware, removeStudent);
 router.post("/create-announcment", adminMiddleware, createAnnouncment);
+router.put("/updateseen", adminMiddleware, updateSeenAdmin);
 
 // temporary route
 // router.post("/createadmin", createAdmin);

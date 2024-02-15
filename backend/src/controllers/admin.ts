@@ -156,3 +156,22 @@ export const createAdmin = async (req: Request, res: Response) => {
     admin,
   });
 };
+
+export const updateSeenAdmin = async (req: Request, res: Response) => {
+  const { username } = res.locals;
+  try {
+    await Teacher.updateOne(
+      {
+        username,
+      },
+      {
+        $set: { "announcements.$[].seen": true },
+      }
+    );
+    res.status(200).json({
+      message: "All Seen Successfully",
+    });
+  } catch (error) {
+    console.log(error, "Error in student updateSeen route");
+  }
+};

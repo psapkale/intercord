@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { createTest, teacherLogin } from "../controllers/teacher";
+import {
+  createTest,
+  teacherLogin,
+  updateSeenTeacher,
+} from "../controllers/teacher";
 import { teacherMiddleware } from "../middlewares/teacher";
 import { createAnnouncment } from "../controllers";
 const router = Router();
@@ -8,5 +12,6 @@ const router = Router();
 router.post("/login", teacherLogin);
 router.post("/create-test", teacherMiddleware, createTest);
 router.post("/create-announcment", teacherMiddleware, createAnnouncment);
+router.put("/updateseen", teacherMiddleware, updateSeenTeacher);
 
 export { router };

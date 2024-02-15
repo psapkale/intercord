@@ -341,7 +341,6 @@ export const getStudentDetails = async (req: Request, res: Response) => {
     username: username,
   });
 
-  console.log(student);
   if (!student) {
     return res.status(500).json({
       message: "Student not found",
@@ -352,4 +351,23 @@ export const getStudentDetails = async (req: Request, res: Response) => {
     message: "Student Found Successfully",
     student,
   });
+};
+
+export const updateSeenStudent = async (req: Request, res: Response) => {
+  const { username } = res.locals;
+  try {
+    await Student.updateOne(
+      {
+        username,
+      },
+      {
+        $set: { "announcements.$[].seen": true },
+      }
+    );
+    res.status(200).json({
+      message: "All Seen Successfully",
+    });
+  } catch (error) {
+    console.log(error, "Error in student updateSeen route");
+  }
 };

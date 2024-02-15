@@ -56,6 +56,7 @@ type UserDetailsFnType = {
   removeFromBookMark: (_id: string) => void;
   updateprofile: (user1: updateProfileDetails) => void;
   updateAnnouncement: (announcement: Announcment) => void;
+  handleAllSeenZustand: () => void;
 };
 
 export type updateProfileDetails = {
@@ -150,6 +151,16 @@ export const useUserDetails = create<UserDetailsFnType>((set) => {
         state.user.announcements.push(announcement);
         sessionStorage.removeItem("userDetails");
         sessionStorage.setItem("userDetails", JSON.stringify(state.user));
+        return {
+          user: state.user,
+        };
+      }),
+
+    handleAllSeenZustand: () =>
+      set((state) => {
+        state.user.announcements.map((ann) => {
+          ann.seen = true;
+        });
         return {
           user: state.user,
         };
