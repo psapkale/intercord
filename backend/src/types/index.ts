@@ -41,6 +41,7 @@ export interface TestType {
    createdAt: Date;
    submissions: TestSubmissionType[];
    totalMarks: number;
+   save: () => Promise<Document>;
 }
 
 interface SubjectScoreType {
