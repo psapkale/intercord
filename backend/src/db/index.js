@@ -37,11 +37,6 @@ const TeacherSchema = new mongoose.Schema({
   name: String,
   email: String,
   password: String,
-  bookmark: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: "Test",
-    default: [],
-  },
   createdTests: [
     {
       type: mongoose.Schema.Types.ObjectId,
