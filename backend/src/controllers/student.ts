@@ -91,7 +91,6 @@ export const studentLogin = async (req: Request, res: Response) => {
     }
 
     const token = jwt.sign({ username }, process.env.JWT_SECRET);
-    console.log(student);
 
     res.status(200).json({
       student,
