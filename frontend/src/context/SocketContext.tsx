@@ -20,7 +20,6 @@ export const SocketContextProvider = ({ children }: any) => {
     });
 
     sockett.on("announcement", (announcement: any) => {
-      console.log(announcement, "Socket in frontend");
       updateAnnouncement(announcement);
     });
 
