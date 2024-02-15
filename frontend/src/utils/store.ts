@@ -55,6 +55,7 @@ type UserDetailsFnType = {
   bookmarkUpdate: (_id: string) => void;
   removeFromBookMark: (_id: string) => void;
   updateprofile: (user1: updateProfileDetails) => void;
+  updateAnnouncement: (announcement: Announcment) => void;
 };
 
 export type updateProfileDetails = {
@@ -100,6 +101,8 @@ export const useUserDetails = create<UserDetailsFnType>((set) => {
     bookmarkUpdate: (_id: string) =>
       set((state) => {
         state.user.bookmark.push(_id);
+        sessionStorage.removeItem("userDetails");
+        sessionStorage.setItem("userDetails", JSON.stringify(state.user));
         return {
           user: state.user,
         };
@@ -109,6 +112,8 @@ export const useUserDetails = create<UserDetailsFnType>((set) => {
       set((state) => {
         const indexOfTestId = state.user.bookmark.indexOf(_id);
         state.user.bookmark.splice(indexOfTestId, 1);
+        sessionStorage.removeItem("userDetails");
+        sessionStorage.setItem("userDetails", JSON.stringify(state.user));
         return {
           user: state.user,
         };
@@ -116,6 +121,18 @@ export const useUserDetails = create<UserDetailsFnType>((set) => {
 
     updateprofile: (user1: updateProfileDetails) =>
       set((state) => {
+        sessionStorage.removeItem("userDetails");
+        sessionStorage.setItem(
+          "userDetails",
+          JSON.stringify({
+            ...user1,
+            _id: state.user._id,
+            role: state.user.role,
+            bookmark: state.user.bookmark,
+            token: state.user.token,
+            announcements: state.user.announcements,
+          })
+        );
         return {
           user: {
             ...user1,
@@ -125,6 +142,16 @@ export const useUserDetails = create<UserDetailsFnType>((set) => {
             token: state.user.token,
             announcements: state.user.announcements,
           },
+        };
+      }),
+
+    updateAnnouncement: (announcement: Announcment) =>
+      set((state) => {
+        state.user.announcements.push(announcement);
+        sessionStorage.removeItem("userDetails");
+        sessionStorage.setItem("userDetails", JSON.stringify(state.user));
+        return {
+          user: state.user,
         };
       }),
   };
