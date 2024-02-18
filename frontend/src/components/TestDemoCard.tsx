@@ -1,71 +1,72 @@
 import {
-   ArrowUpLeftFromCircle,
-   Bookmark,
-   CalendarDays,
-   Timer,
-} from 'lucide-react';
+  ArrowUpLeftFromCircle,
+  Bookmark,
+  CalendarDays,
+  Timer,
+} from "lucide-react";
 import {
-   Tooltip,
-   TooltipContent,
-   TooltipProvider,
-   TooltipTrigger,
-} from './ui/tooltip';
-import { useUserDetails } from '@/utils/store';
-import { Link } from 'react-router-dom';
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
+import { useUserDetails } from "@/utils/store";
+import { Link } from "react-router-dom";
 
 const TestDemoCard = ({
-   handelBookmark,
-   typeOfTestShowing,
-   testName = '',
-   description = '',
-   startDate = '',
-   time = '',
-   _id,
+  handelBookmark,
+  typeOfTestShowing,
+  testName = "",
+  description = "",
+  startDate = "",
+  time = "",
+  _id,
 }: {
-   _id: string;
-   typeOfTestShowing: string;
-   handelBookmark: (_id: string) => void;
-   testName: string;
-   description: string;
-   startDate: string;
-   time: string;
+  _id: string;
+  typeOfTestShowing: string;
+  handelBookmark: (_id: string) => void;
+  testName: string;
+  description: string;
+  startDate: string;
+  time: string;
 }) => {
-   const bookmark = useUserDetails((state) => state.user.bookmark);
+  const { user } = useUserDetails();
+  console.log(user.bookmark);
 
-   return (
-      <div className='flex flex-col justify-between h-[13rem] px-2 border-2 shadow-md hover:shadow-lg transition-shadow duration-200 py-2 rounded-md'>
-         <div>
-            <div className='flex w-full justify-between'>
-               <p className='text-xl uppercase font-semibold'>{testName}</p>
-               <div className='flex items-center gap-2'>
-                  <TooltipProvider>
-                     {typeOfTestShowing == 'closed' && (
-                        <Tooltip delayDuration={1}>
-                           <TooltipTrigger>
-                              {bookmark?.includes(_id) ? (
-                                 <Bookmark
-                                    strokeWidth={1.5}
-                                    fill='black'
-                                    className='size-5 cursor-pointer hover:text-black transition-colors duration-200'
-                                    onClick={() => {
-                                       handelBookmark(_id);
-                                    }}
-                                 />
-                              ) : (
-                                 <Bookmark
-                                    strokeWidth={1.5}
-                                    className='size-5 cursor-pointer text-gray-500 hover:text-black transition-colors duration-200'
-                                    onClick={() => {
-                                       handelBookmark(_id);
-                                    }}
-                                 />
-                              )}
-                           </TooltipTrigger>
-                           <TooltipContent>
-                              <p>bookmark</p>
-                           </TooltipContent>
-                        </Tooltip>
-                     )}
+  return (
+    <div className="flex flex-col justify-between h-[13rem] px-2 border-2 shadow-md hover:shadow-lg transition-shadow duration-200 py-2 rounded-md">
+      <div>
+        <div className="flex w-full justify-between">
+          <p className="text-xl uppercase font-semibold">{testName}</p>
+          <div className="flex items-center gap-2">
+            <TooltipProvider>
+              {typeOfTestShowing == "closed" && (
+                <Tooltip delayDuration={1}>
+                  <TooltipTrigger>
+                    {user.bookmark?.includes(_id) ? (
+                      <Bookmark
+                        strokeWidth={1.5}
+                        fill="black"
+                        className="size-5 cursor-pointer hover:text-black transition-colors duration-200"
+                        onClick={() => {
+                          handelBookmark(_id);
+                        }}
+                      />
+                    ) : (
+                      <Bookmark
+                        strokeWidth={1.5}
+                        className="size-5 cursor-pointer text-gray-500 hover:text-black transition-colors duration-200"
+                        onClick={() => {
+                          handelBookmark(_id);
+                        }}
+                      />
+                    )}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>bookmark</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
 
                      {/* {typeOfTestShowing === 'live' && ( */}
                      <Link to={`${_id}`}>
@@ -80,11 +81,7 @@ const TestDemoCard = ({
                               </button>
                            </TooltipTrigger>
                            <TooltipContent>
-                              <p>
-                                 {typeOfTestShowing === 'live'
-                                    ? 'Start Test'
-                                    : 'Review'}
-                              </p>
+                              <p>Start Test</p>
                            </TooltipContent>
                         </Tooltip>
                      </Link>
