@@ -41,6 +41,8 @@ const TestPageOutlet = () => {
       }
    };
 
+   console.log(test);
+
    return !test ? (
       <div className='w-full h-full flex flex-col items-center justify-start'>
          <img src={doneImg} className='w-1/2 h-4/5' />
@@ -55,7 +57,7 @@ const TestPageOutlet = () => {
      indianTime.slice(11, 16) <= test?.endTime ? (
       <GiveTest test={test} />
    ) : (
-      <TestInfo />
+      <TestInfo test={test} />
    );
 };
 

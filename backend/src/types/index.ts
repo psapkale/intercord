@@ -39,6 +39,8 @@ export interface TestType {
    questions: QuestionType[];
    createdBy: ObjectId | string | null;
    createdAt: Date;
+   startDate: string;
+   endTime: string;
    submissions: TestSubmissionType[];
    totalMarks: number;
    save: () => Promise<Document>;
