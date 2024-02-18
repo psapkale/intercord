@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import QuestionCard from './QuestionCard';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
@@ -37,10 +37,10 @@ const GiveTest = ({ test }: { test: TestType }) => {
       Array(test?.questions?.length).fill(-1)
    );
    const [current, setCurrent] = useState(0);
+   let timerRef = useRef<NodeJS.Timeout | null>(null);
 
    const handlePrev = () => {
       if (current !== 0) {
-         toast.error('Ab iska answer wapis de');
          setCurrent((c) => c - 1);
       }
    };
@@ -48,7 +48,14 @@ const GiveTest = ({ test }: { test: TestType }) => {
    console.log(testResponse);
 
    const handleNext = () => {
-      current !== test?.questions?.length - 1 && setCurrent((c) => c + 1);
+      if (timerRef.current) {
+         clearTimeout(timerRef.current);
+      }
+
+      // still sometimes select does not get updated
+      timerRef.current = setTimeout(() => {
+         current !== test?.questions?.length - 1 && setCurrent((c) => c + 1);
+      }, 350);
    };
 
    const handleSubmit = async () => {
