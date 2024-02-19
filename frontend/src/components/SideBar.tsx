@@ -58,6 +58,7 @@ const SideBar = ({
               onClick={() => {
                 RemoveActive();
                 handleOnClick();
+                setShowSearchOptions(false);
               }}
               id="account"
             >
@@ -75,6 +76,7 @@ const SideBar = ({
               onClick={() => {
                 RemoveActive();
                 handleOnClick();
+                setShowSearchOptions(false);
               }}
               id="leaderboard"
             >
@@ -92,6 +94,7 @@ const SideBar = ({
               onClick={() => {
                 RemoveActive();
                 handleOnClick();
+                setShowSearchOptions(false);
               }}
               id="tests"
             >
@@ -161,6 +164,7 @@ const SideBar = ({
               onClick={() => {
                 RemoveActive();
                 handleOnClick();
+                setShowSearchOptions(false);
               }}
               id="announcment"
             >
@@ -190,6 +194,7 @@ const SideBar = ({
               onClick={() => {
                 RemoveActive();
                 handleOnClick();
+                setShowSearchOptions(false);
               }}
               id="bookmark"
             >
@@ -208,6 +213,7 @@ const SideBar = ({
                 onClick={() => {
                   RemoveActive();
                   handleOnClick();
+                  setShowSearchOptions(false);
                 }}
               >
                 <PlusCircle className="w-4" />
@@ -226,6 +232,7 @@ const SideBar = ({
                 onClick={() => {
                   RemoveActive();
                   handleOnClick();
+                  setShowSearchOptions(false);
                 }}
                 id="tests"
               >
