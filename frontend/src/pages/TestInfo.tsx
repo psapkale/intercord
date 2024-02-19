@@ -2,10 +2,11 @@ import { useUserDetails } from '@/utils/store';
 import { TestType } from './GiveTest';
 
 const TestInfo = ({ test }: { test: TestType }) => {
-   console.log(test);
    const { user } = useUserDetails();
 
-   console.log(user);
+   const userSubmission = test?.submissions?.find(
+      (x) => x?.submittedBy === user?._id
+   );
 
    return (
       <div className='w-[90%] h-full pl-[6rem] pt-[2rem] flex flex-col'>
@@ -20,7 +21,9 @@ const TestInfo = ({ test }: { test: TestType }) => {
                <h1 className='text-[1.1rem] pl-1 font-mono'>
                   {test?.startDate}
                </h1>
-               <h1>'Marks obtained'/ {test?.totalMarks}</h1>
+               <h1>
+                  {userSubmission?.obtainedMarks} / {test?.totalMarks}
+               </h1>
             </div>
          </div>
          <div className='text-[1.5rem] font-mono'>{test?.description}</div>

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import QuestionCard from './QuestionCard';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
@@ -93,14 +93,54 @@ const GiveTest = ({ test }: { test: TestType }) => {
       }
    };
 
+   // const handle = useFullScreenHandle();
+
+   // useEffect(() => {
+   //    handle.enter();
+   // }, []);
+
+   const elementRef = useRef<HTMLDivElement | null>(null);
+
+   useEffect(() => {
+      elementRef?.current?.requestFullscreen();
+      const handleFullscreenChange = (e: any) => {
+         e.preventDefault();
+
+         if (!document.fullscreenElement) {
+            // Warn the user before exiting full screen.
+            toast('Are you sure you want to exit full screen mode?');
+         }
+      };
+      document.addEventListener('fullscreenchange', handleFullscreenChange);
+
+      return () => {
+         document.removeEventListener(
+            'fullscreenchange',
+            handleFullscreenChange
+         );
+      };
+   });
+
    return (
-      <div className='w-full h-full pl-[6rem] pt-[2rem] flex flex-col gap-4'>
+      // <FullScreen
+      //    handle={handle}
+      //    className='w-full h-full bg-white pl-[6rem] pt-[2rem] flex flex-col gap-4'
+      // >
+      <div
+         ref={elementRef}
+         className='w-full h-full bg-white pl-[6rem] pt-[2rem] flex flex-col gap-4'
+      >
          {/* Headerr */}
-         <div className='w-[96%] flex items-center justify-between'>
-            <h1 className='text-5xl font-bold font-mono'>Test</h1>
+         <div className='w-[96%] flex flex-col items-start'>
+            <h1 className='text-5xl font-bold font-mono'>
+               {test?.subject || 'Test'}
+            </h1>
+            <h1 className='text-xl font-[400] font-mono'>
+               {test?.description}
+            </h1>
          </div>
          {/* Progress */}
-         <div className='mt-6 text-lg font-bold font-mono'>
+         <div className='mt-2 text-lg font-bold font-mono'>
             <div>
                Question {current + 1} of {test?.questions?.length}
             </div>
@@ -140,6 +180,7 @@ const GiveTest = ({ test }: { test: TestType }) => {
             )}
          </div>
       </div>
+      // </FullScreen>
    );
 };
 

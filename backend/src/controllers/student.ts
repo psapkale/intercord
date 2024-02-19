@@ -187,7 +187,8 @@ export const testSubmission = async (req: Request, res: Response) => {
 
    const test: TestType | null = await Test.findOne({ _id: testId });
 
-   const marksPerQuestion = test?.questions?.length / test?.totalMarks;
+   const marksPerQuestion = test?.totalMarks / test?.questions?.length;
+
    test?.questions?.map((question, i) => {
       if (question?.answerIndex === submittedAnswersIndex[i]) {
          marksObtained += marksPerQuestion;
