@@ -18,7 +18,8 @@ router.post("/remove-teacher/:username", adminMiddleware, removeTeacher);
 router.post("/remove-student/:username", adminMiddleware, removeStudent);
 router.post("/create-announcment", adminMiddleware, createAnnouncment);
 router.put("/updateseen", adminMiddleware, updateSeenAdmin);
-router.delete("/deletestudent/:username", adminMiddleware, removeStudent);
+router.delete("/delete/student/:username", adminMiddleware, removeStudent);
+router.delete("/delete/teacher/:username", adminMiddleware, removeTeacher);
 
 // temporary route
 // router.post("/createadmin", createAdmin);

@@ -58,7 +58,7 @@ const StudentProfilePage = () => {
     setDeleteLoading(true);
     try {
       const data = await axios.delete(
-        `http://localhost:3000/api/admin/deletestudent/${id}`,
+        `http://localhost:3000/api/admin/delete/student/${id}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -68,7 +68,7 @@ const StudentProfilePage = () => {
 
       toast.success(data?.data?.message);
       setDeleteLoading(false);
-      navigate("/dashboard/search");
+      navigate("/dashboard/search/student");
     } catch (err) {
       console.log("Error in Hanlde Delete Student Page", err);
       setDeleteLoading(false);
