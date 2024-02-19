@@ -24,7 +24,7 @@ const StudentProfilePage = () => {
   const [loading, setLoading] = useState(false);
   const [studentDetails, setStudentDetails] = useState<StudentType>();
   const user = useUserDetails((state) => state.user);
-  const [isPopUpOpen, setIsPopUpOpen] = useState(true);
+  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
   const { id } = useParams();
