@@ -41,8 +41,6 @@ const TestPageOutlet = () => {
       }
    };
 
-   console.log(test);
-
    return !test ? (
       <div className='w-full h-full flex flex-col items-center justify-start'>
          <img src={doneImg} className='w-1/2 h-4/5' />
