@@ -1,8 +1,10 @@
 import { useUserDetails } from '@/utils/store';
 import { TestType } from './GiveTest';
+import { Link } from 'react-router-dom';
 
-const TestInfo = ({ test }: { test: TestType }) => {
+const TestInfo = ({ test, creator }: { test: TestType; creator: string }) => {
    const { user } = useUserDetails();
+   console.log(test);
 
    const userSubmission = test?.submissions?.find(
       (x) => x?.submittedBy === user?._id
@@ -15,7 +17,15 @@ const TestInfo = ({ test }: { test: TestType }) => {
                <h1 className='font-mono font-semibold text-[3rem] sm:text-[3.5rem]'>
                   {test?.subject}
                </h1>
-               <h1 className='text-[1.1rem] pl-1 font-mono'>created by</h1>
+               <div className='text-[1.1rem] pl-1 font-mono'>
+                  Created by:{' '}
+                  <Link
+                     to={`/dashboard/teacher/${creator}`}
+                     className='underline'
+                  >
+                     {creator}
+                  </Link>
+               </div>
             </div>
             <div className='text-[1.1rem] font-mono font-semibold flex flex-col items-start justify-start'>
                <h1 className='text-[1.1rem] pl-1 font-mono'>

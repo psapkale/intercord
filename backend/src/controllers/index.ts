@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { ScoreType, StudentType, TestType } from '../types';
+import { ScoreType, StudentType, TeacherType, TestType } from '../types';
 import { Admin, Announcment, Score, Student, Teacher, Test } from '../db';
 
 export const allStudents = async (req: Request, res: Response) => {
@@ -12,6 +12,18 @@ export const allStudents = async (req: Request, res: Response) => {
    }
 
    res.status(200).json({ message: 'Done Successfully', allStudents });
+};
+
+export const allTeachers = async (req: Request, res: Response) => {
+   const allTeachers: TeacherType[] | null = await Teacher.find();
+
+   if (!allTeachers) {
+      return res.status(500).json({
+         message: 'Failed to get all teachers',
+      });
+   }
+
+   res.status(200).json({ message: 'Done Successfully', allTeachers });
 };
 
 export const serachStudent = async (req: Request, res: Response) => {
@@ -35,6 +47,30 @@ export const serachStudent = async (req: Request, res: Response) => {
 
    res.status(200).json({
       student,
+   });
+};
+
+export const serachTeacher = async (req: Request, res: Response) => {
+   const { name } = req.params;
+
+   if (!name) {
+      return res.status(400).json({
+         message: 'Please provide student name',
+      });
+   }
+
+   const teacher: TeacherType | null = await Teacher.findOne({
+      name: { $regex: name, $options: 'i' },
+   });
+
+   if (!teacher) {
+      return res.status(404).json({
+         message: 'Teacher not found in the database',
+      });
+   }
+
+   res.status(200).json({
+      teacher,
    });
 };
 

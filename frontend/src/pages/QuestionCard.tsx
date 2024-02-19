@@ -35,10 +35,7 @@ const QuestionCard = ({
       <div className='py-2 my-2 flex flex-col gap-6'>
          <div className='w-[90%] h-[30%] text-lg font-bold font-mono my-2 flex gap-1'>
             <div>Q{current + 1}.</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam beatae
-            nostrum molestiae esse ea soluta, quia enim, tenetur, voluptas eius
-            excepturi quo fugit? Consequuntur quos reiciendis quia natus impedit
-            sed officiis velit mollitia ex.
+            {question?.question}
          </div>
          {/* options */}
          <div className='w-[90%] h-[70%]'>
@@ -49,7 +46,7 @@ const QuestionCard = ({
                      required
                      defaultValue={Array(question?.options?.length).fill(-1)}
                      onChange={handleSelect}
-                     className='w-full h-10 my-4 grid grid-cols-1'
+                     className='w-full h-10 my-4 grid grid-cols-1 focus:outline-none'
                   >
                      <option
                         value={i + 1}
