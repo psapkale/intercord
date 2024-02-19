@@ -11,6 +11,7 @@ const TestPageOutlet = () => {
    const user = useUserDetails((state) => state.user);
    const { testId } = useParams();
    const [test, setTest] = useState<TestType>();
+   const [creator, setCreator] = useState<string>('');
 
    useEffect(() => {
       getTest();
@@ -36,6 +37,7 @@ const TestPageOutlet = () => {
          );
 
          res?.data?.test && setTest(res?.data?.test);
+         res?.data?.creator && setCreator(res?.data?.creator);
       } catch (e: any) {
          toast.error(e?.response?.data?.message);
       }
@@ -55,7 +57,7 @@ const TestPageOutlet = () => {
      indianTime.slice(11, 16) <= test?.endTime ? (
       <GiveTest test={test} />
    ) : (
-      <TestInfo test={test} />
+      <TestInfo test={test} creator={creator} />
    );
 };
 

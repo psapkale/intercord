@@ -1,25 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import SearchCard from '@/components/StudentSearchCard';
 import { StudentType } from '@/components/StudentSearchCard';
 import axios from 'axios';
 import { Search, UserRoundSearch } from 'lucide-react';
 import { FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { TeacherType } from './TeacherProfile';
+import SearchCard from '@/components/StudentSearchCard';
 
-const Students = () => {
+const Teachers = () => {
    const [searchName, setSearchName] = useState('');
-   const [allStudents, setAllStudents] = useState<StudentType[]>([]);
-   const [student, setStudent] = useState<StudentType>();
+   const [allTeachers, setAllTeachers] = useState<StudentType[]>([]);
+   const [teacher, setTeacher] = useState<TeacherType>();
 
    const handleSubmit = async (e: FormEvent) => {
       e.preventDefault();
       try {
          const res = await axios(
-            `http://localhost:3000/api/search/student/${searchName}`
+            `http://localhost:3000/api/search/teacher/${searchName}`
          );
 
-         res?.data?.student && setStudent(res?.data?.student);
+         res?.data?.teacher && setTeacher(res?.data?.teacher);
       } catch (e: any) {
          toast.error(e?.response?.data?.message);
          setSearchName('');
@@ -27,20 +28,20 @@ const Students = () => {
    };
 
    useEffect(() => {
-      getAllStudents();
+      getAllTeachers();
    }, []);
 
    useEffect(() => {
-      setStudent(undefined);
+      setTeacher(undefined);
    }, [searchName]);
 
    // getting all students
-   const getAllStudents = async () => {
+   const getAllTeachers = async () => {
       const res = await axios.get(
-         'http://localhost:3000/api/search/student/all'
+         'http://localhost:3000/api/search/teacher/all'
       );
 
-      setAllStudents(res?.data?.allStudents);
+      setAllTeachers(res?.data?.allTeachers);
    };
 
    return (
@@ -48,10 +49,10 @@ const Students = () => {
          <div className='w-full flex justify-start md:justify-center flex-col items-center gap-4'>
             <div className='flex flex-col items-center'>
                <h1 className='text-5xl font-bold uppercase flex items-center gap-2'>
-                  Search For Student
+                  Search For Teachers
                   <UserRoundSearch className='size-[2rem] mt-1' />
                </h1>
-               <p>(Search student by the names!)</p>
+               <p>(Search teachers by the names!)</p>
             </div>
             <form
                onSubmit={handleSubmit}
@@ -59,7 +60,7 @@ const Students = () => {
             >
                <input
                   type='text'
-                  placeholder='Search student by Name'
+                  placeholder='Search teachers by Name'
                   className='outline-none border-none bg-gray-100 font-semibold placeholder:font-normal'
                   value={searchName}
                   onChange={(e) => {
@@ -73,20 +74,20 @@ const Students = () => {
             </form>
          </div>
          <div className='w-full h-fit flex flex-col px-[2rem] md:items-center pt-14 gap-4 mb-10'>
-            {student ? (
+            {teacher ? (
                <SearchCard
-                  key={student?.email}
-                  role='student'
-                  name={student?.name}
-                  username={student?.username}
+                  key={teacher?.email}
+                  role='teacher'
+                  name={teacher?.name}
+                  username={teacher?.username}
                />
             ) : searchName?.length === 0 ? (
-               allStudents?.map((student) => (
+               allTeachers?.map((teacher) => (
                   <SearchCard
-                     key={student?.email}
-                     role='student'
-                     name={student?.name}
-                     username={student?.username}
+                     key={teacher?.email}
+                     role='teacher'
+                     name={teacher?.name}
+                     username={teacher?.username}
                   />
                ))
             ) : (
@@ -97,4 +98,4 @@ const Students = () => {
    );
 };
 
-export default Students;
+export default Teachers;

@@ -1,5 +1,4 @@
 import { InputLabel } from '@/components/PrimeSkeleton';
-import { StudentType } from '@/components/StudentSearchCard';
 import {
    Tooltip,
    TooltipContent,
@@ -8,34 +7,42 @@ import {
 } from '@/components/ui/tooltip';
 import { useUserDetails } from '@/utils/store';
 import axios from 'axios';
-import {
-   AtSign,
-   CheckCircle,
-   Github,
-   Linkedin,
-   Mail,
-   Trash2,
-} from 'lucide-react';
-import { FaXTwitter } from 'react-icons/fa6';
+import { AtSign, CheckCircle, Mail, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-const StudentProfilePage = () => {
+type AnouncementType = {
+   title: string;
+   description: string;
+   seen: boolean;
+   creator: string;
+};
+
+export type TeacherType = {
+   username: string;
+   name: string;
+   email: string;
+   password: string;
+   createdTests: string[];
+   announcements: AnouncementType[];
+};
+
+const TeacherProfilePage = () => {
    const [loading, setLoading] = useState(false);
-   const [studentDetails, setStudentDetails] = useState<StudentType>();
+   const [teacherDetails, setTeacherDetails] = useState<TeacherType>();
    const user = useUserDetails((state) => state.user);
    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
    const [deleteLoading, setDeleteLoading] = useState(false);
 
    const { id } = useParams();
 
-   // fetch student details
-   const fetchStudentDetails = async () => {
+   // fetch teacher details
+   const fetchTeacherDetails = async () => {
       setLoading(true);
       setLoading(false);
       try {
          const data = await axios.get(
-            `http://localhost:3000/api/search/student/${id}`,
+            `http://localhost:3000/api/search/teacher/${id}`,
             {
                headers: {
                   Authorization: `Bearer ${user.token}`,
@@ -43,7 +50,7 @@ const StudentProfilePage = () => {
             }
          );
 
-         setStudentDetails(data?.data?.student);
+         setTeacherDetails(data?.data?.teacher);
          setLoading(false);
       } catch (err) {
          setLoading(false);
@@ -52,7 +59,7 @@ const StudentProfilePage = () => {
    };
 
    // handle student accout deletion
-   const handleDeleteStudentAccount = async () => {
+   const handleDeleteTeacherAccount = async () => {
       setDeleteLoading(true);
       console.log('account deleted');
       setTimeout(() => {
@@ -62,14 +69,14 @@ const StudentProfilePage = () => {
    };
 
    useEffect(() => {
-      fetchStudentDetails();
+      fetchTeacherDetails();
    }, []);
 
    return (
       <div className='w-full h-fit pl-[1.5rem] sm:pl-[2rem] md:pl-[6rem] pt-[2rem] overflow-y-scroll py-8'>
          <div className='w-full flex justify-between max-md:mt-10 pr-10'>
             <h1 className='text-3xl sm:text-5xl font-semibold uppercase'>
-               {studentDetails?.name}
+               {teacherDetails?.name}
             </h1>
             {user.role == 'admin' && (
                <TooltipProvider>
@@ -105,7 +112,7 @@ const StudentProfilePage = () => {
                            id='fullname'
                            className='bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none'
                         >
-                           {studentDetails?.name}
+                           {teacherDetails?.name}
                         </span>
                      </>
                   ) : (
@@ -128,7 +135,7 @@ const StudentProfilePage = () => {
                            className='bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none'
                         >
                            <AtSign className='size-4' />
-                           {studentDetails?.username}
+                           {teacherDetails?.username}
                         </span>
                      </>
                   ) : (
@@ -150,7 +157,7 @@ const StudentProfilePage = () => {
                            id='email'
                            className='bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none'
                         >
-                           {studentDetails?.email}
+                           {teacherDetails?.email}
                         </span>
                      </>
                   ) : (
@@ -165,14 +172,14 @@ const StudentProfilePage = () => {
                            htmlFor='submission'
                            className='font-bold text-2xl gap-1 items-center flex'
                         >
-                           Total Test Submissions
+                           Total Tests
                            <CheckCircle className='size-4 mb-2' />
                         </label>
                         <span
                            id='submission'
                            className='bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none'
                         >
-                           {studentDetails?.submissions.length}
+                           {teacherDetails?.createdTests?.length}
                         </span>
                      </>
                   ) : (
@@ -181,7 +188,7 @@ const StudentProfilePage = () => {
                </div>
                {/* Current Rank */}
                <div className='flex flex-col font-zyada'>
-                  {!loading ? (
+                  {/* {!loading ? (
                      <>
                         <label
                            htmlFor='rank'
@@ -189,21 +196,21 @@ const StudentProfilePage = () => {
                         >
                            Rank
                            {/* <CheckCircle className="size-4 mb-2" /> */}
-                        </label>
+                  {/* </label>
                         <span
                            id='rank'
                            className='bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none'
                         >
                            {1}
                         </span>
-                     </>
-                  ) : (
-                     <InputLabel />
-                  )}
+                     </> */}
+                  {/* ) : ( */}
+                  {/* <InputLabel /> */}
+                  {/* )} */}
                </div>
             </div>
          </div>
-         <div className='w-full h-fit mt-14'>
+         {/* <div className='w-full h-fit mt-14'>
             <h1 className='uppercase text-5xl font-semibold'>
                Visit Social Links
             </h1>
@@ -213,7 +220,7 @@ const StudentProfilePage = () => {
                      {
                         <Tooltip delayDuration={1}>
                            <TooltipTrigger>
-                              <a href={studentDetails?.githubUrl}>
+                              <a href={teacherDetails?.githubUrl}>
                                  <button className='hover:bg-gray-200 rounded-full h-12 w-12 flex justify-center items-center transition-colors duration-300'>
                                     <Github className='size-8' />
                                  </button>
@@ -227,7 +234,7 @@ const StudentProfilePage = () => {
                      {
                         <Tooltip delayDuration={1}>
                            <TooltipTrigger>
-                              <a href={studentDetails?.linkedinUrl}>
+                              <a href={teacherDetails?.linkedinUrl}>
                                  <button className='hover:bg-gray-200 rounded-full h-12 w-12 flex justify-center items-center transition-colors duration-300'>
                                     <Linkedin className='size-8' />
                                  </button>
@@ -241,7 +248,7 @@ const StudentProfilePage = () => {
                      {
                         <Tooltip delayDuration={1}>
                            <TooltipTrigger>
-                              <a href={studentDetails?.twitterUrl}>
+                              <a href={teacherDetails?.twitterUrl}>
                                  <button className='hover:bg-gray-200 rounded-full h-12 w-12 flex justify-center items-center transition-colors duration-300'>
                                     <FaXTwitter className='size-8' />
                                  </button>
@@ -255,7 +262,7 @@ const StudentProfilePage = () => {
                   </div>
                </TooltipProvider>
             </div>
-         </div>
+         </div> */}
          <div
             className={`w-full h-full z-30 bg-[#0f0f0f49] absolute top-0 left-0 flex justify-center items-center ${
                !isPopUpOpen ? 'hidden' : 'flex'
@@ -279,7 +286,7 @@ const StudentProfilePage = () => {
              }`}
                      onClick={(e) => {
                         e.stopPropagation();
-                        handleDeleteStudentAccount();
+                        handleDeleteTeacherAccount();
                      }}
                      disabled={deleteLoading}
                   >
@@ -299,4 +306,4 @@ const StudentProfilePage = () => {
    );
 };
 
-export default StudentProfilePage;
+export default TeacherProfilePage;

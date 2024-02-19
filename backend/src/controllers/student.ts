@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
-import { Score, Student, Test } from '../db';
-import { StudentType, TestType } from '../types';
+import { Score, Student, Teacher, Test } from '../db';
+import { StudentType, TeacherType, TestType } from '../types';
 
 interface SubjectScoreType {
    subject: string;
@@ -127,7 +127,7 @@ export const getTestById = async (req: Request, res: Response) => {
       });
    }
 
-   const test: TestType | null = await Test.findOne({ _id: testId });
+   let test: TestType | null = await Test.findOne({ _id: testId });
 
    if (!test) {
       return res.status(404).json({
@@ -159,9 +159,20 @@ export const getTestById = async (req: Request, res: Response) => {
       });
    }
 
+   const teacher: TeacherType | null = await Teacher.findOne({
+      _id: test.createdBy,
+   });
+
+   if (!teacher) {
+      return res.status(500).json({
+         message: 'Failed to find some test data',
+      });
+   }
+
    res.status(200).json({
       message: 'Done Successfully',
       test,
+      creator: teacher.name,
    });
 };
 
@@ -366,26 +377,6 @@ export const updateStudentProfile = async (req: Request, res: Response) => {
       });
       console.log('Error in Update Student ', error);
    }
-};
-
-export const getStudentDetails = async (req: Request, res: Response) => {
-   let { username } = req.params;
-
-   const student = await Student.findOne({
-      username: username,
-   });
-
-   console.log(student);
-   if (!student) {
-      return res.status(500).json({
-         message: 'Student not found',
-      });
-   }
-
-   res.status(200).json({
-      message: 'Student Found Successfully',
-      student,
-   });
 };
 
 export const updateSeenStudent = async (req: Request, res: Response) => {
