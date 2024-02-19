@@ -18,7 +18,8 @@ import {
 } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const StudentProfilePage = () => {
   const [loading, setLoading] = useState(false);
@@ -26,6 +27,7 @@ const StudentProfilePage = () => {
   const user = useUserDetails((state) => state.user);
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -54,11 +56,24 @@ const StudentProfilePage = () => {
   // handle student accout deletion
   const handleDeleteStudentAccount = async () => {
     setDeleteLoading(true);
-    console.log("account deleted");
-    setTimeout(() => {
+    try {
+      const data = await axios.delete(
+        `http://localhost:3000/api/admin/deletestudent/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
+
+      toast.success(data?.data?.message);
+      setDeleteLoading(false);
+      navigate("/dashboard/search");
+    } catch (err) {
+      console.log("Error in Hanlde Delete Student Page", err);
       setDeleteLoading(false);
       setIsPopUpOpen(false);
-    }, 2000);
+    }
   };
 
   useEffect(() => {
