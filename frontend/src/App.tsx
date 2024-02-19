@@ -17,7 +17,6 @@ import StudentProfilePage from './pages/StudentProfile';
 import CreateAnnuncment from './pages/CreateAnnuncment';
 import TeacherProfilePage from './pages/TeacherProfile';
 import Students from './pages/Students';
-import SearchOutlet from './pages/SearchOutlet';
 import Teachers from './pages/Teachers';
 // import { lazy } from "react";
 
@@ -63,18 +62,12 @@ const appRouter = createBrowserRouter([
             element: <TeachersTable />,
          },
          {
-            path: 'search',
-            element: <SearchOutlet />,
-            children: [
-               {
-                  path: 'student',
-                  element: <Students />,
-               },
-               {
-                  path: 'teacher',
-                  element: <Teachers />,
-               },
-            ],
+            path: 'search/student',
+            element: <Students />,
+         },
+         {
+            path: 'search/teacher',
+            element: <Teachers />,
          },
          {
             path: 'announcment',
