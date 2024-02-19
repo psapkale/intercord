@@ -158,7 +158,7 @@ export const createAdmin = async (req: Request, res: Response) => {
 export const updateSeenAdmin = async (req: Request, res: Response) => {
   const { username } = res.locals;
   try {
-    await Teacher.updateOne(
+    await Admin.updateOne(
       {
         username,
       },

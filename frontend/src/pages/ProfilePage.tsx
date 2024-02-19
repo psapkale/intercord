@@ -85,7 +85,7 @@ const ProfilePage = () => {
                 <input
                   type="text"
                   id="fn"
-                  className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
+                  className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
                   placeholder="Enter new Name"
                   value={userDetails.name}
                   onChange={(e) => {
@@ -108,7 +108,7 @@ const ProfilePage = () => {
                 <input
                   type="text"
                   id="username"
-                  className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
+                  className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
                   placeholder="Enter new username"
                   value={userDetails.usernameNew}
                   onChange={(e) => {
@@ -138,7 +138,7 @@ const ProfilePage = () => {
                 <input
                   type="password"
                   id="password"
-                  className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
+                  className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
                   placeholder="Enter new password"
                   value={userDetails.password}
                   onChange={(e) => {
@@ -168,7 +168,7 @@ const ProfilePage = () => {
                 <input
                   type="email"
                   id="email"
-                  className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
+                  className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
                   placeholder="Enter new Email"
                   value={userDetails.email}
                   onChange={(e) => {
@@ -202,7 +202,7 @@ const ProfilePage = () => {
                 <input
                   type="text"
                   id="github"
-                  className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
+                  className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
                   placeholder="Github Url"
                   value={userDetails.githubUrl}
                   onChange={(e) => {
@@ -230,7 +230,7 @@ const ProfilePage = () => {
                 <input
                   type="text"
                   id="linkdin"
-                  className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
+                  className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
                   placeholder="Linkdin Url"
                   value={userDetails.linkedinUrl}
                   onChange={(e) => {
@@ -258,7 +258,7 @@ const ProfilePage = () => {
                 <input
                   type="text"
                   id="twitter"
-                  className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
+                  className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
                   placeholder="Twitter url"
                   value={userDetails.twitterUrl}
                   onChange={(e) => {

@@ -10,9 +10,6 @@ const CreateAnnuncment = () => {
   const [description, setDescription] = useState<string>("");
   const user = useUserDetails((state) => state.user);
   const { socket } = useContext(SocketContext);
-  const updateAnnouncement = useUserDetails(
-    (state) => state.updateAnnouncement
-  );
 
   // creating new announcement
   const handleCreateAnnouncement = async () => {

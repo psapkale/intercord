@@ -24,6 +24,8 @@ const StudentProfilePage = () => {
   const [loading, setLoading] = useState(false);
   const [studentDetails, setStudentDetails] = useState<StudentType>();
   const user = useUserDetails((state) => state.user);
+  const [isPopUpOpen, setIsPopUpOpen] = useState(true);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const { id } = useParams();
 
@@ -41,7 +43,6 @@ const StudentProfilePage = () => {
         }
       );
 
-      console.log(data);
       setStudentDetails(data?.data?.student);
       setLoading(false);
     } catch (err) {
@@ -51,7 +52,14 @@ const StudentProfilePage = () => {
   };
 
   // handle student accout deletion
-  const handleDeleteStudentAccount = async () => {};
+  const handleDeleteStudentAccount = async () => {
+    setDeleteLoading(true);
+    console.log("account deleted");
+    setTimeout(() => {
+      setDeleteLoading(false);
+      setIsPopUpOpen(false);
+    }, 2000);
+  };
 
   useEffect(() => {
     fetchStudentDetails();
@@ -68,8 +76,8 @@ const StudentProfilePage = () => {
             <Tooltip delayDuration={1}>
               <TooltipTrigger>
                 <button
-                  className="hover:bg-gray-100 rounded-full h-10 w-10 flex justify-center items-center transition-colors duration-300"
-                  onClick={handleDeleteStudentAccount}
+                  className="hover:bg-gray-200 rounded-full h-10 w-10 flex justify-center items-center transition-colors duration-300"
+                  onClick={() => setIsPopUpOpen(true)}
                 >
                   <Trash2 className="size-6" />
                 </button>
@@ -95,7 +103,7 @@ const StudentProfilePage = () => {
                 </label>
                 <span
                   id="fullname"
-                  className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
+                  className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
                 >
                   {studentDetails?.name}
                 </span>
@@ -117,7 +125,7 @@ const StudentProfilePage = () => {
                 </label>
                 <span
                   id="username"
-                  className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none"
+                  className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none"
                 >
                   <AtSign className="size-4" />
                   {studentDetails?.username}
@@ -140,7 +148,7 @@ const StudentProfilePage = () => {
                 </label>
                 <span
                   id="email"
-                  className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none"
+                  className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none"
                 >
                   {studentDetails?.email}
                 </span>
@@ -162,7 +170,7 @@ const StudentProfilePage = () => {
                 </label>
                 <span
                   id="submission"
-                  className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none"
+                  className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none"
                 >
                   {studentDetails?.submissions.length}
                 </span>
@@ -184,7 +192,7 @@ const StudentProfilePage = () => {
                 </label>
                 <span
                   id="rank"
-                  className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none"
+                  className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none"
                 >
                   {1}
                 </span>
@@ -204,7 +212,7 @@ const StudentProfilePage = () => {
                 <Tooltip delayDuration={1}>
                   <TooltipTrigger>
                     <a href={studentDetails?.githubUrl}>
-                      <button className="hover:bg-gray-100 rounded-full h-12 w-12 flex justify-center items-center transition-colors duration-300">
+                      <button className="hover:bg-gray-200 rounded-full h-12 w-12 flex justify-center items-center transition-colors duration-300">
                         <Github className="size-8" />
                       </button>
                     </a>
@@ -218,7 +226,7 @@ const StudentProfilePage = () => {
                 <Tooltip delayDuration={1}>
                   <TooltipTrigger>
                     <a href={studentDetails?.linkedinUrl}>
-                      <button className="hover:bg-gray-100 rounded-full h-12 w-12 flex justify-center items-center transition-colors duration-300">
+                      <button className="hover:bg-gray-200 rounded-full h-12 w-12 flex justify-center items-center transition-colors duration-300">
                         <Linkedin className="size-8" />
                       </button>
                     </a>
@@ -232,7 +240,7 @@ const StudentProfilePage = () => {
                 <Tooltip delayDuration={1}>
                   <TooltipTrigger>
                     <a href={studentDetails?.twitterUrl}>
-                      <button className="hover:bg-gray-100 rounded-full h-12 w-12 flex justify-center items-center transition-colors duration-300">
+                      <button className="hover:bg-gray-200 rounded-full h-12 w-12 flex justify-center items-center transition-colors duration-300">
                         <FaXTwitter className="size-8" />
                       </button>
                     </a>
@@ -244,6 +252,45 @@ const StudentProfilePage = () => {
               }
             </div>
           </TooltipProvider>
+        </div>
+      </div>
+      <div
+        className={`w-full h-full z-30 bg-[#0f0f0f49] absolute top-0 left-0 flex justify-center items-center ${
+          !isPopUpOpen ? "hidden" : "flex"
+        }`}
+        onClick={() => setIsPopUpOpen(false)}
+      >
+        <div className="w-[30rem] h-[10rem] rounded-md bg-white flex flex-col justify-center items-center gap-4">
+          <h1 className="text-[1.2rem]">
+            Do you really want to
+            <span className="text-red-600 font-bold font-zyada text-2xl">
+              {" "}
+              Delete
+            </span>{" "}
+            this account?
+          </h1>
+          <div className="flex gap-2">
+            <button
+              className={`w-[6rem] py-2 border rounded-md bg-red-600 text-black
+             hover:bg-red-700 transition-colors duration-300 flex justify-center items-center gap-1 ${
+               deleteLoading && "cursor-not-allowed"
+             }`}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDeleteStudentAccount();
+              }}
+              disabled={deleteLoading}
+            >
+              {deleteLoading ? "Deleting..." : "Confirm"}
+            </button>
+            <button
+              className="w-[6rem] py-2 border rounded-md hover:bg-gray-200 transition-colors duration-300"
+              onClick={() => setIsPopUpOpen(false)}
+              disabled={deleteLoading}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>
