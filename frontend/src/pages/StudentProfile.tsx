@@ -37,7 +37,7 @@ const StudentProfilePage = () => {
     setLoading(false);
     try {
       const data = await axios.get(
-        `http://localhost:3000/api/student/studentdetails/${id}`,
+        `http://localhost:3000/api/search/student/${id}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
