@@ -105,9 +105,9 @@ const StudentProfilePage = () => {
         )}
       </div>
       <div className="w-full h-fit mt-8">
-        <div className="flex max-md:flex-col w-full gap-10 flex-wrap">
+        <div className="flex max-md:flex-col w-full gap-10 flex-wrap flex-shrink-0">
           {/* Full Name */}
-          <div className="flex flex-col font-zyada">
+          <div className="flex w-full md:w-[20rem] flex-col font-zyada">
             {!loading ? (
               <>
                 <label
@@ -128,7 +128,7 @@ const StudentProfilePage = () => {
             )}
           </div>
           {/* userName */}
-          <div className="flex flex-col font-zyada max-md:-mt-10">
+          <div className="flex w-full md:w-[20rem] flex-col font-zyada">
             {!loading ? (
               <>
                 <label
@@ -151,7 +151,7 @@ const StudentProfilePage = () => {
             )}
           </div>
           {/* Email */}
-          <div className="flex flex-col font-zyada">
+          <div className="flex w-full md:w-[20rem] flex-col font-zyada">
             {!loading ? (
               <>
                 <label
@@ -173,7 +173,7 @@ const StudentProfilePage = () => {
             )}
           </div>
           {/* Submissions */}
-          <div className="flex flex-col font-zyada">
+          <div className="flex w-full md:w-[20rem] flex-col font-zyada">
             {!loading ? (
               <>
                 <label
@@ -195,7 +195,7 @@ const StudentProfilePage = () => {
             )}
           </div>
           {/* Current Rank */}
-          <div className="flex flex-col font-zyada">
+          <div className="flex w-full md:w-[20rem] flex-col font-zyada">
             {!loading ? (
               <>
                 <label
