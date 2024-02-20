@@ -17,7 +17,6 @@ const LeaderBoard = () => {
   const {
     getAllStudentRanking,
     getAllTestBySelectedSubject,
-    getRankingByTest,
     getRankingOfStudentBySubject,
     selectedOptionField,
     setIsRankingOpen,
@@ -37,6 +36,8 @@ const LeaderBoard = () => {
       getAllStudentRanking();
     }
   }, [selectedOptionField]);
+
+  console.log(isRankingOpen);
 
   return (
     <div className="w-full h-[100vh] max-sm:px-[1rem] sm:pl-[1.5rem] md:pl-[3rem] lg:pl-[6rem] pt-[2rem] overflow-y-scroll overflow-x-hidden py-8">
@@ -107,7 +108,7 @@ const LeaderBoard = () => {
           {selectedOptionField == "all" || isRankingOpen ? (
             <RankingTable />
           ) : (
-            <TestTable getRankingByTest={getRankingByTest} />
+            <TestTable />
           )}
         </div>
       </div>
