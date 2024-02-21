@@ -25,7 +25,7 @@ export interface StudentType extends Document {
    linkedinUrl: string;
    githubUrl: string;
    twitterUrl: string;
-   subjectScore: SubjectScoreType;
+   subjectScore: SubjectScoreType[];
    // resolve submissions
    submissions: StudentSubmissionType[];
    bookmark: ObjectId[];
@@ -35,6 +35,7 @@ export interface StudentType extends Document {
 export interface TestType {
    _id: ObjectId;
    subject: string;
+   title: string;
    description: string;
    questions: QuestionType[];
    createdBy: ObjectId | string | null;
@@ -46,7 +47,7 @@ export interface TestType {
    save: () => Promise<Document>;
 }
 
-interface SubjectScoreType {
+export interface SubjectScoreType {
    subject: string;
    score: number;
 }
@@ -59,11 +60,13 @@ interface QuestionType {
 
 interface TestSubmissionType {
    submittedBy: ObjectId | string | null;
+   name: string;
    obtainedMarks: number;
 }
 
 interface StudentSubmissionType {
    test: ObjectId | string | null;
+   subject: string;
    submittedAnswersIndex: number[];
    marksObtained: number;
    submittedAt: Date;

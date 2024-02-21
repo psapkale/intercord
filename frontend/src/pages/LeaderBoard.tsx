@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
-import RankingTable, { StudentScoreType } from '@/components/RankingTable';
+import RankingTable from '@/components/RankingTable';
 import TestTable from '@/components/TestTable';
 import useFetchingDataFn from '@/hook/useFetchingDataFn';
 import { callLeaderBoardDriver } from '@/utils/driver';
 import { useUserDetails } from '@/utils/store';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { TestType } from './GiveTest';
 
 const LeaderBoard = () => {
    const { user, updateTutorial } = useUserDetails((state) => ({
@@ -16,16 +17,14 @@ const LeaderBoard = () => {
 
    // destructuring the data from the hook
    const {
-      getAllTestBySelectedSubject,
-      getRankingByTest,
-      getRankingOfStudentBySubject,
       selectedOptionField,
       setIsRankingOpen,
       setSelectedOptionField,
       isRankingOpen,
    } = useFetchingDataFn();
 
-   const [allStudents, setAllStudents] = useState<StudentScoreType[]>([]);
+   const [allStudents, setAllStudents] = useState([]);
+   const [allTests, setAllTests] = useState<TestType[]>([]);
 
    //<-- checking if we need to display the tutorial or not -->
    if (user.isSignedUp && user.leaderboardDriverJs) {
@@ -44,7 +43,25 @@ const LeaderBoard = () => {
       const res = await axios.get('http://localhost:3000/api/score-board/all');
 
       res?.data?.scoreBoard && setAllStudents(res?.data?.scoreBoard);
-      return allStudents;
+      return;
+   };
+
+   const getAllStudentsBySelectedSubject = async () => {
+      const res = await axios.get(
+         `http://localhost:3000/api/score-board/subject/${selectedOptionField}`
+      );
+
+      res?.data?.formattedRes && setAllStudents(res?.data?.formattedRes);
+      return;
+   };
+
+   const getAllTestBySelectedSubject = async () => {
+      const res = await axios.get(
+         `http://localhost:3000/api/score-board/test/${selectedOptionField}`
+      );
+
+      res?.data?.tests && setAllTests(res?.data?.tests);
+      return;
    };
 
    return (
@@ -74,7 +91,6 @@ const LeaderBoard = () => {
                         }`}
                         disabled={selectedOptionField === 'all'}
                         onClick={() => {
-                           getAllTestBySelectedSubject();
                            setIsRankingOpen(false);
                         }}
                      >
@@ -91,7 +107,7 @@ const LeaderBoard = () => {
                         disabled={selectedOptionField === 'all'}
                         onClick={() => {
                            setIsRankingOpen(true);
-                           getRankingOfStudentBySubject();
+                           getAllStudentsBySelectedSubject();
                         }}
                      >
                         Ranking
@@ -118,7 +134,7 @@ const LeaderBoard = () => {
                {selectedOptionField == 'all' || isRankingOpen ? (
                   <RankingTable allStudents={allStudents} />
                ) : (
-                  <TestTable getRankingByTest={getRankingByTest} />
+                  <TestTable allTests={allTests} />
                )}
             </div>
          </div>

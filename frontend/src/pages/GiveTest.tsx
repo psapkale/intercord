@@ -19,6 +19,7 @@ type SubmissionType = {
 export type TestType = {
    _id: string;
    subject: string;
+   title: string;
    description: string;
    questions: QuestionType[];
    totalMarks: number;

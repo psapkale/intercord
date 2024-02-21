@@ -51,6 +51,7 @@ const StudentSubmissionsSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Test',
    },
+   subject: String,
    submittedAnswersIndex: [Number],
    marksObtained: {
       type: Number,
@@ -96,6 +97,7 @@ const QuestionSchema = new mongoose.Schema({
 
 const TestSchema = new mongoose.Schema({
    subject: String,
+   title: String,
    description: String,
    questions: [QuestionSchema],
    totalMarks: Number,
@@ -126,6 +128,7 @@ const TestSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Student',
          },
+         name: String,
          obtainedMarks: {
             type: Number,
             default: 0,

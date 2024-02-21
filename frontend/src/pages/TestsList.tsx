@@ -24,9 +24,9 @@ const TestsList = () => {
       <div className='w-full h-full pl-[2rem] lg:pl-[6rem] pt-[2rem] pr-[1rem] sm:pr-[2rem] flex flex-col gap-4'>
          <div className='flex mt-4 pl-1 gap-4'>
             <button
-               className={`flex shadow-md items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-mono text-xs sm:text-xl md:text-lg-+ ${
+               className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-mono font-bold text-xs md:text-xl md:text-lg-+ ${
                   typeOfTestShowing === 'upcoming'
-                     ? 'bg-gray-300'
+                     ? 'bg-gray-300 shadow-md'
                      : 'bg-gray-200'
                } ${loading && 'cursor-not-allowed'}`}
                onClick={() => {
@@ -37,8 +37,10 @@ const TestsList = () => {
                Up Coming <Timer className='mb-1 size-5' />
             </button>
             <button
-               className={`flex shadow-md items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-mono text-xl sm:text-2xl font-semibold ${
-                  typeOfTestShowing === 'live' ? 'bg-gray-300' : ' bg-gray-200'
+               className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-mono font-bold text-xl sm:text-xl ${
+                  typeOfTestShowing === 'live'
+                     ? 'bg-gray-300 shadow-md'
+                     : 'bg-gray-200'
                } ${loading && 'cursor-not-allowed'}`}
                disabled={loading}
                onClick={() => {
@@ -52,8 +54,10 @@ const TestsList = () => {
                />
             </button>
             <button
-               className={`flex shadow-md items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-mono text-xl sm:text-2xl font-semibold ${
-                  typeOfTestShowing === 'closed' ? 'bg-gray-300' : 'bg-gray-200'
+               className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-mono text-xl sm:text-xl font-bold ${
+                  typeOfTestShowing === 'closed'
+                     ? 'bg-gray-300 shadow-md'
+                     : 'bg-gray-200'
                } ${loading && 'cursor-not-allowed'}`}
                disabled={loading}
                onClick={() => {

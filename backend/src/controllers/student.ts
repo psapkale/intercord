@@ -2,12 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { Score, Student, Teacher, Test } from '../db';
-import { StudentType, TeacherType, TestType } from '../types';
-
-interface SubjectScoreType {
-   subject: string;
-   score: number;
-}
+import { StudentType, SubjectScoreType, TeacherType, TestType } from '../types';
 
 // Todo all mongo logic here
 // Todo restrict creating duplicate users
@@ -212,6 +207,7 @@ export const testSubmission = async (req: Request, res: Response) => {
 
    test?.submissions?.push({
       submittedBy: student?._id,
+      name: student?.name,
       obtainedMarks: marksObtained,
    });
 
@@ -223,6 +219,7 @@ export const testSubmission = async (req: Request, res: Response) => {
          $push: {
             submissions: {
                test: test._id,
+               subject: test.subject,
                submittedAnswersIndex: submittedAnswersIndex,
                marksObtained: marksObtained,
                submittedAt: new Date(Date.now()),
