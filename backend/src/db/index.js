@@ -68,6 +68,7 @@ const StudentSchema = new mongoose.Schema({
    name: String,
    email: String,
    password: String,
+   rank: Number,
    linkedinUrl: String,
    githubUrl: String,
    twitterUrl: String,
@@ -143,6 +144,7 @@ const ScoreSchema = mongoose.Schema({
       ref: 'Student',
    },
    name: String,
+   username: String,
    submissions: Number,
    score: {
       type: Number,

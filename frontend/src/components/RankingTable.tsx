@@ -3,6 +3,7 @@ import ScoreCard from './ScoreCard';
 export type StudentScoreType = {
    candidate: string;
    name: string;
+   username: string;
    submissions: number;
    score: number;
 };
@@ -31,6 +32,7 @@ const RankingTable = ({ allStudents }: { allStudents: StudentScoreType[] }) => {
             return (
                <ScoreCard
                   name={student.name}
+                  username={student.username}
                   rank={idx + 1 + ''}
                   score={student.score}
                   submission={student.submissions}

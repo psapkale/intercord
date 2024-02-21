@@ -22,6 +22,7 @@ export interface StudentType extends Document {
    name: string;
    email: string;
    password: string;
+   rank: number;
    linkedinUrl: string;
    githubUrl: string;
    twitterUrl: string;
@@ -75,6 +76,7 @@ interface StudentSubmissionType {
 export interface ScoreType {
    candidate: ObjectId | string | null;
    name: string;
+   username: string;
    submissions: number;
    score: number;
 }

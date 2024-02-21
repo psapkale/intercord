@@ -32,12 +32,14 @@ export const studentRegister = async (req: Request, res: Response) => {
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
+      const totalStudents = await Student.find();
 
       student = await Student.create({
          username,
          name,
          email,
          password: hashedPassword,
+         rank: totalStudents.length + 1,
          submissions: [],
       });
       if (!student) {
@@ -47,6 +49,7 @@ export const studentRegister = async (req: Request, res: Response) => {
       await Score.create({
          candidateId: student._id,
          name: student.name,
+         username: student.username,
          submissions: 0,
       });
 
@@ -280,7 +283,7 @@ export const bookMarkTest = async (req: Request, res: Response) => {
    const { testId } = req.body;
    const { username } = res.locals;
 
-   const student = await Student.findOneAndUpdate({
+   const student: StudentType | null = await Student.findOneAndUpdate({
       username: username,
    });
 
@@ -343,7 +346,7 @@ export const updateStudentProfile = async (req: Request, res: Response) => {
       twitterUrl,
    } = req.body;
    try {
-      const student = await Student.findOne({
+      const student: StudentType | null = await Student.findOne({
          username: username,
       });
 

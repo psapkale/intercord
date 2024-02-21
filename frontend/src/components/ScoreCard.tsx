@@ -3,16 +3,18 @@ import { Link } from 'react-router-dom';
 const ScoreCard = ({
    rank,
    name,
+   username,
    submission,
    score,
 }: {
    rank: string;
    name: string;
+   username: string;
    submission: number;
    score: number;
 }) => {
    return (
-      <Link to={'/dashboard/student/prem'}>
+      <Link to={`/dashboard/student/${username}`}>
          <div className='flex w-full py-2 px-2 mb-4 pl-4 hover:bg-gray-50'>
             <h1 className='w-[10%] truncate'>{rank}</h1>
             <h1 className='w-[60%] ml-[0.5rem] truncate'>{name}</h1>

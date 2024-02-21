@@ -143,6 +143,7 @@ export const getSubjectFilteredScoreBoard = async (
 
       return {
          name: student?.name,
+         username: student?.username,
          submissions: filteredSubmission?.length,
          score: requiredSubject?.score,
       };
@@ -163,8 +164,10 @@ export const getSubjectFilteredTests = async (req: Request, res: Response) => {
       });
    }
 
+   // replacing any special characters in the 'subject'
+   const escapedSubject = subject.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
    const tests: TestType[] | null = await Test.find({
-      subject: { $regex: new RegExp(subject, 'i') },
+      subject: { $regex: new RegExp(escapedSubject, 'i') },
    });
 
    if (!tests) {
