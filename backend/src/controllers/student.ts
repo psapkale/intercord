@@ -49,7 +49,11 @@ export const studentRegister = async (req: Request, res: Response) => {
          return res.status(500).json({ message: 'Failed to create student' });
       }
 
-      await Score.create({ candidate: student._id });
+      await Score.create({
+         candidateId: student._id,
+         name: student.name,
+         submissions: 0,
+      });
 
       const token = jwt.sign({ username }, process.env.JWT_SECRET);
 
@@ -262,6 +266,7 @@ export const testSubmission = async (req: Request, res: Response) => {
          $inc: {
             score: marksObtained,
          },
+         submissions: student?.submissions?.length,
       },
       { new: true }
    );

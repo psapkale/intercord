@@ -76,7 +76,9 @@ export const serachTeacher = async (req: Request, res: Response) => {
 
 export const getScoreBoard = async (req: Request, res: Response) => {
    // Todo check null points
-   const scoreBoard: ScoreType | null = await Score.find().sort({ score: -1 });
+   const scoreBoard: ScoreType[] | null = await Score.find().sort({
+      score: -1,
+   });
 
    if (!scoreBoard) {
       return res.status(500).json({

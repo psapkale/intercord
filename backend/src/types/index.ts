@@ -71,5 +71,7 @@ interface StudentSubmissionType {
 
 export interface ScoreType {
    candidate: ObjectId | string | null;
+   name: string;
+   submissions: number;
    score: number;
 }
