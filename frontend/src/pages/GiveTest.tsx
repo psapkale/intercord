@@ -159,14 +159,14 @@ const GiveTest = ({ test }: { test: TestType }) => {
          <div className='w-[90%] flex gap-10 items-start justify-start'>
             <button
                disabled={current === 0}
-               className='h-fit hover:bg-white hover:text-black border-black hover:border transition-all duration-300 p-2 px-6 bg-[#0f0f0f] text-white rounded-md text-xl disabled:cursor-not-allowed'
+               className='h-fit hover:bg-white hover:text-black border border-black hover:border transition-all duration-300 p-2 px-6 bg-[#0f0f0f] text-white rounded-md text-xl disabled:cursor-not-allowed'
                onClick={handlePrev}
             >
                Prev
             </button>
             {current === test?.questions?.length - 1 ? (
                <button
-                  className='h-fit hover:bg-white  hover:text-black border-black hover:border transition-all duration-300 p-2 px-6 bg-[#0f0f0f] text-white rounded-md text-xl'
+                  className='h-fit hover:bg-white  hover:text-black border border-black hover:border transition-all duration-300 p-2 px-6 bg-[#0f0f0f] text-white rounded-md text-xl'
                   onClick={handleSubmit}
                >
                   Submit

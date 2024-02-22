@@ -16,6 +16,17 @@ export interface TeacherType {
    createdTests: TestType[];
 }
 
+export interface PendingStudentType {
+   _id: ObjectId;
+   username: string;
+   name: string;
+   email: string;
+   password: string;
+   academicYear: string;
+   stream: string;
+   pursuingYear: 'I' | 'II' | 'III';
+}
+
 export interface StudentType extends Document {
    _id: ObjectId;
    username: string;

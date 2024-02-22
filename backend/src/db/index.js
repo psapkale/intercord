@@ -46,6 +46,19 @@ const TeacherSchema = new mongoose.Schema({
    announcements: [AnnouncmentSchema],
 });
 
+const PendingStudentSchema = new mongoose.Schema({
+   username: String,
+   name: String,
+   email: String,
+   password: String,
+   academicYear: String,
+   stream: String,
+   pursuingYear: {
+      type: String,
+      enum: ['I', 'II', 'III'],
+   },
+});
+
 const StudentSubmissionsSchema = new mongoose.Schema({
    test: {
       type: mongoose.Schema.Types.ObjectId,
@@ -69,6 +82,12 @@ const StudentSchema = new mongoose.Schema({
    email: String,
    password: String,
    rank: Number,
+   academicYear: String,
+   stream: String,
+   pursuingYear: {
+      type: String,
+      enum: ['I', 'II', 'III'],
+   },
    linkedinUrl: String,
    githubUrl: String,
    twitterUrl: String,
@@ -154,9 +173,10 @@ const ScoreSchema = mongoose.Schema({
 
 const Admin = mongoose.model('Admin', AdminSchema);
 const Teacher = mongoose.model('Teacher', TeacherSchema);
+const PendingStudent = mongoose.model('PendingStudent', PendingStudentSchema);
 const Student = mongoose.model('Student', StudentSchema);
 const Test = mongoose.model('Test', TestSchema);
 const Score = mongoose.model('Score', ScoreSchema);
 const Announcment = mongoose.model('Announcment', AnnouncmentSchema);
 
-export { Admin, Teacher, Student, Test, Score, Announcment };
+export { Admin, Teacher, PendingStudent, Student, Test, Score, Announcment };
