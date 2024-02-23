@@ -22,7 +22,7 @@ module.exports = {
       zyada: ["Zeyada", "cursive", "system-ui"],
       bebas: ["Bebas Neue", "sans-serif"],
       sans: ["sans-serif"],
-      mono: ["monospace"],
+      mono: ["Zeyada"],
       brygada: ["Vesper Libre"],
     },
     container: {

@@ -9,6 +9,7 @@ import {
   PlusCircle,
   Rocket,
   Search,
+  UserRoundPlus,
   UsersRound,
 } from "lucide-react";
 import { useState } from "react";
@@ -99,7 +100,7 @@ const SideBar = ({
                 }}
               >
                 <div className="flex gap-2">
-                  <PlusCircle className="w-4" />
+                  <UserRoundPlus className="w-5" />
                   <p>Requests</p>
                 </div>
                 {totalRequests !== 0 && (
