@@ -140,10 +140,12 @@ export const allowStudentRegister = async (req: Request, res: Response) => {
       submissions: 0,
    });
 
+   await PendingStudent.findOneAndDelete({ username });
+
    const token = jwt.sign({ username }, process.env.JWT_SECRET);
 
    res.status(200).json({
-      message: 'Student created successfully',
+      message: 'Student registered successfully',
       student,
       token,
    });

@@ -14,7 +14,7 @@ export type PendingStudentType = {
 };
 
 const Requests = () => {
-   const user = useUserDetails((store) => store.user);
+   const userInfo = useUserDetails((store) => store.user);
    const [allPendingStudents, setAllPendingStudents] =
       useState<PendingStudentType[]>();
 
@@ -29,7 +29,7 @@ const Requests = () => {
          'http://localhost:3000/api/teacher/allrequest',
          {
             headers: {
-               Authorization: `Bearer ${user.token}`,
+               Authorization: `Bearer ${userInfo.token}`,
             },
          }
       );
@@ -47,9 +47,11 @@ const Requests = () => {
          <div>
             {allPendingStudents?.map((student, idx) => (
                <div className='w-[95%] h-full flex flex-col gap-4'>
-                  <RequestCard key={idx} student={student} />
-                  <RequestCard key={idx} student={student} />
-                  <RequestCard key={idx} student={student} />
+                  <RequestCard
+                     key={idx}
+                     student={student}
+                     token={userInfo.token}
+                  />
                </div>
             ))}
          </div>

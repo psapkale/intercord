@@ -33,7 +33,7 @@ const SideBar = ({
       setIsOpen(false);
    };
 
-   const [totalRequests, setTotalRequests] = useState('');
+   const [totalRequests, setTotalRequests] = useState<number>();
    (async () => {
       const res = await axios.get(
          'http://localhost:3000/api/teacher/allrequest',
@@ -102,9 +102,11 @@ const SideBar = ({
                            <PlusCircle className='w-4' />
                            <p>Requests</p>
                         </div>
-                        <div className='w-5 h-5 mx-5 p-2 text-[12px] text-center text-white font-[600] bg-red-500 rounded-full flex items-center justify-center'>
-                           {totalRequests !== '0' ? totalRequests : ''}
-                        </div>
+                        {totalRequests !== 0 && (
+                           <div className='w-[1.2rem] h-[1.2rem] mx-5 p-2 text-[12px] text-center text-white font-[600] bg-red-500 rounded-full flex items-center justify-center'>
+                              {totalRequests}
+                           </div>
+                        )}
                      </Link>
                   )}
                   <Link
