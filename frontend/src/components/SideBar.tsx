@@ -1,4 +1,5 @@
 import { useUserDetails } from '@/utils/store';
+import axios from 'axios';
 import {
    BellRing,
    Bookmark,
@@ -31,6 +32,23 @@ const SideBar = ({
    const handleOnClick = () => {
       setIsOpen(false);
    };
+
+   const [totalRequests, setTotalRequests] = useState('');
+   (async () => {
+      const res = await axios.get(
+         'http://localhost:3000/api/teacher/allrequest',
+         {
+            headers: {
+               Authorization: `Bearer ${user.token}`,
+            },
+         }
+      );
+
+      res?.data?.allPendingStudents &&
+         setTotalRequests(res?.data?.allPendingStudents?.length);
+
+      return;
+   })();
 
    return (
       <>
@@ -68,7 +86,7 @@ const SideBar = ({
                   {user.role == 'teacher' && (
                      <Link
                         to='/dashboard/requests'
-                        className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
+                        className={`flex rounded-md items-center justify-between gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
                         ${
                            location.pathname == '/dashboard/requests'
                               ? 'text-black bg-[#ebeaea]'
@@ -80,8 +98,13 @@ const SideBar = ({
                            setShowSearchOptions(false);
                         }}
                      >
-                        <PlusCircle className='w-4' />
-                        <p>Requests</p>
+                        <div className='flex gap-2'>
+                           <PlusCircle className='w-4' />
+                           <p>Requests</p>
+                        </div>
+                        <div className='w-5 h-5 mx-5 p-2 text-[12px] text-center text-white font-[600] bg-red-500 rounded-full flex items-center justify-center'>
+                           {totalRequests !== '0' ? totalRequests : ''}
+                        </div>
                      </Link>
                   )}
                   <Link
