@@ -1,23 +1,35 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
-import { Score, Student, Teacher, Test } from '../db';
-import { StudentType, TeacherType, TestType } from '../types';
-
-interface SubjectScoreType {
-   subject: string;
-   score: number;
-}
+import { PendingStudent, Score, Student, Teacher, Test } from '../db';
+import { StudentType, SubjectScoreType, TeacherType, TestType } from '../types';
 
 // Todo all mongo logic here
 // Todo restrict creating duplicate users
 export const studentRegister = async (req: Request, res: Response) => {
    try {
-      const { name, email, username, password } = req.body;
-      if (!name || !email || !username || !password) {
+      const {
+         name,
+         email,
+         username,
+         password,
+         academicYear,
+         stream,
+         pursuingYear,
+      } = req.body;
+
+      if (
+         !name ||
+         !email ||
+         !username ||
+         !password ||
+         !academicYear ||
+         !stream ||
+         !pursuingYear
+      ) {
          return res
             .status(400)
-            .json({ message: 'Please provide name, username, and password' });
+            .json({ message: 'Please provide all the details' });
       }
 
       let student = await Student.findOne({ email });
@@ -36,27 +48,26 @@ export const studentRegister = async (req: Request, res: Response) => {
          });
       }
 
-      const hashedPassword = await bcrypt.hash(password, 10);
+      let pendingStudent = await PendingStudent.findOne({ username, email });
 
-      student = await Student.create({
+      if (pendingStudent) {
+         return res.status(400).json({
+            message: 'Request already exists',
+         });
+      }
+
+      pendingStudent = await PendingStudent.create({
          username,
          name,
          email,
-         password: hashedPassword,
-         submissions: [],
+         password,
+         academicYear,
+         stream,
+         pursuingYear,
       });
-      if (!student) {
-         return res.status(500).json({ message: 'Failed to create student' });
-      }
-
-      await Score.create({ candidate: student._id });
-
-      const token = jwt.sign({ username }, process.env.JWT_SECRET);
 
       res.status(200).json({
-         message: 'Student created successfully',
-         student,
-         token,
+         message: 'Request sent successfully',
       });
    } catch (e) {
       // ! Remove 'e' which might potentially show authorised details
@@ -208,6 +219,7 @@ export const testSubmission = async (req: Request, res: Response) => {
 
    test?.submissions?.push({
       submittedBy: student?._id,
+      name: student?.name,
       obtainedMarks: marksObtained,
    });
 
@@ -219,6 +231,7 @@ export const testSubmission = async (req: Request, res: Response) => {
          $push: {
             submissions: {
                test: test._id,
+               subject: test.subject,
                submittedAnswersIndex: submittedAnswersIndex,
                marksObtained: marksObtained,
                submittedAt: new Date(Date.now()),
@@ -262,6 +275,7 @@ export const testSubmission = async (req: Request, res: Response) => {
          $inc: {
             score: marksObtained,
          },
+         submissions: student?.submissions?.length,
       },
       { new: true }
    );
@@ -278,7 +292,7 @@ export const bookMarkTest = async (req: Request, res: Response) => {
    const { testId } = req.body;
    const { username } = res.locals;
 
-   const student = await Student.findOneAndUpdate({
+   const student: StudentType | null = await Student.findOneAndUpdate({
       username: username,
    });
 
@@ -341,7 +355,7 @@ export const updateStudentProfile = async (req: Request, res: Response) => {
       twitterUrl,
    } = req.body;
    try {
-      const student = await Student.findOne({
+      const student: StudentType | null = await Student.findOne({
          username: username,
       });
 

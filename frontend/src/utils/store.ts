@@ -22,6 +22,9 @@ type UserType = {
    email: string;
    username: string;
    role: string;
+   academicYear: string;
+   stream: string;
+   pursuingYear: string;
    isSignedUp?: boolean;
    sideBarDriverJs?: boolean;
    leaderboardDriverJs?: boolean;
@@ -43,6 +46,9 @@ const defaultParam: UserType = {
    email: '',
    username: '',
    role: '',
+   academicYear: '',
+   stream: '',
+   pursuingYear: '',
    bookmark: [],
    isSignedUp: false,
    sideBarDriverJs: true,

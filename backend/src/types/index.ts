@@ -16,16 +16,28 @@ export interface TeacherType {
    createdTests: TestType[];
 }
 
+export interface PendingStudentType {
+   _id: ObjectId;
+   username: string;
+   name: string;
+   email: string;
+   password: string;
+   academicYear: string;
+   stream: string;
+   pursuingYear: 'I' | 'II' | 'III';
+}
+
 export interface StudentType extends Document {
    _id: ObjectId;
    username: string;
    name: string;
    email: string;
    password: string;
+   rank: number;
    linkedinUrl: string;
    githubUrl: string;
    twitterUrl: string;
-   subjectScore: SubjectScoreType;
+   subjectScore: SubjectScoreType[];
    // resolve submissions
    submissions: StudentSubmissionType[];
    bookmark: ObjectId[];
@@ -35,6 +47,7 @@ export interface StudentType extends Document {
 export interface TestType {
    _id: ObjectId;
    subject: string;
+   title: string;
    description: string;
    questions: QuestionType[];
    createdBy: ObjectId | string | null;
@@ -46,7 +59,7 @@ export interface TestType {
    save: () => Promise<Document>;
 }
 
-interface SubjectScoreType {
+export interface SubjectScoreType {
    subject: string;
    score: number;
 }
@@ -59,11 +72,13 @@ interface QuestionType {
 
 interface TestSubmissionType {
    submittedBy: ObjectId | string | null;
+   name: string;
    obtainedMarks: number;
 }
 
 interface StudentSubmissionType {
    test: ObjectId | string | null;
+   subject: string;
    submittedAnswersIndex: number[];
    marksObtained: number;
    submittedAt: Date;
@@ -71,5 +86,8 @@ interface StudentSubmissionType {
 
 export interface ScoreType {
    candidate: ObjectId | string | null;
+   name: string;
+   username: string;
+   submissions: number;
    score: number;
 }
