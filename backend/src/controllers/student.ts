@@ -152,6 +152,10 @@ export const getTestById = async (req: Request, res: Response) => {
       (submission) => String(student?._id) == String(submission?.submittedBy)
    );
 
+   const sortedSubmissions = test.submissions.sort(
+      (x, y) => y.obtainedMarks - x.obtainedMarks
+   );
+
    const currentDateTime = new Date();
    const options = {
       timeZone: 'Asia/Kolkata',
@@ -183,7 +187,8 @@ export const getTestById = async (req: Request, res: Response) => {
    res.status(200).json({
       message: 'Done Successfully',
       test,
-      creator: teacher.name,
+      creator: teacher.username,
+      sortedSubmissions,
    });
 };
 
@@ -217,10 +222,12 @@ export const testSubmission = async (req: Request, res: Response) => {
       }
    });
 
+   const formattedTime = new Date().toTimeString();
    test?.submissions?.push({
       submittedBy: student?._id,
       name: student?.name,
       obtainedMarks: marksObtained,
+      submittedAt: formattedTime.slice(0, 8),
    });
 
    await test?.save();

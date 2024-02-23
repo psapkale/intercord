@@ -11,9 +11,11 @@ export type QuestionType = {
    answerIndex: 1 | 2 | 3 | 4;
 };
 
-type SubmissionType = {
+export type SubmissionType = {
    submittedBy: string;
+   name: string;
    obtainedMarks: number;
+   submittedAt: string;
 };
 
 export type TestType = {

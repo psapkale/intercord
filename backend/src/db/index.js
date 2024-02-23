@@ -153,6 +153,10 @@ const TestSchema = new mongoose.Schema({
             type: Number,
             default: 0,
          },
+         submittedAt: {
+            type: String,
+            default: '00:00',
+         },
       },
    ],
 });
