@@ -47,7 +47,6 @@ const SideBar = ({
 
     res?.data?.allPendingStudents &&
       setTotalRequests(res?.data?.allPendingStudents?.length);
-
     return;
   })();
 
@@ -279,10 +278,9 @@ const SideBar = ({
                   handleOnClick();
                   setShowSearchOptions(false);
                 }}
-                id="tests"
               >
                 <MdOutlinePeopleOutline className="scale-150" />
-                <p>Teachers</p>
+                <p>Create Teacher</p>
               </Link>
             )}
           </div>

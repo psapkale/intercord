@@ -23,6 +23,7 @@ module.exports = {
       bebas: ["Bebas Neue", "sans-serif"],
       sans: ["sans-serif"],
       mono: ["Zeyada"],
+      bona: ["Bona Nova", "serif"],
       brygada: ["Vesper Libre"],
     },
     container: {
