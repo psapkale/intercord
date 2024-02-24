@@ -37,6 +37,7 @@ const TeacherSchema = new mongoose.Schema({
    name: String,
    email: String,
    password: String,
+   stream: String,
    createdTests: [
       {
          type: mongoose.Schema.Types.ObjectId,
@@ -64,7 +65,6 @@ const StudentSubmissionsSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Test',
    },
-   testTitle: String,
    subject: String,
    submittedAnswersIndex: [Number],
    marksObtained: {
@@ -157,6 +157,11 @@ const TestSchema = new mongoose.Schema({
          submittedAt: {
             type: String,
             default: '00:00',
+         },
+         name: String,
+         obtainedMarks: {
+            type: Number,
+            default: 0,
          },
       },
    ],
