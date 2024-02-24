@@ -134,7 +134,7 @@ const TeachersTable = () => {
             htmlFor="email"
             className="font-semibold italic text-xl flex items-center font-bona"
           >
-            <AtSign className="size-5" /> Username
+            <AtSign className="size-5" /> username
           </label>
           <input
             type="email"
