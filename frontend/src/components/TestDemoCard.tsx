@@ -31,10 +31,9 @@ const TestDemoCard = ({
   time: string;
 }) => {
   const { user } = useUserDetails();
-  console.log(user.bookmark);
 
   return (
-    <div className="flex flex-col justify-between h-[13rem] px-2 border-2 shadow-md hover:shadow-lg transition-shadow duration-200 py-2 rounded-md">
+    <div className="flex flex-col justify-between h-[13rem] px-2 border-2 hover:shadow-lg transition-shadow duration-200 py-2 rounded-md">
       <div>
         <div className="flex w-full justify-between">
           <p className="text-xl uppercase font-semibold">{testName}</p>
@@ -68,44 +67,44 @@ const TestDemoCard = ({
                 </Tooltip>
               )}
 
-                     {/* {typeOfTestShowing === 'live' && ( */}
-                     <Link to={`${_id}`}>
-                        <Tooltip delayDuration={1}>
-                           <TooltipTrigger>
-                              <button className='cursor-pointer'>
-                                 <ArrowUpLeftFromCircle
-                                    className={
-                                       'mt-[0.3rem] size-4  text-gray-500 hover:text-black transition-colors duration-200'
-                                    }
-                                 />
-                              </button>
-                           </TooltipTrigger>
-                           <TooltipContent>
-                              <p>Start Test</p>
-                           </TooltipContent>
-                        </Tooltip>
-                     </Link>
-                     {/* )} */}
-                  </TooltipProvider>
-               </div>
-            </div>
-            <div className='w-full line-clamp-4 text-gray-500'>
-               <p>{description}</p>
-            </div>
-         </div>
-         <div>
-            <div className='mt-2 flex items-center gap-2'>
-               <CalendarDays className='size-5' />
-               <p className='text-gray-600'>{startDate}</p>
-            </div>
-            <div className='mt-1 flex items-center gap-2'>
-               <Timer className='size-5' />
-               {/* <p className='text-gray-600'>10:20</p> */}
-               <p className='text-gray-600'>{time}</p>
-            </div>
-         </div>
+              {/* {typeOfTestShowing === 'live' && ( */}
+              <Link to={`${_id}`}>
+                <Tooltip delayDuration={1}>
+                  <TooltipTrigger>
+                    <button className="cursor-pointer">
+                      <ArrowUpLeftFromCircle
+                        className={
+                          "mt-[0.3rem] size-4  text-gray-500 hover:text-black transition-colors duration-200"
+                        }
+                      />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Start Test</p>
+                  </TooltipContent>
+                </Tooltip>
+              </Link>
+              {/* )} */}
+            </TooltipProvider>
+          </div>
+        </div>
+        <div className="w-full line-clamp-4 text-gray-500">
+          <p>{description}</p>
+        </div>
       </div>
-   );
+      <div>
+        <div className="mt-2 flex items-center gap-2">
+          <CalendarDays className="size-5" />
+          <p className="text-gray-600">{startDate}</p>
+        </div>
+        <div className="mt-1 flex items-center gap-2">
+          <Timer className="size-5" />
+          {/* <p className='text-gray-600'>10:20</p> */}
+          <p className="text-gray-600">{time}</p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default TestDemoCard;

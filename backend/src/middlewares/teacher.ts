@@ -49,6 +49,7 @@ async function teacherMiddleware(
   }
 
   req.teacherId = teacher._id;
+  res.locals.username = username;
 
   next();
 }
