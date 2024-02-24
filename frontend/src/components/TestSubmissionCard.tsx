@@ -14,9 +14,9 @@ const TestSubmissionCard = ({
 
    return (
       <div
-         className={`w-full h-fit p-4 border border-transparent hover:border hover:border-black rounded-lg flex items-center ${
-            isCurrentUserSubmission && 'bg-[#d4d4d4]'
-         } hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.15)]`}
+         className={`w-full h-fit p-4 border ${
+            isCurrentUserSubmission ? 'border-[#d0d0d0]' : 'border-transparent'
+         } hover:border-[#c0c0c0] rounded-lg flex items-center hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.08)]`}
       >
          <h1 className='w-[10%] text-start font-mono text-[18px]'>{rank}</h1>
          <h1 className='w-[60%] text-start truncate font-mono text-[18px] ml-[1rem] '>

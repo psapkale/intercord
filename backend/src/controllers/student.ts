@@ -238,6 +238,7 @@ export const testSubmission = async (req: Request, res: Response) => {
          $push: {
             submissions: {
                test: test._id,
+               testTitle: test.title,
                subject: test.subject,
                submittedAnswersIndex: submittedAnswersIndex,
                marksObtained: marksObtained,

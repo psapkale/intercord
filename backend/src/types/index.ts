@@ -79,6 +79,7 @@ interface TestSubmissionType {
 
 interface StudentSubmissionType {
    test: ObjectId | string | null;
+   testTitle: string;
    subject: string;
    submittedAnswersIndex: number[];
    marksObtained: number;

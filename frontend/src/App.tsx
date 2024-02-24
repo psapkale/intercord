@@ -18,6 +18,7 @@ import TeacherProfilePage from './pages/TeacherProfile';
 import Students from './pages/Students';
 import Teachers from './pages/Teachers';
 import Requests from './pages/Requests';
+import StudentTests from './pages/StudentTests';
 // import { lazy } from "react";
 
 const appRouter = createBrowserRouter([
@@ -56,6 +57,10 @@ const appRouter = createBrowserRouter([
          {
             path: 'test/:testId',
             element: <TestPageOutlet />,
+         },
+         {
+            path: 'my-tests',
+            element: <StudentTests />,
          },
          {
             path: 'createtest',

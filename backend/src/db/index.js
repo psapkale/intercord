@@ -64,6 +64,7 @@ const StudentSubmissionsSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Test',
    },
+   testTitle: String,
    subject: String,
    submittedAnswersIndex: [Number],
    marksObtained: {
