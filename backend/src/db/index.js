@@ -117,37 +117,47 @@ const QuestionSchema = new mongoose.Schema({
 });
 
 const TestSchema = new mongoose.Schema({
-  subject: String,
-  title: String,
-  description: String,
-  questions: [QuestionSchema],
-  totalMarks: Number,
-  createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Teacher",
-  },
-  startDate: {
-    type: String,
-    default: new Date().toISOString().slice(0, 10),
-  },
-  time: {
-    type: String,
-    default: "00:00",
-  },
-  endTime: {
-    type: String,
-    default: "00:00",
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  // Todo add test submissions schema
-  submissions: [
-    {
-      submittedBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Student",
+   subject: String,
+   title: String,
+   description: String,
+   questions: [QuestionSchema],
+   totalMarks: Number,
+   createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Teacher',
+   },
+   startDate: {
+      type: String,
+      default: new Date().toISOString().slice(0, 10),
+   },
+   time: {
+      type: String,
+      default: '00:00',
+   },
+   endTime: {
+      type: String,
+      default: '00:00',
+   },
+   createdAt: {
+      type: Date,
+      default: Date.now,
+   },
+   // Todo add test submissions schema
+   submissions: [
+      {
+         submittedBy: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Student',
+         },
+         name: String,
+         obtainedMarks: {
+            type: Number,
+            default: 0,
+         },
+         submittedAt: {
+            type: String,
+            default: '00:00',
+         },
       },
       name: String,
       obtainedMarks: {

@@ -74,6 +74,7 @@ interface TestSubmissionType {
    submittedBy: ObjectId | string | null;
    name: string;
    obtainedMarks: number;
+   submittedAt: string;
 }
 
 interface StudentSubmissionType {
