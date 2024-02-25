@@ -47,7 +47,6 @@ const SideBar = ({
 
       res?.data?.allPendingStudents &&
          setTotalRequests(res?.data?.allPendingStudents?.length);
-
       return;
    })();
 
@@ -306,6 +305,34 @@ const SideBar = ({
                         <MdOutlinePeopleOutline className='scale-150' />
                         <p>Teachers</p>
                      </Link>
+                  )}
+               </div>
+               <Link to={'/'} onClick={logoutHandler}>
+                  <button
+                     id='logoutacc'
+                     className='flex items-center gap-2 py-1 w-full hover:bg-[#efefef] transition-all rounded-md duration-300 text-gray-600 hover:text-black absolute bottom-2 pl-[35%]'
+                  >
+                     Logout
+                     <LogOut className='w-4 mt-1' />
+                  </button>
+               </Link>
+            </div>
+         </div>
+         <div>
+            <div>
+               <div>
+                  {isOpen && (
+                     <div
+                        className='w-full h-full absolute bg-black opacity-[0.5] z-10'
+                        onClick={() => {
+                           RemoveActive();
+                           handleOnClick();
+                           setShowSearchOptions(false);
+                        }}
+                     >
+                        <MdOutlinePeopleOutline className='scale-150' />
+                        <p>Create Teacher</p>
+                     </div>
                   )}
                </div>
                <Link to={'/'} onClick={logoutHandler}>
