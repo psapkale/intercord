@@ -120,6 +120,11 @@ const TestSchema = new mongoose.Schema({
    subject: String,
    title: String,
    description: String,
+   stream: String,
+   forYear: {
+      type: String,
+      enum: ['I', 'II', 'III'],
+   },
    questions: [QuestionSchema],
    totalMarks: Number,
    createdBy: {
@@ -174,6 +179,11 @@ const ScoreSchema = mongoose.Schema({
    },
    name: String,
    username: String,
+   stream: String,
+   pursuingYear: {
+      type: String,
+      enum: ['I', 'II', 'III'],
+   },
    submissions: Number,
    score: {
       type: Number,

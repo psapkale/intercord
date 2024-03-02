@@ -2,7 +2,13 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { PendingStudent, Score, Student, Teacher, Test } from '../db';
-import { StudentType, SubjectScoreType, TeacherType, TestType } from '../types';
+import {
+   ScoreType,
+   StudentType,
+   SubjectScoreType,
+   TeacherType,
+   TestType,
+} from '../types';
 
 // Todo all mongo logic here
 // Todo restrict creating duplicate users
@@ -138,15 +144,19 @@ export const getTestById = async (req: Request, res: Response) => {
       });
    }
 
-   let test: TestType | null = await Test.findOne({ _id: testId });
+   const student: StudentType | null = await Student.findOne({ username });
+
+   let test: TestType | null = await Test.findOne({
+      _id: testId,
+      stream: student.stream,
+      forYear: student.pursuingYear,
+   });
 
    if (!test) {
       return res.status(404).json({
          message: 'Test not found',
       });
    }
-
-   const student: StudentType | null = await Student.findOne({ username });
 
    const isRepeat = test?.submissions?.find(
       (submission) => String(student?._id) == String(submission?.submittedBy)
@@ -212,7 +222,11 @@ export const testSubmission = async (req: Request, res: Response) => {
 
    let student: StudentType | null = await Student.findOne({ username });
 
-   const test: TestType | null = await Test.findOne({ _id: testId });
+   const test: TestType | null = await Test.findOne({
+      _id: testId,
+      stream: student.stream,
+      forYear: student.pursuingYear,
+   });
 
    const marksPerQuestion = test?.totalMarks / test?.questions?.length;
 
@@ -277,8 +291,12 @@ export const testSubmission = async (req: Request, res: Response) => {
    }
 
    // Todo resove score data
-   const score = await Score.findOneAndUpdate(
-      { candidate: student._id },
+   const score: ScoreType | null = await Score.findOneAndUpdate(
+      {
+         candidate: student._id,
+         stream: student.stream,
+         pursuingYear: student.pursuingYear,
+      },
       {
          $inc: {
             score: marksObtained,
