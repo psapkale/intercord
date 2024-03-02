@@ -96,18 +96,18 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="h-[100vh] w-full flex items-center justify-center bg-[#F5F5F5]">
-      <div className="flex justify-center items-center h-full font-zyada font-semibold">
+    <div className="h-screen overflow-hidden containerBg py-20 w-full flex items-center justify-center">
+      <div className="flex justify-center py-20 items-center h-full italic font-bona font-semibold">
         <form
-          className="auth-page h-fit absolute z-10 w-[30rem]  px-6 py-12 flex flex-col gap-5 rounded-lg login
+          className="auth-page bg-white shadow-lg h-fit absolute z-10 w-[90%] sm:w-[30rem]  px-6 py-12 flex flex-col gap-5 rounded-lg login
         "
         >
-          <h1 className="text-[3rem] -mb-8">Login</h1>
-          <p className="tracking-wide font-medium text-[1.2rem]">
+          <h1 className="text-[3rem] not-italic -mb-8">Login</h1>
+          <p className="tracking-wide font-medium text-[1rem]">
             Enter your username and password so u can start!
           </p>
           <div className="flex flex-col">
-            <label htmlFor="username" className="text-[1.8rem] -mb-2">
+            <label htmlFor="username" className="text-xl tracking-wider">
               username<span className="text-red-600">*</span>
             </label>
             <input
@@ -125,7 +125,7 @@ const Login = () => {
             />
           </div>
           <div className="flex flex-col">
-            <label htmlFor="username" className="text-[1.8rem] -mb-2">
+            <label htmlFor="username" className="text-xl tracking-wider">
               email<span className="text-red-600">*</span>
             </label>
             <input
@@ -143,7 +143,7 @@ const Login = () => {
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="password" className="text-[1.6rem] -mb-2">
+            <label htmlFor="password" className="text-xl tracking-wider">
               Password<span className="text-red-600">*</span>
             </label>
             <input
@@ -168,14 +168,14 @@ const Login = () => {
                 role: e.target.value.toLowerCase(),
               });
             }}
-            className="mt-4 -mb-2 text-black w-[50%] px-1 rounded-sm text-[1.8rem]"
+            className="mt-4 -mb-2 text-black w-[50%] px-1 rounded-sm text-xl tracking-wider italic"
           >
             <option selected>Student</option>
             <option>Teacher</option>
             <option>Admin</option>
           </select>
 
-          <p className="text-[1.8rem]">
+          <p className="text-xl tracking-wider">
             Need an account?{" "}
             <Link to={"/signup"} className="text-[#059CE8] underline">
               Sign up
@@ -184,7 +184,7 @@ const Login = () => {
           <button
             disabled={loading}
             type="submit"
-            className={`mt-4 tracking-wider w-full rounded-md text-[1.8rem]  duration-500 ${
+            className={`mt-4 tracking-wider w-full rounded-md text-xl italic py-2  duration-500 ${
               loading
                 ? "bg-white text-black cursor-not-allowed"
                 : "bg-[#313338] hover:bg-[#27292c] transition-all text-white"
