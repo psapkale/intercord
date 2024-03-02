@@ -36,13 +36,21 @@ router.put('/updateseen', studentMiddleware, updateSeenStudent);
 
 router.get('/search/student/all', studentMiddleware, allStudents);
 router.get('/search/teacher/all', studentMiddleware, allTeachers);
-router.get('/search/student/:username', serachStudent);
-router.get('/search/teacher/:username', serachTeacher);
-router.get('/score-board/all', getScoreBoard);
-router.get('/score-board/subject/:subject', getSubjectFilteredScoreBoard);
-router.get('/score-board/test/:subject', getSubjectFilteredTests);
-router.get('/upcoming', getUpComingTests);
-router.get('/closed', getClosedTests);
-router.get('/live', getLiveTests);
+router.get('/search/student/:username', studentMiddleware, serachStudent);
+router.get('/search/teacher/:username', studentMiddleware, serachTeacher);
+router.get('/score-board/all', studentMiddleware, getScoreBoard);
+router.get(
+   '/score-board/subject/:subject',
+   studentMiddleware,
+   getSubjectFilteredScoreBoard
+);
+router.get(
+   '/score-board/test/:subject',
+   studentMiddleware,
+   getSubjectFilteredTests
+);
+router.get('/upcoming', studentMiddleware, getUpComingTests);
+router.get('/closed', studentMiddleware, getClosedTests);
+router.get('/live', studentMiddleware, getLiveTests);
 
 export { router };
