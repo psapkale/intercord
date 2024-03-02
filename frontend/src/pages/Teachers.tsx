@@ -7,18 +7,29 @@ import { FormEvent, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { TeacherType } from './TeacherProfile';
 import SearchCard from '@/components/StudentSearchCard';
+import { useUserDetails } from '@/utils/store';
 
 const Teachers = () => {
    const [searchName, setSearchName] = useState('');
    const [allTeachers, setAllTeachers] = useState<StudentType[]>([]);
    const [teacher, setTeacher] = useState<TeacherType>();
+   const { user } = useUserDetails();
 
    const handleSubmit = async (e: FormEvent) => {
       e.preventDefault();
       try {
-         const res = await axios(
-            `http://localhost:3000/api/search/teacher/${searchName}`
-         );
+         const searchUrl =
+            user.role === 'admin'
+               ? `http://localhost:3000/api/search/teacher/${searchName}`
+               : user.role === 'student'
+               ? `http://localhost:3000/api/student/search/teacher/${searchName}`
+               : `http://localhost:3000/api/teacher/search/teacher/${searchName}`;
+
+         const res = await axios(searchUrl, {
+            headers: {
+               Authorization: `Bearer ${user.token}`,
+            },
+         });
 
          res?.data?.teacher && setTeacher(res?.data?.teacher);
       } catch (e: any) {
@@ -37,9 +48,18 @@ const Teachers = () => {
 
    // getting all students
    const getAllTeachers = async () => {
-      const res = await axios.get(
-         'http://localhost:3000/api/search/teacher/all'
-      );
+      const searchUrl =
+         user.role === 'admin'
+            ? 'http://localhost:3000/api/search/teacher/all'
+            : user.role === 'student'
+            ? 'http://localhost:3000/api/student/search/teacher/all'
+            : 'http://localhost:3000/api/teacher/search/teacher/all';
+
+      const res = await axios.get(searchUrl, {
+         headers: {
+            Authorization: `Bearer ${user.token}`,
+         },
+      });
 
       setAllTeachers(res?.data?.allTeachers);
    };
@@ -60,8 +80,8 @@ const Teachers = () => {
             >
                <input
                   type='text'
-                  placeholder='Search teachers by Name'
-                  className='outline-none border-none bg-gray-100 font-semibold placeholder:font-normal'
+                  placeholder='Search teachers by username'
+                  className='w-full outline-none border-none bg-gray-100 font-semibold placeholder:font-normal'
                   value={searchName}
                   onChange={(e) => {
                      setSearchName(e.target.value);
