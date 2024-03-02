@@ -13,6 +13,7 @@ export interface TeacherType {
    name: string;
    email: string;
    password: string;
+   stream: string;
    createdTests: TestType[];
 }
 
@@ -34,6 +35,9 @@ export interface StudentType extends Document {
    email: string;
    password: string;
    rank: number;
+   academicYear: string;
+   stream: string;
+   pursuingYear: 'I' | 'II' | 'III';
    linkedinUrl: string;
    githubUrl: string;
    twitterUrl: string;
@@ -49,6 +53,8 @@ export interface TestType {
    subject: string;
    title: string;
    description: string;
+   stream: string;
+   forYear: 'I' | 'II' | 'III';
    questions: QuestionType[];
    createdBy: ObjectId | string | null;
    createdAt: Date;
@@ -79,6 +85,7 @@ interface TestSubmissionType {
 
 interface StudentSubmissionType {
    test: ObjectId | string | null;
+   testTitle: string;
    subject: string;
    submittedAnswersIndex: number[];
    marksObtained: number;
@@ -89,6 +96,8 @@ export interface ScoreType {
    candidate: ObjectId | string | null;
    name: string;
    username: string;
+   stream: string;
+   pursuingYear: 'I' | 'II' | 'III';
    submissions: number;
    score: number;
 }
