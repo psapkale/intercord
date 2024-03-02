@@ -99,7 +99,7 @@ const Login = () => {
     <div className="h-screen overflow-hidden containerBg py-20 w-full flex items-center justify-center">
       <div className="flex justify-center py-20 items-center h-full italic font-bona font-semibold">
         <form
-          className="auth-page bg-white shadow-lg h-fit absolute z-10 w-[90%] sm:w-[30rem]  px-6 py-12 flex flex-col gap-5 rounded-lg login
+          className="auth-page bg-white shadow-lg h-fit absolute z-10 w-[90%] sm:w-[30rem] px-2 md:px-6 py-12 flex flex-col gap-5 rounded-lg login
         "
         >
           <h1 className="text-[3rem] not-italic -mb-8">Login</h1>
