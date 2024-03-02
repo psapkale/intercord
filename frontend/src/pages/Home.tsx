@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import gsap from "gsap";
 import FirstSectionHome from "@/components/FirstSectionHome";
 import SecondSectionMarquee from "@/components/SecondSectionMarquee";
+import ThirdSectionLogin from "@/components/ThirdSectionLogin";
 
 const Home = () => {
   useEffect(() => {
@@ -25,6 +26,7 @@ const Home = () => {
       </div>
       <FirstSectionHome />
       <SecondSectionMarquee />
+      <ThirdSectionLogin />
     </div>
   );
 };
