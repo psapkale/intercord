@@ -114,7 +114,7 @@ const Login = () => {
               required
               type="text"
               id="username"
-              className="w-full py-2 px-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black text-[1.2rem]"
+              className="w-full py-2 px-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black text-xl italic"
               value={userInfo.username}
               onChange={(e) => {
                 setUserInfo({
@@ -132,7 +132,7 @@ const Login = () => {
               required
               type="text"
               id="username"
-              className="w-full py-2 px-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black text-[1.2rem]"
+              className="w-full py-2 px-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black text-xl italic"
               value={userInfo.email}
               onChange={(e) => {
                 setUserInfo({
@@ -150,7 +150,7 @@ const Login = () => {
               required
               type="password"
               id="password"
-              className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black text-[1.2rem]"
+              className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black text-xl italic"
               value={userInfo.password}
               onChange={(e) => {
                 setUserInfo({
