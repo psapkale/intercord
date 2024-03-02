@@ -139,7 +139,7 @@ const TeachersTable = () => {
           <input
             type="email"
             id="email"
-            className="bg-gray-200 rounded-md py-2 text-black text-[16px] px-2 font-[400] w-[90%] lg:w-[20rem] outline-none"
+            className="bg-gray-200 rounded-md italic py-2 text-black text-[16px] px-2 font-[400] w-[90%] lg:w-[20rem] outline-none"
             placeholder="Enter username..."
             value={teacherDetails?.username}
             onChange={(e) => {
