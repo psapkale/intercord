@@ -18,7 +18,7 @@ router.get('/search/student/all', allStudents);
 router.get('/search/teacher/all', allTeachers);
 router.get('/search/student/:username', serachStudent);
 router.get('/search/teacher/:username', serachTeacher);
-router.get('/score-board/all', getScoreBoard);
+router.post('/score-board/all', getScoreBoard);
 router.get('/score-board/subject/:subject', getSubjectFilteredScoreBoard);
 router.get('/score-board/test/:subject', getSubjectFilteredTests);
 router.get('/upcoming', getUpComingTests);

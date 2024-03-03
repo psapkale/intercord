@@ -34,7 +34,7 @@ router.get('/search/student/all', teacherMiddleware, allStudents);
 router.get('/search/teacher/all', teacherMiddleware, allTeachers);
 router.get('/search/student/:username', teacherMiddleware, serachStudent);
 router.get('/search/teacher/:username', teacherMiddleware, serachTeacher);
-router.get('/score-board/all', teacherMiddleware, getScoreBoard);
+router.post('/score-board/all', teacherMiddleware, getScoreBoard);
 router.get(
    '/score-board/subject/:subject',
    teacherMiddleware,
