@@ -19,11 +19,9 @@ import { Link, useLocation } from "react-router-dom";
 const SideBar = ({
   isOpen,
   setIsOpen,
-  RemoveActive,
 }: {
   isOpen: boolean;
   setIsOpen: (val: boolean) => void;
-  RemoveActive: () => void;
 }) => {
   const location = useLocation();
   const logoutHandler = useUserDetails((state) => state.logoutUser);
@@ -71,10 +69,9 @@ const SideBar = ({
                   ${
                     location.pathname == "/dashboard/account"
                       ? "text-black bg-[#ebeaea]"
-                      : "text-gray-600"
+                      : "text-muted-foreground"
                   }`}
               onClick={() => {
-                RemoveActive();
                 handleOnClick();
                 setShowSearchOptions(false);
               }}
@@ -83,6 +80,7 @@ const SideBar = ({
               <CircleUserRound className="w-5" />
               <p>Account</p>
             </Link>
+
             {user.role == "teacher" && (
               <Link
                 to="/dashboard/requests"
@@ -90,10 +88,9 @@ const SideBar = ({
                         ${
                           location.pathname == "/dashboard/requests"
                             ? "text-black bg-[#ebeaea]"
-                            : "text-gray-600"
+                            : "text-muted-foreground"
                         }`}
                 onClick={() => {
-                  RemoveActive();
                   handleOnClick();
                   setShowSearchOptions(false);
                 }}
@@ -109,6 +106,7 @@ const SideBar = ({
                 )}
               </Link>
             )}
+
             {user.role == "student" && (
               <Link
                 to="/dashboard/my-tests"
@@ -116,10 +114,9 @@ const SideBar = ({
                         ${
                           location.pathname == "/dashboard/my-tests"
                             ? "text-black bg-[#ebeaea]"
-                            : "text-gray-600"
+                            : "text-muted-foreground"
                         }`}
                 onClick={() => {
-                  RemoveActive();
                   handleOnClick();
                   setShowSearchOptions(false);
                 }}
@@ -130,16 +127,16 @@ const SideBar = ({
                 </div>
               </Link>
             )}
+
             <Link
               to="/dashboard/leaderboard"
               className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
                   ${
                     location.pathname == "/dashboard/leaderboard"
                       ? "text-black bg-[#ebeaea]"
-                      : "text-gray-600"
+                      : "text-muted-foreground"
                   }`}
               onClick={() => {
-                RemoveActive();
                 handleOnClick();
                 setShowSearchOptions(false);
               }}
@@ -148,31 +145,34 @@ const SideBar = ({
               <ClipboardList className="w-5" />
               <p>Leaderboard</p>
             </Link>
-            <Link
-              to="/dashboard/test"
-              className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
+
+            {user.role !== "admin" && (
+              <Link
+                to="/dashboard/test"
+                className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
                   ${
                     location.pathname == "/dashboard/test"
                       ? "text-black bg-[#ebeaea]"
-                      : "text-gray-600"
+                      : "text-muted-foreground"
                   }`}
-              onClick={() => {
-                RemoveActive();
-                handleOnClick();
-                setShowSearchOptions(false);
-              }}
-              id="tests"
-            >
-              <Rocket className="w-5 mt-1" />
-              <p>Tests</p>
-            </Link>
+                onClick={() => {
+                  handleOnClick();
+                  setShowSearchOptions(false);
+                }}
+                id="tests"
+              >
+                <Rocket className="w-5 mt-1" />
+                <p>Tests</p>
+              </Link>
+            )}
+
             <div
               className={`flex rounded-md items-start gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
                   ${
                     location.pathname == "search/student" ||
                     location.pathname == "search/teacher"
                       ? "text-black bg-[#ebeaea]"
-                      : "text-gray-600"
+                      : "text-muted-foreground"
                   } cursor-pointer`}
               onClick={() => {
                 setShowSearchOptions((prev) => !prev);
@@ -182,6 +182,7 @@ const SideBar = ({
               <Search className="w-4" />
               <p>Search</p>
             </div>
+
             {showSearchOptions && (
               <div className="flex flex-col">
                 <Link
@@ -190,10 +191,9 @@ const SideBar = ({
                            ${
                              location.pathname == "/dashboard/search/student"
                                ? "text-black bg-[#ebeaea]"
-                               : "text-gray-600"
+                               : "text-muted-foreground"
                            } cursor-pointer`}
                   onClick={() => {
-                    RemoveActive();
                     handleOnClick();
                   }}
                 >
@@ -206,10 +206,9 @@ const SideBar = ({
                            ${
                              location.pathname == "/dashboard/search/teacher"
                                ? "text-black bg-[#ebeaea]"
-                               : "text-gray-600"
+                               : "text-muted-foreground"
                            } cursor-pointer`}
                   onClick={() => {
-                    RemoveActive();
                     handleOnClick();
                   }}
                 >
@@ -218,16 +217,16 @@ const SideBar = ({
                 </Link>
               </div>
             )}
+
             <Link
               to="/dashboard/announcment"
               className={`flex rounded-md relative items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
                   ${
                     location.pathname == "/dashboard/announcment"
                       ? "text-black bg-[#ebeaea]"
-                      : "text-gray-600"
+                      : "text-muted-foreground"
                   }`}
               onClick={() => {
-                RemoveActive();
                 handleOnClick();
                 setShowSearchOptions(false);
               }}
@@ -248,24 +247,27 @@ const SideBar = ({
               <BellRing className="w-4 mt-[3px]" />
               <p>Announcment</p>
             </Link>
-            <Link
-              to="/dashboard/bookmark"
-              className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
+
+            {user.role == "student" && (
+              <Link
+                to="/dashboard/bookmark"
+                className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
                   ${
                     location.pathname == "/dashboard/bookmark"
                       ? "text-black bg-[#ebeaea]"
-                      : "text-gray-600"
+                      : "text-muted-foreground"
                   }`}
-              onClick={() => {
-                RemoveActive();
-                handleOnClick();
-                setShowSearchOptions(false);
-              }}
-              id="bookmark"
-            >
-              <Bookmark className="w-4" />
-              <p>Bookmark</p>
-            </Link>
+                onClick={() => {
+                  handleOnClick();
+                  setShowSearchOptions(false);
+                }}
+                id="bookmark"
+              >
+                <Bookmark className="w-4" />
+                <p>Bookmark</p>
+              </Link>
+            )}
+
             {user.role == "teacher" && (
               <Link
                 to="/dashboard/createtest"
@@ -273,10 +275,9 @@ const SideBar = ({
             ${
               location.pathname == "/dashboard/createtest"
                 ? "text-black bg-[#ebeaea]"
-                : "text-gray-600"
+                : "text-muted-foreground"
             }`}
                 onClick={() => {
-                  RemoveActive();
                   handleOnClick();
                   setShowSearchOptions(false);
                 }}
@@ -285,6 +286,7 @@ const SideBar = ({
                 <p>Create Test</p>
               </Link>
             )}
+
             {user.role == "admin" && (
               <Link
                 to="/dashboard/create-teacher"
@@ -292,10 +294,9 @@ const SideBar = ({
                 ${
                   location.pathname == "/dashboard/create-teacher"
                     ? "text-black bg-[#ebeaea]"
-                    : "text-gray-600"
+                    : "text-muted-foreground"
                 }`}
                 onClick={() => {
-                  RemoveActive();
                   handleOnClick();
                   setShowSearchOptions(false);
                 }}
@@ -308,7 +309,7 @@ const SideBar = ({
           <Link to={"/"} onClick={logoutHandler}>
             <button
               id="logoutacc"
-              className="flex items-center gap-2 py-1 w-full hover:bg-[#efefef] transition-all rounded-md duration-300 text-gray-600 hover:text-black
+              className="flex items-center gap-2 py-1 w-full hover:bg-[#efefef] transition-all rounded-md duration-300 text-muted-foreground hover:text-black
                absolute bottom-2 pl-[35%]"
             >
               Logout
@@ -321,7 +322,6 @@ const SideBar = ({
         <div
           className="w-full h-full absolute bg-black opacity-[0.5] z-10"
           onClick={() => {
-            RemoveActive();
             handleOnClick();
           }}
         ></div>

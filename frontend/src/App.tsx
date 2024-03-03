@@ -8,7 +8,6 @@ import LeaderBoard from './pages/LeaderBoard';
 import TestsList from './pages/TestsList';
 import DashBoardLayout from './Layout/DashBoard';
 import CreateTest from './pages/CreateTest';
-import TeachersTable from './pages/TeachersTable';
 import Announcment from './pages/Announcment';
 import BookmarkTests from './pages/Bookmark';
 import TestPageOutlet from './pages/TestPageOutlet';
@@ -18,6 +17,7 @@ import TeacherProfilePage from './pages/TeacherProfile';
 import Students from './pages/Students';
 import Teachers from './pages/Teachers';
 import Requests from './pages/Requests';
+import CreateTeacher from './pages/CreateTeacher';
 import StudentTests from './pages/StudentTests';
 // import { lazy } from "react";
 
@@ -64,7 +64,7 @@ const appRouter = createBrowserRouter([
          },
          {
             path: 'create-teacher',
-            element: <TeachersTable />,
+            element: <CreateTeacher />,
          },
          {
             path: 'search/student',

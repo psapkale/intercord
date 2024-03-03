@@ -3,18 +3,12 @@
 import RankingTable from '@/components/RankingTable';
 import TestTable from '@/components/TestTable';
 import useFetchingDataFn from '@/hook/useFetchingDataFn';
-import { callLeaderBoardDriver } from '@/utils/driver';
-import { useUserDetails } from '@/utils/store';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { TestType } from './GiveTest';
+import { useUserDetails } from '@/utils/store';
 
 const LeaderBoard = () => {
-   const { user, updateTutorial } = useUserDetails((state) => ({
-      user: state.user,
-      updateTutorial: state.updateTutorial,
-   }));
-
    // destructuring the data from the hook
    const {
       selectedOptionField,
@@ -23,15 +17,10 @@ const LeaderBoard = () => {
       isRankingOpen,
    } = useFetchingDataFn();
 
+   const { user } = useUserDetails();
    const [allStudents, setAllStudents] = useState([]);
    const [pursuingYear, setPursuingYear] = useState('III');
    const [allTests, setAllTests] = useState<TestType[]>([]);
-
-   //<-- checking if we need to display the tutorial or not -->
-   if (user.isSignedUp && user.leaderboardDriverJs) {
-      updateTutorial('leaderboardDriverJs');
-      callLeaderBoardDriver();
-   }
 
    useEffect(() => {
       if (selectedOptionField !== 'all') getAllTestBySelectedSubject();
@@ -39,7 +28,6 @@ const LeaderBoard = () => {
          getAllStudentRanking();
       }
    }, [selectedOptionField, pursuingYear]);
-   console.log(user.token);
 
    const getAllStudentRanking = async () => {
       const searchUrl =

@@ -30,9 +30,18 @@ const useTestsAsPerTime = (
       setLoading(true);
       try {
          setTests([]);
-         const data = await axios.get(
-            `http://localhost:3000/api/${typeOfTestShowing}`
-         );
+         const searchUrl =
+            user.role === 'admin'
+               ? `http://localhost:3000/api/${typeOfTestShowing}`
+               : user.role === 'student'
+               ? `http://localhost:3000/api/student/${typeOfTestShowing}`
+               : `http://localhost:3000/api/teacher/${typeOfTestShowing}`;
+
+         const data = await axios.get(searchUrl, {
+            headers: {
+               Authorization: `Bearer ${user.token}`,
+            },
+         });
 
          setLoading(false);
          setTests(data?.data?.[typeOfTestShowing]);

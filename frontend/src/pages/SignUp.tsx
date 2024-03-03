@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-// import bgImg from "./../assets/banner.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { firstSectionAnimation } from "@/utils/Animation";
-import { useUserDetails } from "@/utils/store";
 import axios from "axios";
 
-// user type
-type userType = {
+//! user type
+type UserType = {
   username: string;
   name: string;
   password: string;
@@ -21,27 +19,28 @@ type userType = {
   twitterUrl?: string;
 };
 
-const SignUp = () => {
-  const [userInfo, setUserInfo] = useState<userType>({
-    username: "",
-    password: "",
-    email: "",
-    name: "",
-    academicYear: "",
-    stream: "",
-    pursuingYear: "",
-  });
-  const [loading, setLoading] = useState(false);
-  const setUserDetails = useUserDetails((state) => state.setUserDetails);
+//! default userInfo
+const defaultUserInfo: UserType = {
+  academicYear: "",
+  email: "",
+  name: "",
+  password: "",
+  pursuingYear: "",
+  stream: "",
+  username: "",
+};
 
-  // using useNavigate
-  const navigate = useNavigate();
+const SignUp = () => {
+  const [userInfo, setUserInfo] = useState<UserType>(defaultUserInfo);
+  const [loading, setLoading] = useState(false);
+
+  //! Handling Signup
   const submitHandler = async (
     e: React.FormEvent<HTMLButtonElement>
   ): Promise<void> => {
     e.preventDefault();
 
-    // email validation
+    //! email validation
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(userInfo.email)) {
       toast.error("Enter valid email", {
         duration: 3000,
@@ -49,7 +48,7 @@ const SignUp = () => {
       return;
     }
 
-    // password validation
+    //! password validation
     if (
       !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(
         userInfo.password
@@ -63,6 +62,8 @@ const SignUp = () => {
       );
       return;
     }
+
+    console.log(userInfo);
 
     // ? signup-request
     try {
@@ -80,21 +81,12 @@ const SignUp = () => {
         }
       );
 
-      toast.success(response.data.message);
-      // get token from response.data.token
-      // get student data from response.data.student
-      setUserDetails({
-        ...response?.data?.student,
-        role: "student",
-        isSignedUp: true,
-        leaderboardDriverJs: true,
-        sideBarDriverJs: true,
-        testDriverJs: true,
-        token: response?.data?.token,
+      toast.success(response.data.message, {
+        duration: 3000,
       });
 
+      setUserInfo(defaultUserInfo);
       setLoading(false);
-      navigate("/dashboard/account");
     } catch (err: any) {
       toast.error(err.response.data.message);
       setLoading(false);
@@ -110,7 +102,7 @@ const SignUp = () => {
     <div className="py-10 w-full flex items-center justify-center containerBg">
       <div className="flex justify-center py-20! items-center font-bona italic font-semibold">
         <form
-          className="w-[90%] sm:w-[30rem] bg-white px-2 md:px-8 rounded-md py-8 shadow-lg flex flex-col gap-2
+          className="w-[90%] sm:w-[30rem] bg-white px-2 md:px-8 rounded-md py-8 shadow-lg flex flex-col gap-5
         "
         >
           <div>
@@ -119,6 +111,7 @@ const SignUp = () => {
               Enter your username and password so u can start!
             </p>
           </div>
+          {/* Fullname */}
           <div className="flex flex-col">
             <label htmlFor="fullname" className="text-xl ">
               Fullname<span className="text-red-600">*</span>
@@ -137,6 +130,8 @@ const SignUp = () => {
               }}
             />
           </div>
+
+          {/* Email and username */}
           <div className="flex flex-col gap-1">
             <label htmlFor="email" className="text-xl ">
               email<span className="text-red-600">*</span>
@@ -193,27 +188,11 @@ const SignUp = () => {
               }}
             />
           </div>
+
+          {/* Pursuing year */}
           <div className="flex flex-col gap-1">
             <label htmlFor="username" className="text-xl ">
-              stream<span className="text-red-600">*</span>
-            </label>
-            <input
-              required
-              type="text"
-              id="stream"
-              className="w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black text-[1.2rem] italic"
-              value={userInfo.stream}
-              onChange={(e) => {
-                setUserInfo({
-                  ...userInfo,
-                  stream: e.target.value,
-                });
-              }}
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label htmlFor="username" className="text-xl ">
-              pursuing year<span className="text-red-600">*</span>
+              pursuing year<span className="text-red-600">*</span> (I, II, III)
             </label>
             <input
               required
@@ -230,6 +209,7 @@ const SignUp = () => {
             />
           </div>
 
+          {/* Password */}
           <div className="flex flex-col gap-1">
             <label htmlFor="password" className="text-xl">
               Password<span className="text-red-600">*</span>
@@ -248,6 +228,22 @@ const SignUp = () => {
               }}
             />
           </div>
+
+          {/* Stream */}
+          <select
+            onChange={(e) => {
+              setUserInfo({
+                ...userInfo,
+                stream: e.target.value.toLowerCase(),
+              });
+            }}
+            className="mt-4 -mb-2 text-black w-[50%] px-1 rounded-sm text-xl tracking-wider italic"
+          >
+            <option selected>BCS</option>
+            <option>BCA</option>
+            <option>BTECH</option>
+            <option>BCOM</option>
+          </select>
 
           <p className="text-xl mt-4">
             Already have a account?{" "}

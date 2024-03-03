@@ -492,6 +492,8 @@ export const getUpComingTests = async (req: Request, res: Response) => {
       ],
    });
 
+   console.log(teacher.stream, upcoming);
+
    res.status(200).json({
       message: 'Done Successfully',
       upcoming,
