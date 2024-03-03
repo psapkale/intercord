@@ -21,7 +21,7 @@ const defaultTeacherValues: TeacherType = {
   username: "",
 };
 
-const TeachersTable = () => {
+const CreateTeacher = () => {
   const [teacherDetails, setTeacherDetails] =
     useState<TeacherType>(defaultTeacherValues);
   const { user } = useUserDetails();
@@ -206,4 +206,4 @@ const TeachersTable = () => {
   );
 };
 
-export default TeachersTable;
+export default CreateTeacher;

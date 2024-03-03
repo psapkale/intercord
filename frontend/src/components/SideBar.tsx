@@ -83,6 +83,7 @@ const SideBar = ({
               <CircleUserRound className="w-5" />
               <p>Account</p>
             </Link>
+
             {user.role == "teacher" && (
               <Link
                 to="/dashboard/requests"
@@ -109,6 +110,7 @@ const SideBar = ({
                 )}
               </Link>
             )}
+
             {user.role == "student" && (
               <Link
                 to="/dashboard/my-tests"
@@ -130,6 +132,7 @@ const SideBar = ({
                 </div>
               </Link>
             )}
+
             <Link
               to="/dashboard/leaderboard"
               className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
@@ -148,24 +151,28 @@ const SideBar = ({
               <ClipboardList className="w-5" />
               <p>Leaderboard</p>
             </Link>
-            <Link
-              to="/dashboard/test"
-              className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
+
+            {user.role !== "admin" && (
+              <Link
+                to="/dashboard/test"
+                className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
                   ${
                     location.pathname == "/dashboard/test"
                       ? "text-black bg-[#ebeaea]"
                       : "text-gray-600"
                   }`}
-              onClick={() => {
-                RemoveActive();
-                handleOnClick();
-                setShowSearchOptions(false);
-              }}
-              id="tests"
-            >
-              <Rocket className="w-5 mt-1" />
-              <p>Tests</p>
-            </Link>
+                onClick={() => {
+                  RemoveActive();
+                  handleOnClick();
+                  setShowSearchOptions(false);
+                }}
+                id="tests"
+              >
+                <Rocket className="w-5 mt-1" />
+                <p>Tests</p>
+              </Link>
+            )}
+
             <div
               className={`flex rounded-md items-start gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
                   ${
@@ -182,6 +189,7 @@ const SideBar = ({
               <Search className="w-4" />
               <p>Search</p>
             </div>
+
             {showSearchOptions && (
               <div className="flex flex-col">
                 <Link
@@ -218,6 +226,7 @@ const SideBar = ({
                 </Link>
               </div>
             )}
+
             <Link
               to="/dashboard/announcment"
               className={`flex rounded-md relative items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
@@ -248,24 +257,28 @@ const SideBar = ({
               <BellRing className="w-4 mt-[3px]" />
               <p>Announcment</p>
             </Link>
-            <Link
-              to="/dashboard/bookmark"
-              className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
+
+            {user.role == "student" && (
+              <Link
+                to="/dashboard/bookmark"
+                className={`flex rounded-md items-center gap-2 py-2 w-full hover:bg-[#F7F7F8] pl-4 transition-all duration-200 hover:text-black 
                   ${
                     location.pathname == "/dashboard/bookmark"
                       ? "text-black bg-[#ebeaea]"
                       : "text-gray-600"
                   }`}
-              onClick={() => {
-                RemoveActive();
-                handleOnClick();
-                setShowSearchOptions(false);
-              }}
-              id="bookmark"
-            >
-              <Bookmark className="w-4" />
-              <p>Bookmark</p>
-            </Link>
+                onClick={() => {
+                  RemoveActive();
+                  handleOnClick();
+                  setShowSearchOptions(false);
+                }}
+                id="bookmark"
+              >
+                <Bookmark className="w-4" />
+                <p>Bookmark</p>
+              </Link>
+            )}
+
             {user.role == "teacher" && (
               <Link
                 to="/dashboard/createtest"
@@ -285,6 +298,7 @@ const SideBar = ({
                 <p>Create Test</p>
               </Link>
             )}
+
             {user.role == "admin" && (
               <Link
                 to="/dashboard/create-teacher"
