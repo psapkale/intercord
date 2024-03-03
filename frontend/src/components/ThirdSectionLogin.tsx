@@ -15,9 +15,9 @@ const ThirdSectionLogin = () => {
             controls
           ></video>
         </div>
-      </div>
+      </div>{" "}
       <div className="md:h-full w-full md:w-[50%] flex justify-center flex-col gap-4 items-center md:px-10">
-        <h1 className="text-4xl sm:text-5xl font-semibold">
+        <h1 className="text-5xl md:text-6xl font-semibold">
           How to login/Signup?
         </h1>
         {/* <div className="w-[80%] shadow-lg object-cover h-[70%] overflow-hidden rounded-md">

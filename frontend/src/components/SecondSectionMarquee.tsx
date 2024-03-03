@@ -9,7 +9,6 @@ const SecondSectionMarquee = () => {
           <span className="text-[5rem] mx-4">System</span>
           <span className="text-[5rem] mx-4">Portal</span>
         </div>
-
         <div className="absolute animate-marquee2 whitespace-nowrap">
           <span className="text-[5rem] mx-4 font-zyada">Mcq</span>
           <span className="text-[5rem] mx-4">Based</span>
