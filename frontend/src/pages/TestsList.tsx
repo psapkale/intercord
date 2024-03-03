@@ -21,10 +21,10 @@ const TestsList = () => {
     useTestsAsPerTime(typeOfTestShowing);
 
   return (
-    <div className="w-full h-full pl-[2rem] lg:pl-[6rem] pt-[2rem] pr-[1rem] sm:pr-[2rem] flex flex-col gap-4">
+    <div className="w-full font-bona h-full pl-[2rem] lg:pl-[6rem] pt-[2rem] pr-[1rem] sm:pr-[2rem] flex flex-col gap-4">
       <div className="flex mt-4 pl-1 gap-4">
         <button
-          className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-mono font-bold text-xs md:text-xl md:text-lg-+ ${
+          className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 italic font-bold text-xs md:text-xl md:text-lg-+ ${
             typeOfTestShowing === "upcoming"
               ? "bg-gray-300 shadow-md"
               : "bg-gray-200"
@@ -34,10 +34,10 @@ const TestsList = () => {
           }}
           disabled={loading}
         >
-          Up Coming <Timer className="mb-1 size-5" />
+          Up Coming <Timer className="  size-5" />
         </button>
         <button
-          className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-mono font-bold text-xl sm:text-xl ${
+          className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 italic font-bold text-xl sm:text-xl ${
             typeOfTestShowing === "live"
               ? "bg-gray-300 shadow-md"
               : "bg-gray-200"
@@ -47,11 +47,10 @@ const TestsList = () => {
             setTypeOfTestShowing("live");
           }}
         >
-          Live{" "}
-          <ArrowUpLeftFromCircle className="mb-1 size-4" strokeWidth={2.5} />
+          Live <ArrowUpLeftFromCircle className="  size-4" strokeWidth={2.5} />
         </button>
         <button
-          className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 font-mono text-xl sm:text-xl font-bold ${
+          className={`flex items-center hover:bg-gray-300 transition-colors duration-300 py-1 px-2 rounded-md gap-1 italic text-xl sm:text-xl font-bold ${
             typeOfTestShowing === "closed"
               ? "bg-gray-300 shadow-md"
               : "bg-gray-200"
@@ -61,7 +60,7 @@ const TestsList = () => {
             setTypeOfTestShowing("closed");
           }}
         >
-          Closed <X strokeWidth={2.75} className="mb-1 size-5" />
+          Closed <X strokeWidth={2.75} className="size-5" />
         </button>
       </div>
 

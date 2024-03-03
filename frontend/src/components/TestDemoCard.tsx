@@ -39,7 +39,7 @@ const TestDemoCard = ({
           <p className="text-xl uppercase font-semibold">{testName}</p>
           <div className="flex items-center gap-2">
             <TooltipProvider>
-              {typeOfTestShowing == "closed" && (
+              {typeOfTestShowing == "closed" && user.role == "student" && (
                 <Tooltip delayDuration={1}>
                   <TooltipTrigger>
                     {user.bookmark?.includes(_id) ? (
@@ -68,22 +68,25 @@ const TestDemoCard = ({
               )}
 
               {/* {typeOfTestShowing === 'live' && ( */}
-              <Link to={`${_id}`}>
-                <Tooltip delayDuration={1}>
-                  <TooltipTrigger>
-                    <button className="cursor-pointer">
-                      <ArrowUpLeftFromCircle
-                        className={
-                          "mt-[0.3rem] size-4  text-gray-500 hover:text-black transition-colors duration-200"
-                        }
-                      />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Start Test</p>
-                  </TooltipContent>
-                </Tooltip>
-              </Link>
+              {user.role == "student" && (
+                <Link to={`${_id}`}>
+                  <Tooltip delayDuration={1}>
+                    <TooltipTrigger>
+                      <button className="cursor-pointer">
+                        <ArrowUpLeftFromCircle
+                          className={
+                            "mt-[0.3rem] size-4  text-gray-500 hover:text-black transition-colors duration-200"
+                          }
+                        />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Start Test</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </Link>
+              )}
+
               {/* )} */}
             </TooltipProvider>
           </div>
