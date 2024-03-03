@@ -73,7 +73,7 @@ export const studentRegister = async (req: Request, res: Response) => {
     });
 
     res.status(200).json({
-      message: "Request sent successfully",
+      message: "Request sent successfully. Wait until it gets approved!",
     });
   } catch (e) {
     // ! Remove 'e' which might potentially show authorised details

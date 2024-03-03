@@ -5,13 +5,14 @@ const ThirdSectionLogin = () => {
   return (
     <div className="w-full h-screen font-bona containerBg flex max-md:justify-center max-md:flex-col-reverse max-md:px-4">
       <div className="md:h-full w-full md:w-[50%] flex justify-center items-center md:px-10">
-        {/* Todo: replace div with video */}
-        <div className="w-full h-[80%] md:h-[60%] bg-white rounded-lg shadow-lg">
+        <div className="w-full h-full max-md:mt-10 md:h-[60%] bg-white rounded-lg shadow-lg">
           <video
             src={demoVideo}
             className="w-full h-full object-cover rounded-lg"
             autoPlay
             loop
+            muted
+            controls
           ></video>
         </div>
       </div>
