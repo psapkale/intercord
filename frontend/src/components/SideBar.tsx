@@ -32,21 +32,23 @@ const SideBar = ({
     setIsOpen(false);
   };
 
-  const [totalRequests, setTotalRequests] = useState<number>();
-  (async () => {
-    const res = await axios.get(
-      "http://localhost:3000/api/teacher/allrequest",
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+  const [totalRequests, setTotalRequests] = useState<number>(0);
+  if (user.role == "teacher") {
+    (async () => {
+      const res = await axios.get(
+        "http://localhost:3000/api/teacher/allrequest",
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
 
-    res?.data?.allPendingStudents &&
-      setTotalRequests(res?.data?.allPendingStudents?.length);
-    return;
-  })();
+      res?.data?.allPendingStudents &&
+        setTotalRequests(res?.data?.allPendingStudents?.length);
+      return;
+    })();
+  }
 
   return (
     <>
@@ -95,15 +97,15 @@ const SideBar = ({
                   setShowSearchOptions(false);
                 }}
               >
-                <div className="flex gap-2">
+                <div className="flex gap-2 relative">
                   <UserRoundPlus className="w-5" />
                   <p>Requests</p>
+                  {totalRequests !== 0 && (
+                    <div className="absolute bg-red-600 h-3 w-3 text-white rounded-full flex justify-center items-center top-0 left-3 text-[0.6rem] p-1">
+                      {totalRequests}
+                    </div>
+                  )}
                 </div>
-                {totalRequests !== 0 && (
-                  <div className="w-[1.2rem] h-[1.2rem] mx-5 p-2 text-[12px] text-center text-white font-[600] bg-red-500 rounded-full flex items-center justify-center">
-                    {totalRequests}
-                  </div>
-                )}
               </Link>
             )}
 

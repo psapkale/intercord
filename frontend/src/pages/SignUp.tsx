@@ -107,7 +107,7 @@ const SignUp = () => {
         >
           <div>
             <h1 className="text-[3rem] not-italic">SignUp</h1>
-            <p className="tracking-wide font-medium text-[1.1rem]">
+            <p className="tracking-wide font-medium text-[1.1rem] text-muted-foreground">
               Enter your username and password so u can start!
             </p>
           </div>

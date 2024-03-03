@@ -15,7 +15,7 @@ const FirstSectionHome = () => {
       </p>
       <Link
         to={user.name ? "/dashboard/account" : "/login"}
-        className="hover:underline hover:text-black mt-4 lg:mt-8 transition-colors flex items-center text-gray-400 gap-1"
+        className="hover:underline hover:text-black mt-4 lg:mt-8 transition-colors flex items-center text-muted-foreground gap-1"
       >
         Continue <ArrowUpRightFromCircle className="size-4 mt-1" />
       </Link>

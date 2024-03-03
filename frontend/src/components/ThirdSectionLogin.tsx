@@ -27,7 +27,7 @@ const ThirdSectionLogin = () => {
             alt="auth-img"
           />
         </div> */}
-        <p>
+        <p className="text-muted-foreground">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo et atque
           voluptates magni ratione, excepturi dolorem facere nesciunt in quaerat
           tempore assumenda error, reiciendis debitis voluptatem incidunt eos
