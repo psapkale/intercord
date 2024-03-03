@@ -69,7 +69,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="w-full !italic h-fit pl-[1.5rem] sm:pl-[2rem] md:pl-[6rem] pt-[2rem] overflow-y-scroll py-8">
+    <div className="w-full tracking-wider !italic h-fit pl-[1.5rem] sm:pl-[2rem] md:pl-[6rem] pt-[2rem] overflow-y-scroll py-8">
       <div className="flex flex-col gap-[1.5rem]">
         <h1 className="font-semibold not-italic text-5xl max-md:mt-[1rem]  font-bona">
           Account

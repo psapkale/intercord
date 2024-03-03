@@ -19,11 +19,9 @@ import { Link, useLocation } from "react-router-dom";
 const SideBar = ({
   isOpen,
   setIsOpen,
-  RemoveActive,
 }: {
   isOpen: boolean;
   setIsOpen: (val: boolean) => void;
-  RemoveActive: () => void;
 }) => {
   const location = useLocation();
   const logoutHandler = useUserDetails((state) => state.logoutUser);
@@ -71,10 +69,9 @@ const SideBar = ({
                   ${
                     location.pathname == "/dashboard/account"
                       ? "text-black bg-[#ebeaea]"
-                      : "text-gray-600"
+                      : "text-muted-foreground"
                   }`}
               onClick={() => {
-                RemoveActive();
                 handleOnClick();
                 setShowSearchOptions(false);
               }}
@@ -91,10 +88,9 @@ const SideBar = ({
                         ${
                           location.pathname == "/dashboard/requests"
                             ? "text-black bg-[#ebeaea]"
-                            : "text-gray-600"
+                            : "text-muted-foreground"
                         }`}
                 onClick={() => {
-                  RemoveActive();
                   handleOnClick();
                   setShowSearchOptions(false);
                 }}
@@ -118,10 +114,9 @@ const SideBar = ({
                         ${
                           location.pathname == "/dashboard/my-tests"
                             ? "text-black bg-[#ebeaea]"
-                            : "text-gray-600"
+                            : "text-muted-foreground"
                         }`}
                 onClick={() => {
-                  RemoveActive();
                   handleOnClick();
                   setShowSearchOptions(false);
                 }}
@@ -139,10 +134,9 @@ const SideBar = ({
                   ${
                     location.pathname == "/dashboard/leaderboard"
                       ? "text-black bg-[#ebeaea]"
-                      : "text-gray-600"
+                      : "text-muted-foreground"
                   }`}
               onClick={() => {
-                RemoveActive();
                 handleOnClick();
                 setShowSearchOptions(false);
               }}
@@ -159,10 +153,9 @@ const SideBar = ({
                   ${
                     location.pathname == "/dashboard/test"
                       ? "text-black bg-[#ebeaea]"
-                      : "text-gray-600"
+                      : "text-muted-foreground"
                   }`}
                 onClick={() => {
-                  RemoveActive();
                   handleOnClick();
                   setShowSearchOptions(false);
                 }}
@@ -179,7 +172,7 @@ const SideBar = ({
                     location.pathname == "search/student" ||
                     location.pathname == "search/teacher"
                       ? "text-black bg-[#ebeaea]"
-                      : "text-gray-600"
+                      : "text-muted-foreground"
                   } cursor-pointer`}
               onClick={() => {
                 setShowSearchOptions((prev) => !prev);
@@ -198,10 +191,9 @@ const SideBar = ({
                            ${
                              location.pathname == "/dashboard/search/student"
                                ? "text-black bg-[#ebeaea]"
-                               : "text-gray-600"
+                               : "text-muted-foreground"
                            } cursor-pointer`}
                   onClick={() => {
-                    RemoveActive();
                     handleOnClick();
                   }}
                 >
@@ -214,10 +206,9 @@ const SideBar = ({
                            ${
                              location.pathname == "/dashboard/search/teacher"
                                ? "text-black bg-[#ebeaea]"
-                               : "text-gray-600"
+                               : "text-muted-foreground"
                            } cursor-pointer`}
                   onClick={() => {
-                    RemoveActive();
                     handleOnClick();
                   }}
                 >
@@ -233,10 +224,9 @@ const SideBar = ({
                   ${
                     location.pathname == "/dashboard/announcment"
                       ? "text-black bg-[#ebeaea]"
-                      : "text-gray-600"
+                      : "text-muted-foreground"
                   }`}
               onClick={() => {
-                RemoveActive();
                 handleOnClick();
                 setShowSearchOptions(false);
               }}
@@ -265,10 +255,9 @@ const SideBar = ({
                   ${
                     location.pathname == "/dashboard/bookmark"
                       ? "text-black bg-[#ebeaea]"
-                      : "text-gray-600"
+                      : "text-muted-foreground"
                   }`}
                 onClick={() => {
-                  RemoveActive();
                   handleOnClick();
                   setShowSearchOptions(false);
                 }}
@@ -286,10 +275,9 @@ const SideBar = ({
             ${
               location.pathname == "/dashboard/createtest"
                 ? "text-black bg-[#ebeaea]"
-                : "text-gray-600"
+                : "text-muted-foreground"
             }`}
                 onClick={() => {
-                  RemoveActive();
                   handleOnClick();
                   setShowSearchOptions(false);
                 }}
@@ -306,10 +294,9 @@ const SideBar = ({
                 ${
                   location.pathname == "/dashboard/create-teacher"
                     ? "text-black bg-[#ebeaea]"
-                    : "text-gray-600"
+                    : "text-muted-foreground"
                 }`}
                 onClick={() => {
-                  RemoveActive();
                   handleOnClick();
                   setShowSearchOptions(false);
                 }}
@@ -322,7 +309,7 @@ const SideBar = ({
           <Link to={"/"} onClick={logoutHandler}>
             <button
               id="logoutacc"
-              className="flex items-center gap-2 py-1 w-full hover:bg-[#efefef] transition-all rounded-md duration-300 text-gray-600 hover:text-black
+              className="flex items-center gap-2 py-1 w-full hover:bg-[#efefef] transition-all rounded-md duration-300 text-muted-foreground hover:text-black
                absolute bottom-2 pl-[35%]"
             >
               Logout
@@ -335,7 +322,6 @@ const SideBar = ({
         <div
           className="w-full h-full absolute bg-black opacity-[0.5] z-10"
           onClick={() => {
-            RemoveActive();
             handleOnClick();
           }}
         ></div>
