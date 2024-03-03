@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
-// import bgImg from "./../assets/banner.png";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { firstSectionAnimation } from "@/utils/Animation";
@@ -112,6 +111,7 @@ const SignUp = () => {
               Enter your username and password so u can start!
             </p>
           </div>
+          {/* Fullname */}
           <div className="flex flex-col">
             <label htmlFor="fullname" className="text-xl ">
               Fullname<span className="text-red-600">*</span>
@@ -130,6 +130,8 @@ const SignUp = () => {
               }}
             />
           </div>
+
+          {/* Email and username */}
           <div className="flex flex-col gap-1">
             <label htmlFor="email" className="text-xl ">
               email<span className="text-red-600">*</span>
@@ -187,6 +189,7 @@ const SignUp = () => {
             />
           </div>
 
+          {/* Pursuing year */}
           <div className="flex flex-col gap-1">
             <label htmlFor="username" className="text-xl ">
               pursuing year<span className="text-red-600">*</span> (I, II, III)
@@ -206,6 +209,7 @@ const SignUp = () => {
             />
           </div>
 
+          {/* Password */}
           <div className="flex flex-col gap-1">
             <label htmlFor="password" className="text-xl">
               Password<span className="text-red-600">*</span>
@@ -225,6 +229,7 @@ const SignUp = () => {
             />
           </div>
 
+          {/* Stream */}
           <select
             onChange={(e) => {
               setUserInfo({

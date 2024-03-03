@@ -9,19 +9,24 @@ type TeacherType = {
   name: string;
   email: string;
   password: string;
-  // stream: string;
+  stream: string;
+};
+
+//! default teacher field values
+const defaultTeacherValues: TeacherType = {
+  name: "",
+  email: "",
+  password: "",
+  stream: "bcs",
+  username: "",
 };
 
 const TeachersTable = () => {
-  const [teacherDetails, setTeacherDetails] = useState<TeacherType>({
-    name: "",
-    email: "",
-    password: "",
-    // stream: "bcs",
-    username: "",
-  });
+  const [teacherDetails, setTeacherDetails] =
+    useState<TeacherType>(defaultTeacherValues);
   const { user } = useUserDetails();
 
+  //! Handling teacher creation
   const handleCreateTeacher = async () => {
     if (
       !teacherDetails.email ||
@@ -70,13 +75,7 @@ const TeachersTable = () => {
       );
 
       toast.success(res?.data?.message);
-      setTeacherDetails({
-        name: "",
-        email: "",
-        password: "",
-        // stream: "bcs",
-        username: "",
-      });
+      setTeacherDetails(defaultTeacherValues);
     } catch (err) {
       console.log("error in Create Teacher", err);
     }
@@ -170,7 +169,7 @@ const TeachersTable = () => {
           />
         </div>
         {/* Drop Down */}
-        {/* <div className="flex flex-col">
+        <div className="flex flex-col">
           <label htmlFor="stream" className="font-semibold text-xl font-bona">
             Stream
           </label>
@@ -178,7 +177,10 @@ const TeachersTable = () => {
             id="stream"
             className="italic py-2 outline-none border rounded-md w-[90%] lg:w-[20rem]"
             onChange={(e) => {
-              console.log(e.target.value);
+              setTeacherDetails({
+                ...teacherDetails,
+                stream: e.target.value.toLowerCase(),
+              });
             }}
             value={teacherDetails?.stream}
           >
@@ -192,7 +194,7 @@ const TeachersTable = () => {
               BCOM
             </option>
           </select>
-        </div> */}
+        </div>
       </div>
       <button
         className="w-[10rem] mt-8 rounded-md tracking-wider text-xl font-medium border border-black hover:bg-white hover:text-black transition-all duration-300 font-bona py-2 bg-[#0F0F0F] text-white flex justify-center items-center gap-2 italic"
