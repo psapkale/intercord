@@ -17,6 +17,8 @@ const TestPageOutlet = () => {
       []
    );
 
+   console.log(user.token);
+
    useEffect(() => {
       getTest();
    }, []);
