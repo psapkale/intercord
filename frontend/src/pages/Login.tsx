@@ -103,7 +103,7 @@ const Login = () => {
         "
         >
           <h1 className="text-[3rem] not-italic -mb-8">Login</h1>
-          <p className="tracking-wide font-medium text-[1rem]">
+          <p className="tracking-wide text-muted-foreground font-medium text-[1rem]">
             Enter your username and password so u can start!
           </p>
           <div className="flex flex-col">
