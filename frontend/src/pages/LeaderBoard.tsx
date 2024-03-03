@@ -3,18 +3,11 @@
 import RankingTable from "@/components/RankingTable";
 import TestTable from "@/components/TestTable";
 import useFetchingDataFn from "@/hook/useFetchingDataFn";
-import { callLeaderBoardDriver } from "@/utils/driver";
-import { useUserDetails } from "@/utils/store";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { TestType } from "./GiveTest";
 
 const LeaderBoard = () => {
-  const { user, updateTutorial } = useUserDetails((state) => ({
-    user: state.user,
-    updateTutorial: state.updateTutorial,
-  }));
-
   // destructuring the data from the hook
   const {
     selectedOptionField,
@@ -25,12 +18,6 @@ const LeaderBoard = () => {
 
   const [allStudents, setAllStudents] = useState([]);
   const [allTests, setAllTests] = useState<TestType[]>([]);
-
-  //<-- checking if we need to display the tutorial or not -->
-  if (user.isSignedUp && user.leaderboardDriverJs) {
-    updateTutorial("leaderboardDriverJs");
-    callLeaderBoardDriver();
-  }
 
   useEffect(() => {
     if (selectedOptionField !== "all") getAllTestBySelectedSubject();

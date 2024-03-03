@@ -1,20 +1,11 @@
 import { TestSkeleton } from "@/components/PrimeSkeleton";
 import TestDemoCard from "@/components/TestDemoCard";
 import useTestsAsPerTime from "@/hook/useTestsAsPerTime";
-import { callTestDriver } from "@/utils/driver";
-import { useUserDetails } from "@/utils/store";
 import { ArrowUpLeftFromCircle, Timer, X } from "lucide-react";
 import { useState } from "react";
 
 const TestsList = () => {
   const [typeOfTestShowing, setTypeOfTestShowing] = useState<string>("live");
-  const { user } = useUserDetails();
-  const updateTutorial = useUserDetails((state) => state.updateTutorial);
-
-  if (user.isSignedUp && user.testDriverJs) {
-    updateTutorial("testDriverJs");
-    callTestDriver();
-  }
 
   // custome hook which will provide me tests according to selected from -> upcoming, live and Closed!
   const { loading, tests, handelBookmark } =
