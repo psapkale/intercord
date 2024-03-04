@@ -54,10 +54,12 @@ const StudentTests = () => {
       allSubmissions: StudentSubmissionType[],
       subject: string
    ) => {
-      return allSubmissions.filter(
-         (submission) =>
-            submission?.subject?.toLowerCase() == subject.toLowerCase()
-      );
+      return subject === 'All'
+         ? allSubmissions
+         : allSubmissions.filter(
+              (submission) =>
+                 submission?.subject?.toLowerCase() == subject.toLowerCase()
+           );
    };
 
    return (
@@ -72,47 +74,48 @@ const StudentTests = () => {
                   : 'Keep it up, consistency is the key'}
             </p>
          </div>
-         {allMySubmissions.length === 0 ? (
-            <div className='invisible lg:visible w-full h-[80%] items-center justify-center'>
-               <img
-                  src={bannerImg}
-                  alt=''
-                  className='absolute top-[30%] xl:top-[15%] right-[30%] xl:right-[10%] w-[50%] h-fit'
-               />
+
+         <div>
+            {/* test tags */}
+            <div className='mt-2 pl-2 flex gap-2  cursor-pointer'>
+               {subjects.map((subject, idx) => (
+                  <div
+                     key={idx}
+                     className={`py-1 px-2 font-bona font-bold border border-[#d0d0d0] rounded-lg ${
+                        selected === subject
+                           ? 'bg-black text-white'
+                           : 'text-slate-800 hover:bg-[#f0f0f0]'
+                     }`}
+                     onClick={() => {
+                        const filteredSubjects = handleSelect(
+                           dumSubmission,
+                           subject
+                        );
+                        setAllMySubmissions(filteredSubjects);
+                        setSelected(subject);
+                     }}
+                  >
+                     <h1>{subject}</h1>
+                  </div>
+               ))}
             </div>
-         ) : (
-            <div>
-               {/* test tags */}
-               <div className='mt-2 pl-2 flex gap-2  cursor-pointer'>
-                  {subjects.map((subject, idx) => (
-                     <div
-                        key={idx}
-                        className={`py-1 px-2 font-bona font-bold border border-[#d0d0d0] rounded-lg ${
-                           selected === subject
-                              ? 'bg-black text-white'
-                              : 'text-slate-800 hover:bg-[#f0f0f0]'
-                        }`}
-                        onClick={() => {
-                           const filteredSubjects = handleSelect(
-                              dumSubmission,
-                              subject
-                           );
-                           setAllMySubmissions(filteredSubjects);
-                           setSelected(subject);
-                        }}
-                     >
-                        <h1>{subject}</h1>
-                     </div>
-                  ))}
-               </div>
-               {/* test submission */}
-               <div className='w-full h-fit mt-4 p-2 grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid md:grid-cols-4 gap-4'>
-                  {allMySubmissions?.map((submission, idx) => (
+            {/* test submission */}
+            <div className='w-full h-fit mt-4 p-2 grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid md:grid-cols-4 gap-4'>
+               {allMySubmissions.length === 0 ? (
+                  <div className='invisible lg:visible w-full h-[80%] items-center justify-center'>
+                     <img
+                        src={bannerImg}
+                        alt=''
+                        className='absolute top-[30%] xl:top-[15%] right-[10%] w-[50%] h-fit'
+                     />
+                  </div>
+               ) : (
+                  allMySubmissions?.map((submission, idx) => (
                      <StudentTestCard key={idx} submission={submission} />
-                  ))}
-               </div>
+                  ))
+               )}
             </div>
-         )}
+         </div>
       </div>
    );
 };

@@ -81,8 +81,19 @@ export const serachTeacher = async (req: Request, res: Response) => {
 };
 
 export const getScoreBoard = async (req: Request, res: Response) => {
+   const { stream, pursuingYear } = req.body;
+
+   if (!stream || !pursuingYear) {
+      return res.status(400).json({
+         message: 'Please provide stream and pursuing year of student',
+      });
+   }
+
    // Todo check null points
-   const scoreBoard: ScoreType[] | null = await Score.find().sort({
+   const scoreBoard = await Score.find({
+      stream,
+      pursuingYear,
+   }).sort({
       score: -1,
    });
 

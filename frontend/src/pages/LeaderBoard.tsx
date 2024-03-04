@@ -19,6 +19,7 @@ const LeaderBoard = () => {
 
    const { user } = useUserDetails();
    const [allStudents, setAllStudents] = useState([]);
+   const [stream, setStream] = useState('BCS');
    const [pursuingYear, setPursuingYear] = useState('III');
    const [allTests, setAllTests] = useState<TestType[]>([]);
 
@@ -27,7 +28,7 @@ const LeaderBoard = () => {
       else {
          getAllStudentRanking();
       }
-   }, [selectedOptionField, pursuingYear]);
+   }, [selectedOptionField, pursuingYear, stream]);
 
    const getAllStudentRanking = async () => {
       const searchUrl =
@@ -40,6 +41,7 @@ const LeaderBoard = () => {
       const res = await axios.post(
          searchUrl,
          {
+            stream,
             pursuingYear,
          },
          {
@@ -48,6 +50,8 @@ const LeaderBoard = () => {
             },
          }
       );
+
+      console.log(res?.data?.scoreBoard);
 
       res?.data?.scoreBoard && setAllStudents(res?.data?.scoreBoard);
       return;
@@ -121,6 +125,20 @@ const LeaderBoard = () => {
                      </button>
                   </div>
                   <div className='flex gap-2'>
+                     {user.role === 'admin' && (
+                        <select
+                           className='outline-none bg-gray-100 p-2 rounded-md'
+                           onChange={(e) => {
+                              setStream(e.target.value);
+                              // if (e.target.value == 'all') setIsRankingOpen(false);
+                           }}
+                        >
+                           <option value='BCS'>BCS</option>
+                           <option value='BCA'>BCA</option>
+                           <option value='BTECH'>BTECH</option>
+                           <option value='BE'>BE</option>
+                        </select>
+                     )}
                      {user.role !== 'student' && (
                         <select
                            className='outline-none bg-gray-100 p-2 rounded-md'
