@@ -93,6 +93,7 @@ interface StudentSubmissionType {
 }
 
 export interface ScoreType {
+   save(): unknown;
    candidate: ObjectId | string | null;
    name: string;
    username: string;
