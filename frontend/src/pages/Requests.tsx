@@ -104,21 +104,31 @@ const Requests = () => {
   };
 
   return (
-    <div className="w-full h-[100vh] max-sm:px-[1rem] sm:pl-[1.5rem] md:pl-[3rem] lg:pl-[6rem] pt-[2rem] overflow-y-scroll overflow-x-hidden py-8">
-      <h1 className="font-bona font-semibold text-[3rem] sm:text-[3.5rem] mb-4">
-        Requests
-      </h1>
+    <div className="w-full box-border h-[100vh] max-sm:px-[1rem] sm:pl-[1.5rem] md:pl-[3rem] lg:pl-[6rem] pt-[2rem] overflow-y-scroll overflow-x-hidden py-8">
       <div>
-        {allPendingStudents?.map((student, idx) => (
-          <div className="w-[95%] h-full flex flex-col gap-4">
-            <RequestCard
-              key={idx}
-              student={student}
-              handleReject={handleReject}
-              handleAccept={handleAccept}
-            />
+        {allPendingStudents && allPendingStudents?.length > 0 ? (
+          <>
+            <h1 className="font-bona font-semibold text-[3rem] sm:text-[3.5rem] mb-4">
+              Requests
+            </h1>
+            {allPendingStudents?.map((student, idx) => (
+              <div className="w-[95%] h-full flex flex-col gap-4">
+                <RequestCard
+                  key={idx}
+                  student={student}
+                  handleReject={handleReject}
+                  handleAccept={handleAccept}
+                />
+              </div>
+            ))}
+          </>
+        ) : (
+          <div className="w-full h-[80vh] flex justify-center items-center">
+            <p className="text-6xl font-bona font-bold">
+              No Request Pending 😉
+            </p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
