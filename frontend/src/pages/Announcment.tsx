@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import AnnouncmentCard from "@/components/AnnouncmentCard";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import Hint from "@/components/Hint";
+
 import { useUserDetails } from "@/utils/store";
 import axios from "axios";
 import { BellPlus } from "lucide-react";
@@ -47,21 +43,14 @@ const Announcment = () => {
           Announcment
         </h1>
         {user.role !== "student" && (
-          <TooltipProvider>
-            <Tooltip delayDuration={1}>
-              <TooltipTrigger>
-                <Link
-                  to={"/dashboard/create-announcment"}
-                  className="hover:bg-gray-200 rounded-full h-12 w-12 flex justify-center items-center transition-colors duration-300"
-                >
-                  <BellPlus className="size-7" />
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Create Announcment</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <Hint label="Create new announcment">
+            <Link
+              to={"/dashboard/create-announcment"}
+              className="hover:bg-gray-200 rounded-full h-12 w-12 flex justify-center items-center transition-colors duration-300"
+            >
+              <BellPlus className="size-7" />
+            </Link>
+          </Hint>
         )}
       </div>
       <div className="w-full h-fit mt-6 flex flex-col gap-5">

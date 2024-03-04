@@ -4,14 +4,10 @@ import {
   CalendarDays,
   Timer,
 } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./ui/tooltip";
+
 import { useUserDetails } from "@/utils/store";
 import { Link } from "react-router-dom";
+import Hint from "./Hint";
 
 const TestDemoCard = ({
   handelBookmark,
@@ -38,57 +34,47 @@ const TestDemoCard = ({
         <div className="flex w-full justify-between">
           <p className="text-xl uppercase font-semibold">{testName}</p>
           <div className="flex items-center gap-2">
-            <TooltipProvider>
-              {typeOfTestShowing == "closed" && user.role == "student" && (
-                <Tooltip delayDuration={1}>
-                  <TooltipTrigger>
-                    {user.bookmark?.includes(_id) ? (
-                      <Bookmark
-                        strokeWidth={1.5}
-                        fill="black"
-                        className="size-5 cursor-pointer hover:text-black transition-colors duration-200"
-                        onClick={() => {
-                          handelBookmark(_id);
-                        }}
-                      />
-                    ) : (
-                      <Bookmark
-                        strokeWidth={1.5}
-                        className="size-5 cursor-pointer text-gray-500 hover:text-black transition-colors duration-200"
-                        onClick={() => {
-                          handelBookmark(_id);
-                        }}
-                      />
-                    )}
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>bookmark</p>
-                  </TooltipContent>
-                </Tooltip>
-              )}
+            {typeOfTestShowing == "closed" && user.role == "student" && (
+              <>
+                {user.bookmark?.includes(_id) ? (
+                  <Hint label="Bookmark">
+                    <Bookmark
+                      strokeWidth={1.5}
+                      fill="black"
+                      className="size-5 cursor-pointer hover:text-black transition-colors duration-200"
+                      onClick={() => {
+                        handelBookmark(_id);
+                      }}
+                    />
+                  </Hint>
+                ) : (
+                  <Hint label="Bookmark">
+                    <Bookmark
+                      strokeWidth={1.5}
+                      className="size-5 cursor-pointer text-gray-500 hover:text-black transition-colors duration-200"
+                      onClick={() => {
+                        handelBookmark(_id);
+                      }}
+                    />
+                  </Hint>
+                )}
+              </>
+            )}
 
-              {/* {typeOfTestShowing === 'live' && ( */}
-              {user.role == "student" && (
+            {/* {typeOfTestShowing === 'live' && ( */}
+            {user.role == "student" && (
+              <Hint label="Start Test">
                 <Link to={`${_id}`}>
-                  <Tooltip delayDuration={1}>
-                    <TooltipTrigger>
-                      <button className="cursor-pointer">
-                        <ArrowUpLeftFromCircle
-                          className={
-                            "mt-[0.3rem] size-4  text-gray-500 hover:text-black transition-colors duration-200"
-                          }
-                        />
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Start Test</p>
-                    </TooltipContent>
-                  </Tooltip>
+                  <button className="cursor-pointer">
+                    <ArrowUpLeftFromCircle
+                      className={
+                        "mt-[0.3rem] size-4  text-gray-500 hover:text-black transition-colors duration-200"
+                      }
+                    />
+                  </button>
                 </Link>
-              )}
-
-              {/* )} */}
-            </TooltipProvider>
+              </Hint>
+            )}
           </div>
         </div>
         <div className="w-full line-clamp-4 text-gray-500">
