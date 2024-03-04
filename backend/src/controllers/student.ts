@@ -304,8 +304,6 @@ export const testSubmission = async (req: Request, res: Response) => {
       { new: true }
    );
 
-   console.log(student, score);
-
    res.json({
       message: 'Test submitted successfully',
       test,

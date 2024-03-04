@@ -34,7 +34,7 @@ export interface StudentType extends Document {
    name: string;
    email: string;
    password: string;
-   rank: number;
+   initrank: number;
    academicYear: string;
    stream: string;
    pursuingYear: 'I' | 'II' | 'III';

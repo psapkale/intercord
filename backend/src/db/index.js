@@ -82,7 +82,7 @@ const StudentSchema = new mongoose.Schema({
    name: String,
    email: String,
    password: String,
-   rank: Number,
+   initrank: Number,
    academicYear: String,
    stream: String,
    pursuingYear: {
