@@ -49,6 +49,8 @@ const LeaderBoard = () => {
          }
       );
 
+      console.log(res?.data?.scoreBoard);
+
       res?.data?.scoreBoard && setAllStudents(res?.data?.scoreBoard);
       return;
    };
