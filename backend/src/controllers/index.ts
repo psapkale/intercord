@@ -121,18 +121,25 @@ export const getSubjectFilteredScoreBoard = async (
       });
    }
 
-   const students: StudentType[] | null = await Student.find({
-      'subjectScore.subject': subject,
+   const allStudents: StudentType[] | null = await Student.find({
+      // 'subjectScore.subject': subject,
    });
 
-   if (!students) {
+   if (!allStudents) {
       return res.status(500).json({
          message: 'Failed to retrieve students',
       });
    }
 
+   const filteredStudents = allStudents.filter((student) => {
+      return student.subjectScore.some(
+         (subjectScore) =>
+            subjectScore.subject.toLowerCase() === subject.toLowerCase()
+      );
+   });
+
    // Todo remaining with testing
-   const sortedStudents = students.sort((x, y) => {
+   const sortedStudents = filteredStudents.sort((x, y) => {
       const xSubjectScore = x.subjectScore.find((z) => z.subject === subject);
       const ySubjectScore = y.subjectScore.find((z) => z.subject === subject);
 

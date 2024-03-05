@@ -57,19 +57,43 @@ const LeaderBoard = () => {
       return;
    };
 
+   console.log(user.token);
+
    const getAllStudentsBySelectedSubject = async () => {
-      const res = await axios.get(
-         `http://localhost:3000/api/score-board/subject/${selectedOptionField}`
-      );
+      const searchUrl =
+         user.role === 'admin'
+            ? `http://localhost:3000/api/score-board/subject/${selectedOptionField}`
+            : user.role === 'student'
+            ? `http://localhost:3000/api/student/score-board/subject/${selectedOptionField}`
+            : `http://localhost:3000/api/student/score-board/subject/${selectedOptionField}`;
+
+      const res = await axios.get(searchUrl, {
+         headers: {
+            Authorization: `Bearer ${user.token}`,
+         },
+      });
+
+      // const res = await axios.get(
+      //    `http://localhost:3000/api/score-board/subject/${selectedOptionField}`
+      // );
 
       res?.data?.formattedRes && setAllStudents(res?.data?.formattedRes);
       return;
    };
 
    const getAllTestBySelectedSubject = async () => {
-      const res = await axios.get(
-         `http://localhost:3000/api/score-board/test/${selectedOptionField}`
-      );
+      const searchUrl =
+         user.role === 'admin'
+            ? `http://localhost:3000/api/score-board/test/${selectedOptionField}`
+            : user.role === 'student'
+            ? `http://localhost:3000/api/student/score-board/test/${selectedOptionField}`
+            : `http://localhost:3000/api/student/score-board/test/${selectedOptionField}`;
+
+      const res = await axios.get(searchUrl, {
+         headers: {
+            Authorization: `Bearer ${user.token}`,
+         },
+      });
 
       res?.data?.tests && setAllTests(res?.data?.tests);
       return;
