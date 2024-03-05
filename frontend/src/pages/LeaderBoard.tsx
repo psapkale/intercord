@@ -24,8 +24,10 @@ const LeaderBoard = () => {
    const [allTests, setAllTests] = useState<TestType[]>([]);
 
    useEffect(() => {
-      if (selectedOptionField !== 'all') getAllTestBySelectedSubject();
-      else {
+      if (selectedOptionField !== 'all') {
+         getAllTestBySelectedSubject();
+         setIsRankingOpen(false);
+      } else {
          getAllStudentRanking();
       }
    }, [selectedOptionField, pursuingYear, stream]);
@@ -41,7 +43,8 @@ const LeaderBoard = () => {
       const res = await axios.post(
          searchUrl,
          {
-            stream,
+            // stream,
+            stream: stream.toUpperCase(),
             pursuingYear,
          },
          {
@@ -50,8 +53,6 @@ const LeaderBoard = () => {
             },
          }
       );
-
-      console.log(res?.data?.scoreBoard);
 
       res?.data?.scoreBoard && setAllStudents(res?.data?.scoreBoard);
       return;
@@ -65,19 +66,23 @@ const LeaderBoard = () => {
             ? `http://localhost:3000/api/score-board/subject/${selectedOptionField}`
             : user.role === 'student'
             ? `http://localhost:3000/api/student/score-board/subject/${selectedOptionField}`
-            : `http://localhost:3000/api/student/score-board/subject/${selectedOptionField}`;
+            : `http://localhost:3000/api/teacher/score-board/subject/${selectedOptionField}`;
 
-      const res = await axios.get(searchUrl, {
-         headers: {
-            Authorization: `Bearer ${user.token}`,
+      const res = await axios.post(
+         searchUrl,
+         {
+            // stream,
+            stream: stream.toUpperCase(),
+            pursuingYear,
          },
-      });
+         {
+            headers: {
+               Authorization: `Bearer ${user.token}`,
+            },
+         }
+      );
 
-      // const res = await axios.get(
-      //    `http://localhost:3000/api/score-board/subject/${selectedOptionField}`
-      // );
-
-      res?.data?.tests && setAllTests(res?.data?.tests);
+      res?.data?.formattedRes && setAllStudents(res?.data?.formattedRes);
       return;
    };
 
@@ -87,13 +92,21 @@ const LeaderBoard = () => {
             ? `http://localhost:3000/api/score-board/test/${selectedOptionField}`
             : user.role === 'student'
             ? `http://localhost:3000/api/student/score-board/test/${selectedOptionField}`
-            : `http://localhost:3000/api/student/score-board/test/${selectedOptionField}`;
+            : `http://localhost:3000/api/teacher/score-board/test/${selectedOptionField}`;
 
-      const res = await axios.get(searchUrl, {
-         headers: {
-            Authorization: `Bearer ${user.token}`,
+      const res = await axios.post(
+         searchUrl,
+         {
+            // stream,
+            stream: stream.toUpperCase(),
+            pursuingYear,
          },
-      });
+         {
+            headers: {
+               Authorization: `Bearer ${user.token}`,
+            },
+         }
+      );
 
       res?.data?.tests && setAllTests(res?.data?.tests);
       return;
@@ -127,6 +140,7 @@ const LeaderBoard = () => {
                         disabled={selectedOptionField === 'all'}
                         onClick={() => {
                            setIsRankingOpen(false);
+                           getAllTestBySelectedSubject();
                         }}
                      >
                         Tests

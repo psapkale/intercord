@@ -39,12 +39,12 @@ router.get('/search/teacher/all', studentMiddleware, allTeachers);
 router.get('/search/student/:username', studentMiddleware, serachStudent);
 router.get('/search/teacher/:username', studentMiddleware, serachTeacher);
 router.post('/score-board/all', studentMiddleware, getScoreBoard);
-router.get(
+router.post(
    '/score-board/subject/:subject',
    studentMiddleware,
    getSubjectFilteredScoreBoard
 );
-router.get(
+router.post(
    '/score-board/test/:subject',
    studentMiddleware,
    getSubjectFilteredTests

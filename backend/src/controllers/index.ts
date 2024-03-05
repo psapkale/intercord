@@ -114,6 +114,7 @@ export const getSubjectFilteredScoreBoard = async (
    res: Response
 ) => {
    const { subject } = req.params;
+   const { stream, pursuingYear } = req.body;
 
    if (!subject) {
       return res.status(400).json({
@@ -122,6 +123,8 @@ export const getSubjectFilteredScoreBoard = async (
    }
 
    const allStudents: StudentType[] | null = await Student.find({
+      stream,
+      pursuingYear,
       // 'subjectScore.subject': subject,
    });
 
@@ -175,6 +178,7 @@ export const getSubjectFilteredScoreBoard = async (
 
 export const getSubjectFilteredTests = async (req: Request, res: Response) => {
    const { subject } = req.params;
+   const { stream, pursuingYear } = req.body;
 
    if (!subject) {
       return res.status(400).json({
@@ -185,6 +189,8 @@ export const getSubjectFilteredTests = async (req: Request, res: Response) => {
    // replacing any special characters in the 'subject'
    const escapedSubject = subject.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
    const tests: TestType[] | null = await Test.find({
+      stream,
+      forYear: pursuingYear,
       subject: { $regex: new RegExp(escapedSubject, 'i') },
    });
 
