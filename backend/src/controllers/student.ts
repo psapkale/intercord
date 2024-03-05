@@ -155,7 +155,7 @@ export const getTestById = async (req: Request, res: Response) => {
    const student: StudentType | null = await Student.findOne({ username });
 
    const isRepeat = test?.submissions?.find(
-      (submission) => String(student?._id) == String(submission?.submittedBy)
+      (submission) => String(student?._id) === String(submission?.submittedBy)
    );
 
    const sortedSubmissions = test.submissions.sort(
@@ -173,7 +173,7 @@ export const getTestById = async (req: Request, res: Response) => {
    if (
       isRepeat &&
       test?.startDate === formattedDate &&
-      indianTime.slice(11, 16) <= test?.endTime
+      indianTime.slice(10, 16) <= test?.endTime
    ) {
       return res.status(400).json({
          message: 'Response already submitted',
@@ -539,7 +539,6 @@ export const getScoreBoard = async (req: Request, res: Response) => {
 
    const student: StudentType | null = await Student.findOne({ username });
 
-   
    // Todo check null points
    const scoreBoard = await Score.find({
       stream: student.stream,
