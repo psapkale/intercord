@@ -19,7 +19,7 @@ const LeaderBoard = () => {
 
    const { user } = useUserDetails();
    const [allStudents, setAllStudents] = useState([]);
-   const [stream, setStream] = useState('BCS');
+   const [stream, setStream] = useState('bcs');
    const [pursuingYear, setPursuingYear] = useState('III');
    const [allTests, setAllTests] = useState<TestType[]>([]);
 
@@ -77,7 +77,7 @@ const LeaderBoard = () => {
       //    `http://localhost:3000/api/score-board/subject/${selectedOptionField}`
       // );
 
-      res?.data?.formattedRes && setAllStudents(res?.data?.formattedRes);
+      res?.data?.tests && setAllTests(res?.data?.tests);
       return;
    };
 
@@ -153,7 +153,7 @@ const LeaderBoard = () => {
                         <select
                            className='outline-none bg-gray-100 p-2 rounded-md'
                            onChange={(e) => {
-                              setStream(e.target.value);
+                              setStream(e.target.value.toLowerCase());
                               // if (e.target.value == 'all') setIsRankingOpen(false);
                            }}
                         >

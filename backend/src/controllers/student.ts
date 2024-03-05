@@ -539,6 +539,7 @@ export const getScoreBoard = async (req: Request, res: Response) => {
 
    const student: StudentType | null = await Student.findOne({ username });
 
+   
    // Todo check null points
    const scoreBoard = await Score.find({
       stream: student.stream,
@@ -546,7 +547,7 @@ export const getScoreBoard = async (req: Request, res: Response) => {
    }).sort({
       score: -1,
    });
-
+   console.log(scoreBoard);
    if (!scoreBoard) {
       return res.status(500).json({
          message: "Opps! can't load leaderboard",

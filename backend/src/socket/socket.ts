@@ -18,4 +18,12 @@ io.on("connection", (socket) => {
   socket.on("announcement", (announement) => {
     io.emit("announcement", announement);
   });
+
+  socket.on("removeStudentFromPending", (stuId) => {
+    io.emit("removeStudentFromPending", stuId);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
 });

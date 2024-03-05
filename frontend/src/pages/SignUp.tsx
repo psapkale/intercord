@@ -26,7 +26,7 @@ const defaultUserInfo: UserType = {
   name: "",
   password: "",
   pursuingYear: "",
-  stream: "",
+  stream: "bcs",
   username: "",
 };
 

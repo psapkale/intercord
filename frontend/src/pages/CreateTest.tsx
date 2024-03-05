@@ -20,7 +20,7 @@ const CreateTest = () => {
   const [subjectName, setSubjectName] = useState("c++");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [forYear, setForYear] = useState("");
+  const [forYear, setForYear] = useState("I");
   const [marksPerQuestion, setMarksPerQuestion] = useState(0);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -50,8 +50,6 @@ const CreateTest = () => {
     setDescription("");
     setMarksPerQuestion(0);
   };
-
-  console.log(user.stream);
 
   // sending test to the backend
   const handleSubmit = async ({
