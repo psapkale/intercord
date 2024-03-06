@@ -1,6 +1,7 @@
 import { TestSkeleton } from '@/components/PrimeSkeleton';
 import TestDemoCard from '@/components/TestDemoCard';
 import useTestsAsPerTime from '@/hook/useTestsAsPerTime';
+import { useUserDetails } from '@/utils/store';
 import { ArrowUpLeftFromCircle, Timer, X } from 'lucide-react';
 import { useState } from 'react';
 
@@ -10,6 +11,9 @@ const TestsList = () => {
    // custome hook which will provide me tests according to selected from -> upcoming, live and Closed!
    const { loading, tests, handelBookmark } =
       useTestsAsPerTime(typeOfTestShowing);
+
+   const { user } = useUserDetails();
+   console.log(user.token);
 
    return (
       <div className='w-full font-bona h-full pl-[2rem] lg:pl-[6rem] pt-[2rem] pr-[1rem] sm:pr-[2rem] flex flex-col gap-4'>

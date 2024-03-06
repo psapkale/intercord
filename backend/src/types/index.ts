@@ -59,6 +59,7 @@ export interface TestType {
    createdBy: ObjectId | string | null;
    createdAt: Date;
    startDate: string;
+   time: string;
    endTime: string;
    submissions: TestSubmissionType[];
    totalMarks: number;

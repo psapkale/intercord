@@ -76,7 +76,7 @@ const SignUp = () => {
                username: userInfo.username,
                password: userInfo.password,
                academicYear: userInfo.academicYear,
-               stream: userInfo.stream,
+               stream: userInfo.stream.toUpperCase(),
                pursuingYear: userInfo.pursuingYear,
             }
          );
@@ -195,19 +195,6 @@ const SignUp = () => {
                      pursuing year<span className='text-red-600'>*</span> (I,
                      II, III)
                   </label>
-                  {/* <input
-                     required
-                     type='text'
-                     id='username'
-                     className='w-full px-2 py-2 border rounded-sm outline-1 outline-gray-600  transition-all duration-300 border-gray-300 text-black text-[1.2rem] italic'
-                     value={userInfo.pursuingYear}
-                     onChange={(e) => {
-                        setUserInfo({
-                           ...userInfo,
-                           pursuingYear: e.target.value,
-                        });
-                     }}
-                  /> */}
                   <select
                      className='mt-4 -mb-2 text-black w-[50%] px-1 rounded-sm text-xl tracking-wider italic'
                      onChange={(e) => {
