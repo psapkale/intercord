@@ -137,7 +137,7 @@ export const getSubjectFilteredScoreBoard = async (
    const filteredStudents = allStudents.filter((student) => {
       return student.subjectScore.some(
          (subjectScore) =>
-            subjectScore.subject.toLowerCase() === subject.toLowerCase()
+            subjectScore.subject.toUpperCase() === subject.toUpperCase()
       );
    });
 

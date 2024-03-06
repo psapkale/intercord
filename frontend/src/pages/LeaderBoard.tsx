@@ -19,7 +19,7 @@ const LeaderBoard = () => {
 
    const { user } = useUserDetails();
    const [allStudents, setAllStudents] = useState([]);
-   const [stream, setStream] = useState('bcs');
+   const [stream, setStream] = useState('BCS');
    const [pursuingYear, setPursuingYear] = useState('III');
    const [allTests, setAllTests] = useState<TestType[]>([]);
 
@@ -44,7 +44,7 @@ const LeaderBoard = () => {
          searchUrl,
          {
             // stream,
-            stream: stream.toUpperCase(),
+            stream,
             pursuingYear,
          },
          {
@@ -98,7 +98,7 @@ const LeaderBoard = () => {
          searchUrl,
          {
             // stream,
-            stream: stream.toUpperCase(),
+            stream: stream,
             pursuingYear,
          },
          {
@@ -167,7 +167,7 @@ const LeaderBoard = () => {
                         <select
                            className='outline-none bg-gray-100 p-2 rounded-md'
                            onChange={(e) => {
-                              setStream(e.target.value.toLowerCase());
+                              setStream(e.target.value.toUpperCase());
                               // if (e.target.value == 'all') setIsRankingOpen(false);
                            }}
                         >
