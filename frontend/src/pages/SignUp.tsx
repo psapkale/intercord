@@ -195,7 +195,7 @@ const SignUp = () => {
                      pursuing year<span className='text-red-600'>*</span> (I,
                      II, III)
                   </label>
-                  <input
+                  {/* <input
                      required
                      type='text'
                      id='username'
@@ -207,7 +207,23 @@ const SignUp = () => {
                            pursuingYear: e.target.value,
                         });
                      }}
-                  />
+                  /> */}
+                  <select
+                     className='mt-4 -mb-2 text-black w-[50%] px-1 rounded-sm text-xl tracking-wider italic'
+                     onChange={(e) => {
+                        const val = e.target.value;
+                        if (val == 'I' || val == 'II' || val == 'III') {
+                           setUserInfo({
+                              ...userInfo,
+                              pursuingYear: e.target.value.toUpperCase(),
+                           });
+                        }
+                     }}
+                  >
+                     <option value='I'>I</option>
+                     <option value='II'>II</option>
+                     <option value='III'>III</option>
+                  </select>
                </div>
 
                {/* Password */}

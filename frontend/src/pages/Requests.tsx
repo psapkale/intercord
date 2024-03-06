@@ -112,9 +112,11 @@ const Requests = () => {
                      Requests
                   </h1>
                   {allPendingStudents?.map((student, idx) => (
-                     <div className='w-[95%] h-full flex flex-col gap-4'>
+                     <div
+                        key={idx}
+                        className='w-[95%] h-full flex flex-col gap-4'
+                     >
                         <RequestCard
-                           key={idx}
                            student={student}
                            handleReject={handleReject}
                            handleAccept={handleAccept}
