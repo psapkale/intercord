@@ -1,7 +1,6 @@
 import { TestSkeleton } from "@/components/PrimeSkeleton";
 import TestDemoCard from "@/components/TestDemoCard";
 import useTestsAsPerTime from "@/hook/useTestsAsPerTime";
-import { useUserDetails } from "@/utils/store";
 import { ArrowUpLeftFromCircle, Timer, X } from "lucide-react";
 import { useState } from "react";
 
@@ -11,9 +10,6 @@ const TestsList = () => {
   // custome hook which will provide me tests according to selected from -> upcoming, live and Closed!
   const { loading, tests, handelBookmark } =
     useTestsAsPerTime(typeOfTestShowing);
-
-  const { user } = useUserDetails();
-  console.log(user.token);
 
   return (
     <>
@@ -69,6 +65,7 @@ const TestsList = () => {
               {tests?.map((testt, idx) => {
                 return (
                   <TestDemoCard
+                    title={testt?.title}
                     _id={testt?._id}
                     startDate={testt?.startDate}
                     time={testt?.time}
@@ -83,28 +80,6 @@ const TestsList = () => {
             </>
           )}
         </div>
-      </div>
-      <div className="h-full w-full grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 grid md:grid-cols-4 gap-4">
-        {loading ? (
-          <TestSkeleton />
-        ) : (
-          <>
-            {tests?.map((testt, idx) => {
-              return (
-                <TestDemoCard
-                  _id={testt?._id}
-                  startDate={testt?.startDate}
-                  time={testt?.time}
-                  testName={testt?.subject}
-                  description={testt?.description}
-                  typeOfTestShowing={typeOfTestShowing}
-                  handelBookmark={handelBookmark}
-                  key={idx}
-                />
-              );
-            })}
-          </>
-        )}
       </div>
     </>
   );

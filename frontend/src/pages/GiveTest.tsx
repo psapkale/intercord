@@ -65,7 +65,7 @@ const GiveTest = ({ test }: { test: TestType }) => {
   const handleSubmit = async () => {
     const cl = testResponse?.find((res, i) => {
       if (res === -1) {
-        toast.error("Bro, wtf! Iska answer kon dega");
+        // toast.error("Bro, wtf! Iska answer kon dega");s
         setCurrent(i);
         return true;
       }

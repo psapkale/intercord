@@ -59,12 +59,13 @@ const QuestionModel = ({
         options: [...mcq.options],
         question: mcq.question,
       });
-      setMcq({
-        answerIndex: 1,
-        question: "",
-        options: ["", "", "", ""],
-      });
     }
+
+    setMcq({
+      answerIndex: 1,
+      question: "",
+      options: ["", "", "", ""],
+    });
   };
 
   //! handling going to the previous
