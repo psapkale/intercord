@@ -61,7 +61,8 @@ const TestPageOutlet = () => {
             </Link>
          </h1>
       </div>
-   ) : test?.startDate === formattedDate &&
+   ) : user.role === 'student' &&
+     test?.startDate === formattedDate &&
      indianTime.slice(10, 15) <= test?.endTime ? (
       <GiveTest test={test} />
    ) : (

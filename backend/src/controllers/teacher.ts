@@ -150,7 +150,7 @@ export const allowStudentRegister = async (req: Request, res: Response) => {
       candidateId: student._id,
       name: student.name,
       username: student.username,
-      stream: student.stream,
+      stream: student.stream.toUpperCase(),
       pursuingYear: student.pursuingYear,
       submissions: 0,
    });
