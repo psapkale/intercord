@@ -11,6 +11,7 @@ export type TestType = {
   startDate: string;
   time: string;
   endTime: string;
+  title: string;
 };
 
 const useTestsAsPerTime = (
