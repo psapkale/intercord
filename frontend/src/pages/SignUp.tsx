@@ -74,8 +74,8 @@ const SignUp = () => {
           username: userInfo.username,
           password: userInfo.password,
           academicYear: userInfo.academicYear,
-          stream: userInfo.stream.toUpperCase(),
-          pursuingYear: userInfo.pursuingYear,
+          stream: userInfo.stream.toLowerCase(),
+          pursuingYear: userInfo.pursuingYear.toUpperCase(),
         }
       );
 
@@ -199,7 +199,7 @@ const SignUp = () => {
                 if (val == "I" || val == "II" || val == "III") {
                   setUserInfo({
                     ...userInfo,
-                    pursuingYear: e.target.value.toLowerCase(),
+                    pursuingYear: e.target.value.toUpperCase(),
                   });
                 }
               }}
@@ -235,7 +235,7 @@ const SignUp = () => {
             onChange={(e) => {
               setUserInfo({
                 ...userInfo,
-                stream: e.target.value.toUpperCase(),
+                stream: e.target.value.toLowerCase(),
               });
             }}
             className="mt-4 -mb-2 text-black w-[50%] px-1 rounded-sm text-xl tracking-wider italic"
