@@ -173,7 +173,7 @@ export const getTestById = async (req: Request, res: Response) => {
    if (
       isRepeat &&
       test?.startDate === formattedDate &&
-      indianTime.slice(10, 16) <= test?.endTime
+      indianTime.slice(10, 15) <= test?.endTime
    ) {
       return res.status(400).json({
          message: 'Response already submitted',
@@ -671,8 +671,8 @@ export const getUpComingTests = async (req: Request, res: Response) => {
 
    const parts = indianTime.slice(0, 8).split('/');
    const currentDate = `${parts[2]}-${
-      parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]
-   }-${parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]}`;
+      parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]
+   }-${parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]}`;
 
    const upcoming: TestType[] | null = await Test.find({
       $and: [
@@ -688,7 +688,7 @@ export const getUpComingTests = async (req: Request, res: Response) => {
                {
                   // startDate: currentDateTime.toISOString().slice(0, 10),
                   startDate: currentDate,
-                  time: { $gte: indianTime.slice(10, 15) },
+                  time: { $gt: indianTime.slice(10, 15) },
                },
             ],
          },
@@ -708,12 +708,12 @@ export const getClosedTests = async (req: Request, res: Response) => {
 
    const currentDateTime = new Date();
    const options = { timeZone: 'Asia/Kolkata', hour12: false };
-   const indianTime = currentDateTime.toLocaleString('en-US', options);
+   const indianTime = currentDateTime.toLocaleString('en-IN', options);
 
    const parts = indianTime.slice(0, 8).split('/');
    const currentDate = `${parts[2]}-${
-      parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]
-   }-${parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]}`;
+      parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]
+   }-${parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]}`;
 
    const closed: TestType[] | null = await Test.find({
       $and: [
@@ -735,14 +735,6 @@ export const getClosedTests = async (req: Request, res: Response) => {
       ],
    });
 
-   console.log(
-      closed[0]?.startDate,
-      currentDate,
-      ' + ',
-      closed[0]?.endTime,
-      indianTime.slice(10, 15)
-   );
-
    res.status(200).json({
       message: 'Done Successfully',
       closed,
@@ -756,23 +748,21 @@ export const getLiveTests = async (req: Request, res: Response) => {
 
    const currentDateTime = new Date();
    const options = { timeZone: 'Asia/Kolkata', hour12: false };
-   const indianTime = currentDateTime.toLocaleString('en-US', options);
+   const indianTime = currentDateTime.toLocaleString('en-IN', options);
 
    const parts = indianTime.slice(0, 8).split('/');
    const currentDate = `${parts[2]}-${
-      parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]
-   }-${parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]}`;
+      parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]
+   }-${parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]}`;
 
    const live: TestType[] | null = await Test.find({
       $and: [
          { stream: student.stream, forYear: student.pursuingYear },
          { startDate: currentDate },
-         { time: { $lte: indianTime.slice(10, 16) } },
-         { endTime: { $gte: indianTime.slice(10, 16) } },
+         { time: { $lte: indianTime.slice(10, 15) } },
+         { endTime: { $gte: indianTime.slice(10, 15) } },
       ],
    });
-
-   console.log(live[0]?.startDate, ' + ', live[0]?.time);
 
    res.status(200).json({
       message: 'Successfully Fetched the live test',
