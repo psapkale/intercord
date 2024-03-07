@@ -155,7 +155,7 @@ export const getTestById = async (req: Request, res: Response) => {
    const student: StudentType | null = await Student.findOne({ username });
 
    const isRepeat = test?.submissions?.find(
-      (submission) => String(student?._id) == String(submission?.submittedBy)
+      (submission) => String(student?._id) === String(submission?.submittedBy)
    );
 
    const sortedSubmissions = test.submissions.sort(
@@ -173,7 +173,7 @@ export const getTestById = async (req: Request, res: Response) => {
    if (
       isRepeat &&
       test?.startDate === formattedDate &&
-      indianTime.slice(11, 16) <= test?.endTime
+      indianTime.slice(10, 16) <= test?.endTime
    ) {
       return res.status(400).json({
          message: 'Response already submitted',
@@ -539,7 +539,6 @@ export const getScoreBoard = async (req: Request, res: Response) => {
 
    const student: StudentType | null = await Student.findOne({ username });
 
-   
    // Todo check null points
    const scoreBoard = await Score.find({
       stream: student.stream,
@@ -575,20 +574,27 @@ export const getSubjectFilteredScoreBoard = async (
 
    const student: StudentType | null = await Student.findOne({ username });
 
-   const students: StudentType[] | null = await Student.find({
-      'subjectScore.subject': subject,
+   const allStudents: StudentType[] | null = await Student.find({
       stream: student.stream,
       pursuingYear: student.pursuingYear,
+      // 'subjectScore.subject': subject,
    });
 
-   if (!students) {
+   if (!allStudents) {
       return res.status(500).json({
          message: 'Failed to retrieve students',
       });
    }
 
+   const filteredStudents = allStudents.filter((student) => {
+      return student.subjectScore.some(
+         (subjectScore) =>
+            subjectScore.subject.toUpperCase() === subject.toUpperCase()
+      );
+   });
+
    // Todo remaining with testing
-   const sortedStudents = students.sort((x, y) => {
+   const sortedStudents = filteredStudents.sort((x, y) => {
       const xSubjectScore = x.subjectScore.find((z) => z.subject === subject);
       const ySubjectScore = y.subjectScore.find((z) => z.subject === subject);
 
@@ -661,21 +667,28 @@ export const getUpComingTests = async (req: Request, res: Response) => {
 
    const currentDateTime = new Date();
    const options = { timeZone: 'Asia/Kolkata', hour12: false };
-   const indianTime = currentDateTime.toLocaleString('en-US', options);
+   const indianTime = new Date().toLocaleString('en-IN', options);
 
-   const upcoming = await Test.find({
+   const parts = indianTime.slice(0, 8).split('/');
+   const currentDate = `${parts[2]}-${
+      parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]
+   }-${parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]}`;
+
+   const upcoming: TestType[] | null = await Test.find({
       $and: [
          { stream: student.stream, forYear: student.pursuingYear },
          {
             $or: [
                {
                   startDate: {
-                     $gt: currentDateTime.toISOString().slice(0, 10),
+                     // $gt: currentDateTime.toISOString().slice(0, 10),
+                     $gt: currentDate,
                   },
                },
                {
-                  startDate: currentDateTime.toISOString().slice(0, 10),
-                  time: { $gt: indianTime.slice(10, 15) },
+                  // startDate: currentDateTime.toISOString().slice(0, 10),
+                  startDate: currentDate,
+                  time: { $gte: indianTime.slice(10, 15) },
                },
             ],
          },
@@ -697,24 +710,38 @@ export const getClosedTests = async (req: Request, res: Response) => {
    const options = { timeZone: 'Asia/Kolkata', hour12: false };
    const indianTime = currentDateTime.toLocaleString('en-US', options);
 
-   const closed = await Test.find({
+   const parts = indianTime.slice(0, 8).split('/');
+   const currentDate = `${parts[2]}-${
+      parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]
+   }-${parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]}`;
+
+   const closed: TestType[] | null = await Test.find({
       $and: [
          { stream: student.stream, forYear: student.pursuingYear },
          {
             $or: [
                {
                   startDate: {
-                     $lt: currentDateTime.toISOString().slice(0, 10),
+                     // $lt: currentDateTime.toISOString().slice(0, 10),
+                     $lt: currentDate,
                   },
                },
                {
-                  startDate: currentDateTime.toISOString().slice(0, 10),
+                  startDate: currentDate,
                   endTime: { $lt: indianTime.slice(10, 15) },
                },
             ],
          },
       ],
    });
+
+   console.log(
+      closed[0]?.startDate,
+      currentDate,
+      ' + ',
+      closed[0]?.endTime,
+      indianTime.slice(10, 15)
+   );
 
    res.status(200).json({
       message: 'Done Successfully',
@@ -731,14 +758,21 @@ export const getLiveTests = async (req: Request, res: Response) => {
    const options = { timeZone: 'Asia/Kolkata', hour12: false };
    const indianTime = currentDateTime.toLocaleString('en-US', options);
 
-   const live = await Test.find({
+   const parts = indianTime.slice(0, 8).split('/');
+   const currentDate = `${parts[2]}-${
+      parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]
+   }-${parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]}`;
+
+   const live: TestType[] | null = await Test.find({
       $and: [
          { stream: student.stream, forYear: student.pursuingYear },
-         { startDate: currentDateTime.toISOString().slice(0, 10) },
-         { time: { $lte: indianTime.slice(10, 15) } },
-         { endTime: { $gte: indianTime.slice(10, 15) } },
+         { startDate: currentDate },
+         { time: { $lte: indianTime.slice(10, 16) } },
+         { endTime: { $gte: indianTime.slice(10, 16) } },
       ],
    });
+
+   console.log(live[0]?.startDate, ' + ', live[0]?.time);
 
    res.status(200).json({
       message: 'Successfully Fetched the live test',

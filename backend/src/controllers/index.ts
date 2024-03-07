@@ -114,6 +114,7 @@ export const getSubjectFilteredScoreBoard = async (
    res: Response
 ) => {
    const { subject } = req.params;
+   const { stream, pursuingYear } = req.body;
 
    if (!subject) {
       return res.status(400).json({
@@ -121,18 +122,27 @@ export const getSubjectFilteredScoreBoard = async (
       });
    }
 
-   const students: StudentType[] | null = await Student.find({
-      'subjectScore.subject': subject,
+   const allStudents: StudentType[] | null = await Student.find({
+      stream,
+      pursuingYear,
+      // 'subjectScore.subject': subject,
    });
 
-   if (!students) {
+   if (!allStudents) {
       return res.status(500).json({
          message: 'Failed to retrieve students',
       });
    }
 
+   const filteredStudents = allStudents.filter((student) => {
+      return student.subjectScore.some(
+         (subjectScore) =>
+            subjectScore.subject.toUpperCase() === subject.toUpperCase()
+      );
+   });
+
    // Todo remaining with testing
-   const sortedStudents = students.sort((x, y) => {
+   const sortedStudents = filteredStudents.sort((x, y) => {
       const xSubjectScore = x.subjectScore.find((z) => z.subject === subject);
       const ySubjectScore = y.subjectScore.find((z) => z.subject === subject);
 
@@ -168,6 +178,7 @@ export const getSubjectFilteredScoreBoard = async (
 
 export const getSubjectFilteredTests = async (req: Request, res: Response) => {
    const { subject } = req.params;
+   const { stream, pursuingYear } = req.body;
 
    if (!subject) {
       return res.status(400).json({
@@ -178,6 +189,8 @@ export const getSubjectFilteredTests = async (req: Request, res: Response) => {
    // replacing any special characters in the 'subject'
    const escapedSubject = subject.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
    const tests: TestType[] | null = await Test.find({
+      stream,
+      forYear: pursuingYear,
       subject: { $regex: new RegExp(escapedSubject, 'i') },
    });
 

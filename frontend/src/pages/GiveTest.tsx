@@ -101,6 +101,19 @@ const GiveTest = ({ test }: { test: TestType }) => {
 
   useEffect(() => {
     elementRef?.current?.requestFullscreen();
+    const handleFullscreenChange = (e: any) => {
+      e.preventDefault();
+
+      if (!document.fullscreenElement) {
+        // Warn the user before exiting full screen.
+        toast("Are you sure you want to exit full screen mode?");
+      }
+    };
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
   });
 
   return (

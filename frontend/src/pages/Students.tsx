@@ -19,7 +19,7 @@ const Students = () => {
       try {
          const searchUrl =
             user.role === 'admin'
-               ? `http://localhost:3000/api/search/teacher/${searchName}`
+               ? `http://localhost:3000/api/search/student/${searchName}`
                : user.role === 'teacher'
                ? `http://localhost:3000/api/teacher/search/student/${searchName}`
                : `http://localhost:3000/api/student/search/student/${searchName}`;
@@ -49,7 +49,7 @@ const Students = () => {
    const getAllStudents = async () => {
       const searchUrl =
          user.role === 'admin'
-            ? 'http://localhost:3000/api/search/teacher/all'
+            ? 'http://localhost:3000/api/search/student/all'
             : user.role === 'teacher'
             ? 'http://localhost:3000/api/teacher/search/student/all'
             : 'http://localhost:3000/api/student/search/student/all';
@@ -67,9 +67,9 @@ const Students = () => {
       <div className='w-full flex flex-col h-[100vh] md:pt-[2rem] overflow-scroll py-8'>
          <div className='w-full flex justify-start md:justify-center flex-col items-center gap-4'>
             <div className='flex flex-col items-center'>
-               <h1 className='text-5xl font-bold uppercase flex items-center gap-2'>
+               <h1 className='text-4xl sm:text-5xl mt-6 px-6 sm:px-0 font-bold uppercase flex items-center gap-2'>
                   Search For Student
-                  <UserRoundSearch className='size-[2rem] mt-1' />
+                  <UserRoundSearch className='hidden sm:block size-[2rem] mt-1' />
                </h1>
                <p>(Search student by the names!)</p>
             </div>

@@ -111,7 +111,11 @@ const StudentTests = () => {
                   </div>
                ) : (
                   allMySubmissions?.map((submission, idx) => (
-                     <StudentTestCard key={idx} submission={submission} />
+                     <StudentTestCard
+                        key={idx}
+                        submission={submission}
+                        user={userInfo}
+                     />
                   ))
                )}
             </div>

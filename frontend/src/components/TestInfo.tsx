@@ -40,9 +40,11 @@ const TestInfo = ({
                <h1 className='text-[1.1rem] pl-1 font-mono'>
                   {test?.startDate}
                </h1>
-               <h1>
-                  {userSubmission?.obtainedMarks} / {test?.totalMarks}
-               </h1>
+               {user.role === 'student' && (
+                  <h1>
+                     {userSubmission?.obtainedMarks} / {test?.totalMarks}
+                  </h1>
+               )}
             </div>
          </div>
          <div className='text-[1.5rem] font-mono'>{test?.title}</div>
