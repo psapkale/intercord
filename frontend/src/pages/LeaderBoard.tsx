@@ -37,10 +37,10 @@ const LeaderBoard = () => {
    const getAllStudentRanking = async () => {
       const searchUrl =
          user.role === 'admin'
-            ? 'http://localhost:3000/api/score-board/all'
+            ? 'https://intercord-server.vercel.app/api/score-board/all'
             : user.role === 'student'
-            ? 'http://localhost:3000/api/student/score-board/all'
-            : 'http://localhost:3000/api/teacher/score-board/all';
+            ? 'https://intercord-server.vercel.app/api/student/score-board/all'
+            : 'https://intercord-server.vercel.app/api/teacher/score-board/all';
 
       const res = await axios.post(
          searchUrl,
@@ -63,10 +63,10 @@ const LeaderBoard = () => {
    const getAllStudentsBySelectedSubject = async () => {
       const searchUrl =
          user.role === 'admin'
-            ? `http://localhost:3000/api/score-board/subject/${selectedOptionField}`
+            ? `https://intercord-server.vercel.app/api/score-board/subject/${selectedOptionField}`
             : user.role === 'student'
-            ? `http://localhost:3000/api/student/score-board/subject/${selectedOptionField}`
-            : `http://localhost:3000/api/teacher/score-board/subject/${selectedOptionField}`;
+            ? `https://intercord-server.vercel.app/api/student/score-board/subject/${selectedOptionField}`
+            : `https://intercord-server.vercel.app/api/teacher/score-board/subject/${selectedOptionField}`;
 
       const res = await axios.post(
          searchUrl,
@@ -89,10 +89,10 @@ const LeaderBoard = () => {
    const getAllTestBySelectedSubject = async () => {
       const searchUrl =
          user.role === 'admin'
-            ? `http://localhost:3000/api/score-board/test/${selectedOptionField}`
+            ? `https://intercord-server.vercel.app/api/score-board/test/${selectedOptionField}`
             : user.role === 'student'
-            ? `http://localhost:3000/api/student/score-board/test/${selectedOptionField}`
-            : `http://localhost:3000/api/teacher/score-board/test/${selectedOptionField}`;
+            ? `https://intercord-server.vercel.app/api/student/score-board/test/${selectedOptionField}`
+            : `https://intercord-server.vercel.app/api/teacher/score-board/test/${selectedOptionField}`;
 
       const res = await axios.post(
          searchUrl,

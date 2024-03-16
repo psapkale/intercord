@@ -34,7 +34,7 @@ const TestPageOutlet = () => {
    const getTest = async () => {
       try {
          const res = await axios.get(
-            `http://localhost:3000/api/student/test/${testId}`,
+            `https://intercord-server.vercel.app/api/student/test/${testId}`,
             {
                headers: {
                   Authorization: `Bearer ${user.token}`,

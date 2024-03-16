@@ -62,7 +62,7 @@ const CreateTeacher = () => {
 
       try {
          const res = await axios.post(
-            'http://localhost:3000/api/admin/create-teacher',
+            'https://intercord-server.vercel.app/api/admin/create-teacher',
             {
                ...teacherDetails,
             },

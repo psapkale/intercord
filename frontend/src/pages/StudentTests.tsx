@@ -34,7 +34,7 @@ const StudentTests = () => {
    const getAllMySubmissions = async () => {
       try {
          const res = await axios.get(
-            `http://localhost:3000/api/student/mytests`,
+            `https://intercord-server.vercel.app/api/student/mytests`,
             {
                headers: {
                   Authorization: `Bearer ${userInfo.token}`,

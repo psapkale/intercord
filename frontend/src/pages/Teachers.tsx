@@ -20,10 +20,10 @@ const Teachers = () => {
       try {
          const searchUrl =
             user.role === 'admin'
-               ? `http://localhost:3000/api/search/teacher/${searchName}`
+               ? `https://intercord-server.vercel.app/api/search/teacher/${searchName}`
                : user.role === 'student'
-               ? `http://localhost:3000/api/student/search/teacher/${searchName}`
-               : `http://localhost:3000/api/teacher/search/teacher/${searchName}`;
+               ? `https://intercord-server.vercel.app/api/student/search/teacher/${searchName}`
+               : `https://intercord-server.vercel.app/api/teacher/search/teacher/${searchName}`;
 
          const res = await axios(searchUrl, {
             headers: {
@@ -50,10 +50,10 @@ const Teachers = () => {
    const getAllTeachers = async () => {
       const searchUrl =
          user.role === 'admin'
-            ? 'http://localhost:3000/api/search/teacher/all'
+            ? 'https://intercord-server.vercel.app/api/search/teacher/all'
             : user.role === 'student'
-            ? 'http://localhost:3000/api/student/search/teacher/all'
-            : 'http://localhost:3000/api/teacher/search/teacher/all';
+            ? 'https://intercord-server.vercel.app/api/student/search/teacher/all'
+            : 'https://intercord-server.vercel.app/api/teacher/search/teacher/all';
 
       const res = await axios.get(searchUrl, {
          headers: {

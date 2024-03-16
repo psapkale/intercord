@@ -63,7 +63,7 @@ const CreateTest = () => {
    }) => {
       try {
          const data = await axios.post(
-            'http://localhost:3000/api/teacher/create-test',
+            'https://intercord-server.vercel.app/api/teacher/create-test',
             {
                subject: subjectName,
                title: title,

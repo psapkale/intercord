@@ -37,7 +37,7 @@ const StudentProfilePage = () => {
       setLoading(false);
       try {
          const data = await axios.get(
-            `http://localhost:3000/api/search/student/${id}`,
+            `https://intercord-server.vercel.app/api/search/student/${id}`,
             {
                headers: {
                   Authorization: `Bearer ${user.token}`,
@@ -60,7 +60,7 @@ const StudentProfilePage = () => {
       setDeleteLoading(true);
       try {
          const data = await axios.delete(
-            `http://localhost:3000/api/admin/delete/student/${id}`,
+            `https://intercord-server.vercel.app/api/admin/delete/student/${id}`,
             {
                headers: {
                   Authorization: `Bearer ${user.token}`,
