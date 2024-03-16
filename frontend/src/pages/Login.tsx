@@ -17,9 +17,9 @@ type userType = {
 // { username, email, password }
 
 const Login = () => {
-   const [loading, setLoading] = useState(false);
+   const [loading] = useState(false);
    const setUserDetails = useUserDetails((state) => state.setUserDetails);
-   const user = useUserDetails((state) => state.user);
+   // const user = useUserDetails((state) => state.user);
    const [userInfo, setUserInfo] = useState<userType>({
       username: '',
       email: '',

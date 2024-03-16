@@ -29,14 +29,18 @@ const CreateAnnuncment = () => {
          );
 
          toast.success(data?.data?.message);
-         socket.emit('announcement', {
-            title,
-            description,
-            creator: user.name,
-            seen: false,
-         });
-         setTitle('');
-         setDescription('');
+         if (socket) {
+            socket.emit('announcement', {
+               title,
+               description,
+               creator: user.name,
+               seen: false,
+            });
+            setTitle('');
+            setDescription('');
+         } else {
+            console.log('Socket connection not available.');
+         }
       } catch (error) {
          console.log(error, 'Error in create announcement');
       }

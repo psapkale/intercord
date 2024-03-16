@@ -83,7 +83,11 @@ const Requests = () => {
    };
 
    const handleRealTimeRemoveStudentFromPending = (_id: string) => {
-      socket.emit('removeStudentFromPending', _id);
+      if (socket) {
+         socket.emit('removeStudentFromPending', _id);
+      } else {
+         console.log('Socket connection not available.');
+      }
    };
 
    const getAllPendingStudents = async () => {

@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { useState } from 'react';
 
 const useFetchingDataFn = () => {
@@ -6,7 +6,7 @@ const useFetchingDataFn = () => {
       useState<string>('all');
    const [isRankingOpen, setIsRankingOpen] = useState(false);
    //   const [loadingData, setLoadingData] = useState(false);
-   const [allStudents, setAllStudents] = useState();
+   // const [allStudents, setAllStudents] = useState();
 
    const getAllTestBySelectedSubject = () => {
       console.log('Get all Test');
