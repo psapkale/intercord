@@ -1,0 +1,28 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const student_1 = require("../controllers/student");
+const router = (0, express_1.Router)();
+exports.router = router;
+const student_2 = require("../middlewares/student");
+// Todo add controllers
+router.post('/signup', student_1.studentRegister);
+router.post('/login', student_1.studentLogin);
+router.get('/mytests', student_2.studentMiddleware, student_1.getMyTests);
+router.get('/test/:testId', student_2.studentMiddleware, student_1.getTestById);
+router.post('/test/:testId', student_2.studentMiddleware, student_1.testSubmission);
+router.post('/bookmark', student_2.studentMiddleware, student_1.bookMarkTest);
+router.get('/allbookmarktest', student_2.studentMiddleware, student_1.getAllBookMarkTest);
+router.put('/updateprofile', student_2.studentMiddleware, student_1.updateStudentProfile);
+router.put('/updateseen', student_2.studentMiddleware, student_1.updateSeenStudent);
+router.get('/search/student/all', student_2.studentMiddleware, student_1.allStudents);
+router.get('/search/teacher/all', student_2.studentMiddleware, student_1.allTeachers);
+router.get('/search/student/:username', student_2.studentMiddleware, student_1.serachStudent);
+router.get('/search/teacher/:username', student_2.studentMiddleware, student_1.serachTeacher);
+router.post('/score-board/all', student_2.studentMiddleware, student_1.getScoreBoard);
+router.post('/score-board/subject/:subject', student_2.studentMiddleware, student_1.getSubjectFilteredScoreBoard);
+router.post('/score-board/test/:subject', student_2.studentMiddleware, student_1.getSubjectFilteredTests);
+router.get('/upcoming', student_2.studentMiddleware, student_1.getUpComingTests);
+router.get('/closed', student_2.studentMiddleware, student_1.getClosedTests);
+router.get('/live', student_2.studentMiddleware, student_1.getLiveTests);
