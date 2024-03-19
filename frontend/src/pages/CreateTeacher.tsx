@@ -184,7 +184,7 @@ const CreateTeacher = () => {
                   onChange={(e) => {
                      setTeacherDetails({
                         ...teacherDetails,
-                        stream: e.target.value.toUpperCase(),
+                        stream: e.target.value.toLowerCase(),
                      });
                   }}
                   value={teacherDetails?.stream}
