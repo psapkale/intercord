@@ -1,13 +1,13 @@
-import { SocketContext } from '@/context/SocketContext';
-import { useUserDetails } from '@/utils/store';
-import axios from 'axios';
-import { BellRing } from 'lucide-react';
-import { useContext, useState } from 'react';
-import toast from 'react-hot-toast';
+import { SocketContext } from "@/context/SocketContext";
+import { useUserDetails } from "@/utils/store";
+import axios from "axios";
+import { BellRing } from "lucide-react";
+import { useContext, useState } from "react";
+import toast from "react-hot-toast";
 
 const CreateAnnuncment = () => {
-   const [title, setTitle] = useState<string>('');
-   const [description, setDescription] = useState<string>('');
+   const [title, setTitle] = useState<string>("");
+   const [description, setDescription] = useState<string>("");
    const user = useUserDetails((state) => state.user);
    const { socket } = useContext(SocketContext);
 
@@ -30,54 +30,54 @@ const CreateAnnuncment = () => {
 
          toast.success(data?.data?.message);
          if (socket) {
-            socket.emit('announcement', {
+            socket.emit("announcement", {
                title,
                description,
                creator: user.name,
                seen: false,
             });
-            setTitle('');
-            setDescription('');
+            setTitle("");
+            setDescription("");
          } else {
-            console.log('Socket connection not available.');
+            console.log("Socket connection not available.");
          }
       } catch (error) {
-         console.log(error, 'Error in create announcement');
+         console.log(error, "Error in create announcement");
       }
    };
 
    return (
-      <div className='w-full h-fit pl-[1.5rem] sm:pl-[2rem] md:pl-[6rem] pt-[2rem] overflow-y-scroll py-8'>
-         <h1 className='uppercase text-3xl xs:text-4xl sm:text-4xl max-md:mt-5 md:text-5xl font-semibold'>
+      <div className="w-full h-fit pl-[1.5rem] sm:pl-[2rem] md:pl-[6rem] pt-[2rem] overflow-y-scroll py-8">
+         <h1 className="uppercase text-3xl xs:text-4xl sm:text-4xl max-md:mt-5 md:text-5xl font-semibold">
             Create Announcement
          </h1>
-         <div className='w-full h-fit mt-4 sm:mt-6 md:mt-10 flex flex-col gap-10 pr-10'>
-            <div className='flex flex-col font-zyada'>
-               <label htmlFor='title' className='font-bold text-2xl flex gap-2'>
+         <div className="w-full h-fit mt-4 sm:mt-6 md:mt-10 flex flex-col gap-10 pr-10">
+            <div className="flex flex-col font-bona">
+               <label htmlFor="title" className="font-bold text-2xl flex gap-2">
                   Title
                </label>
                <input
-                  type='text'
-                  id='title'
-                  className='bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none'
-                  placeholder='Title'
+                  type="text"
+                  id="title"
+                  className="bg-[#F7F7F8] rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
+                  placeholder="Title"
                   onChange={(e) => {
                      setTitle(e.target.value);
                   }}
                   value={title}
                />
             </div>
-            <div className='flex flex-col font-zyada'>
+            <div className="flex flex-col font-bona">
                <label
-                  htmlFor='description'
-                  className='font-bold text-2xl flex gap-2'
+                  htmlFor="description"
+                  className="font-bold text-2xl flex gap-2"
                >
                   Description
                </label>
                <textarea
-                  placeholder='description...'
-                  id='description'
-                  className='outline-none text-2xl bg-[#F7F7F8] font-semibold rounded-md p-2 w-full lg:w-[30rem]'
+                  placeholder="description..."
+                  id="description"
+                  className="outline-none text-2xl bg-[#F7F7F8] font-semibold rounded-md p-2 w-full lg:w-[30rem]"
                   cols={10}
                   rows={5}
                   onChange={(e) => {
@@ -87,11 +87,11 @@ const CreateAnnuncment = () => {
                />
             </div>
             <button
-               className='w-fit flex gap-2 items-center justify-center rounded-md bg-[#222222] text-white hover:bg-[#0f0f0f] border py-2 px-4'
+               className="w-fit flex gap-2 items-center justify-center rounded-md bg-[#222222] text-white hover:bg-[#0f0f0f] border py-2 px-4"
                onClick={handleCreateAnnouncement}
             >
                Announce
-               <BellRing className='size-4 mt-1' />
+               <BellRing className="size-4 mt-1" />
             </button>
          </div>
       </div>

@@ -1,16 +1,16 @@
-import { InputLabel } from '@/components/PrimeSkeleton';
+import { InputLabel } from "@/components/PrimeSkeleton";
 import {
    Tooltip,
    TooltipContent,
    TooltipProvider,
    TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { useUserDetails } from '@/utils/store';
-import axios from 'axios';
-import { AtSign, CheckCircle, Mail, Trash2 } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { useNavigate, useParams } from 'react-router-dom';
+} from "@/components/ui/tooltip";
+import { useUserDetails } from "@/utils/store";
+import axios from "axios";
+import { AtSign, CheckCircle, Mail, Trash2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate, useParams } from "react-router-dom";
 
 type AnouncementType = {
    title: string;
@@ -56,7 +56,7 @@ const TeacherProfilePage = () => {
          setLoading(false);
       } catch (err) {
          setLoading(false);
-         console.log(err, 'Error in student profile page');
+         console.log(err, "Error in student profile page");
       }
    };
 
@@ -75,9 +75,9 @@ const TeacherProfilePage = () => {
 
          toast.success(data?.data?.message);
          setDeleteLoading(false);
-         navigate('/dashboard/search/teacher');
+         navigate("/dashboard/search/teacher");
       } catch (err) {
-         console.log('Error in Hanlde Delete Student Page', err);
+         console.log("Error in Hanlde Delete Student Page", err);
          setDeleteLoading(false);
          setIsPopUpOpen(false);
       }
@@ -88,20 +88,20 @@ const TeacherProfilePage = () => {
    }, []);
 
    return (
-      <div className='w-full h-fit pl-[1.5rem] sm:pl-[2rem] md:pl-[6rem] pt-[2rem] overflow-y-scroll py-8'>
-         <div className='w-full flex justify-between max-md:mt-10 pr-10'>
-            <h1 className='text-3xl sm:text-5xl font-semibold uppercase'>
+      <div className="w-full h-fit pl-[1.5rem] sm:pl-[2rem] md:pl-[6rem] pt-[2rem] overflow-y-scroll py-8">
+         <div className="w-full flex justify-between max-md:mt-10 pr-10">
+            <h1 className="text-3xl sm:text-5xl font-semibold uppercase">
                {teacherDetails?.name}
             </h1>
-            {user.role == 'admin' && (
+            {user.role == "admin" && (
                <TooltipProvider>
                   <Tooltip delayDuration={1}>
                      <TooltipTrigger>
                         <button
-                           className='hover:bg-gray-200 rounded-full h-10 w-10 flex justify-center items-center transition-colors duration-300'
+                           className="hover:bg-gray-200 rounded-full h-10 w-10 flex justify-center items-center transition-colors duration-300"
                            onClick={() => setIsPopUpOpen(true)}
                         >
-                           <Trash2 className='size-6' />
+                           <Trash2 className="size-6" />
                         </button>
                      </TooltipTrigger>
                      <TooltipContent>
@@ -111,21 +111,21 @@ const TeacherProfilePage = () => {
                </TooltipProvider>
             )}
          </div>
-         <div className='w-full h-fit mt-8'>
-            <div className='flex max-md:flex-col w-full gap-10 flex-wrap'>
+         <div className="w-full h-fit mt-8">
+            <div className="flex max-md:flex-col w-full gap-10 flex-wrap">
                {/* Full Name */}
-               <div className='flex flex-col font-zyada'>
+               <div className="flex flex-col font-bona">
                   {!loading ? (
                      <>
                         <label
-                           htmlFor='fullname'
-                           className='font-bold text-2xl flex gap-2'
+                           htmlFor="fullname"
+                           className="font-bold text-2xl flex gap-2"
                         >
                            FullName
                         </label>
                         <span
-                           id='fullname'
-                           className='bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none'
+                           id="fullname"
+                           className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] w-[90%] lg:w-[20rem] outline-none"
                         >
                            {teacherDetails?.name}
                         </span>
@@ -135,21 +135,21 @@ const TeacherProfilePage = () => {
                   )}
                </div>
                {/* userName */}
-               <div className='flex flex-col font-zyada max-md:-mt-10'>
+               <div className="flex flex-col font-bona max-md:-mt-10">
                   {!loading ? (
                      <>
                         <label
-                           htmlFor='username'
-                           className='font-bold text-2xl items-center flex'
+                           htmlFor="username"
+                           className="font-bold text-2xl items-center flex"
                         >
-                           <AtSign className='size-4' />
+                           <AtSign className="size-4" />
                            username
                         </label>
                         <span
-                           id='username'
-                           className='bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none'
+                           id="username"
+                           className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none"
                         >
-                           <AtSign className='size-4' />
+                           <AtSign className="size-4" />
                            {teacherDetails?.username}
                         </span>
                      </>
@@ -158,19 +158,19 @@ const TeacherProfilePage = () => {
                   )}
                </div>
                {/* Email */}
-               <div className='flex flex-col font-zyada'>
+               <div className="flex flex-col font-bona">
                   {!loading ? (
                      <>
                         <label
-                           htmlFor='email'
-                           className='font-bold text-2xl gap-1 items-center flex'
+                           htmlFor="email"
+                           className="font-bold text-2xl gap-1 items-center flex"
                         >
                            Email
-                           <Mail className='size-6 mb-2' />
+                           <Mail className="size-6 mb-2" />
                         </label>
                         <span
-                           id='email'
-                           className='bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none'
+                           id="email"
+                           className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none"
                         >
                            {teacherDetails?.email}
                         </span>
@@ -180,19 +180,19 @@ const TeacherProfilePage = () => {
                   )}
                </div>
                {/* Submissions */}
-               <div className='flex flex-col font-zyada'>
+               <div className="flex flex-col font-bona">
                   {!loading ? (
                      <>
                         <label
-                           htmlFor='submission'
-                           className='font-bold text-2xl gap-1 items-center flex'
+                           htmlFor="submission"
+                           className="font-bold text-2xl gap-1 items-center flex"
                         >
                            Total Tests
-                           <CheckCircle className='size-4 mb-2' />
+                           <CheckCircle className="size-4 mb-2" />
                         </label>
                         <span
-                           id='submission'
-                           className='bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none'
+                           id="submission"
+                           className="bg-gray-200 rounded-md py-2 text-black text-xl px-2 font-bold tracking-[0.1rem] items-center flex w-[90%] lg:w-[20rem] outline-none"
                         >
                            {teacherDetails?.createdTests?.length}
                         </span>
@@ -202,7 +202,7 @@ const TeacherProfilePage = () => {
                   )}
                </div>
                {/* Current Rank */}
-               <div className='flex flex-col font-zyada'>
+               <div className="flex flex-col font-bona">
                   {/* {!loading ? (
                      <>
                         <label
@@ -280,24 +280,24 @@ const TeacherProfilePage = () => {
          </div> */}
          <div
             className={`w-full h-full z-30 bg-[#0f0f0f49] absolute top-0 left-0 flex justify-center items-center ${
-               !isPopUpOpen ? 'hidden' : 'flex'
+               !isPopUpOpen ? "hidden" : "flex"
             }`}
             onClick={() => setIsPopUpOpen(false)}
          >
-            <div className='w-[30rem] h-[10rem] rounded-md bg-white flex flex-col justify-center items-center gap-4'>
-               <h1 className='text-[1.2rem]'>
+            <div className="w-[30rem] h-[10rem] rounded-md bg-white flex flex-col justify-center items-center gap-4">
+               <h1 className="text-[1.2rem]">
                   Do you really want to
-                  <span className='text-red-600 font-bold font-zyada text-2xl'>
-                     {' '}
+                  <span className="text-red-600 font-bold font-bona text-2xl">
+                     {" "}
                      Delete
-                  </span>{' '}
+                  </span>{" "}
                   this account?
                </h1>
-               <div className='flex gap-2'>
+               <div className="flex gap-2">
                   <button
                      className={`w-[6rem] py-2 border rounded-md bg-red-600 text-black
              hover:bg-red-700 transition-colors duration-300 flex justify-center items-center gap-1 ${
-                deleteLoading && 'cursor-not-allowed'
+                deleteLoading && "cursor-not-allowed"
              }`}
                      onClick={(e) => {
                         e.stopPropagation();
@@ -305,10 +305,10 @@ const TeacherProfilePage = () => {
                      }}
                      disabled={deleteLoading}
                   >
-                     {deleteLoading ? 'Deleting...' : 'Confirm'}
+                     {deleteLoading ? "Deleting..." : "Confirm"}
                   </button>
                   <button
-                     className='w-[6rem] py-2 border rounded-md hover:bg-gray-200 transition-colors duration-300'
+                     className="w-[6rem] py-2 border rounded-md hover:bg-gray-200 transition-colors duration-300"
                      onClick={() => setIsPopUpOpen(false)}
                      disabled={deleteLoading}
                   >
