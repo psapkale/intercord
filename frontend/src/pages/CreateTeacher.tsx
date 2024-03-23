@@ -1,15 +1,15 @@
-import { useUserDetails } from '@/utils/store';
-import axios from 'axios';
-import { AtSign, Mail } from 'lucide-react';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+import { useUserDetails } from "@/utils/store";
+import axios from "axios";
+import { AtSign, Mail } from "lucide-react";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const defaultTeacherValues = {
-   name: '',
-   email: '',
-   password: '',
-   stream: 'BCS',
-   username: '',
+   name: "",
+   email: "",
+   password: "",
+   stream: "bcs",
+   username: "",
 };
 
 type TeacherType = {
@@ -33,13 +33,13 @@ const CreateTeacher = () => {
          !teacherDetails.username ||
          !teacherDetails.stream
       ) {
-         toast.error('Please fill all the fields');
+         toast.error("Please fill all the fields");
          return;
       }
 
       // email validation
       if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(teacherDetails.email)) {
-         toast.error('Enter valid email', {
+         toast.error("Enter valid email", {
             duration: 3000,
          });
          return;
@@ -52,7 +52,7 @@ const CreateTeacher = () => {
          )
       ) {
          toast.error(
-            'Enter valid password, enter atleast 1 small char, 1 capital char and 1 number and password should be more than 8 digit',
+            "Enter valid password, enter atleast 1 small char, 1 capital char and 1 number and password should be more than 8 digit",
             {
                duration: 3000,
             }
@@ -62,7 +62,7 @@ const CreateTeacher = () => {
 
       try {
          const res = await axios.post(
-            'https://intercord-server.vercel.app/api/admin/create-teacher',
+            "https://intercord-server.vercel.app/api/admin/create-teacher",
             {
                ...teacherDetails,
             },
@@ -76,25 +76,25 @@ const CreateTeacher = () => {
          toast.success(res?.data?.message);
          setTeacherDetails(defaultTeacherValues);
       } catch (err) {
-         console.log('error in Create Teacher', err);
+         console.log("error in Create Teacher", err);
       }
    };
    return (
-      <div className='w-full font-bona h-fit pl-[1.5rem] sm:pl-[2rem] md:pl-[6rem] pt-[2rem] overflow-y-scroll py-8'>
-         <h1 className='text-[2.8rem] sm:text-5xl font-semibold max-md:mt-4'>
+      <div className="w-full font-bona h-fit pl-[1.5rem] sm:pl-[2rem] md:pl-[6rem] pt-[2rem] overflow-y-scroll py-8">
+         <h1 className="text-[2.8rem] sm:text-5xl font-semibold max-md:mt-4">
             Create Teachers
          </h1>
-         <div className='grid italic md:grid-cols-2 xl:grid-cols-3 w-full gap-[1.5rem] max-md:grid-cols-1 mt-6'>
+         <div className="grid italic md:grid-cols-2 xl:grid-cols-3 w-full gap-[1.5rem] max-md:grid-cols-1 mt-6">
             {/* Fullname */}
-            <div className='flex flex-col'>
-               <label htmlFor='fn' className='font-semibold text-xl italic'>
+            <div className="flex flex-col">
+               <label htmlFor="fn" className="font-semibold text-xl italic">
                   Full Name
                </label>
                <input
-                  type='text'
-                  id='fn'
-                  className='bg-gray-200 rounded-md py-2 text-black text-[16px] px-2 w-[90%] lg:w-[20rem] outline-none italic'
-                  placeholder='Enter name...'
+                  type="text"
+                  id="fn"
+                  className="bg-gray-200 rounded-md py-2 text-black text-[16px] px-2 w-[90%] lg:w-[20rem] outline-none italic"
+                  placeholder="Enter name..."
                   value={teacherDetails?.name}
                   onChange={(e) => {
                      setTeacherDetails({
@@ -105,18 +105,18 @@ const CreateTeacher = () => {
                />
             </div>
             {/* email */}
-            <div className='flex flex-col'>
+            <div className="flex flex-col">
                <label
-                  htmlFor='email'
-                  className='font-semibold flex items-center gap-1 italic text-xl font-bona'
+                  htmlFor="email"
+                  className="font-semibold flex items-center gap-1 italic text-xl font-bona"
                >
-                  Email <Mail className='size-5' />
+                  Email <Mail className="size-5" />
                </label>
                <input
-                  type='email'
-                  id='email'
-                  className='bg-gray-200 rounded-md py-2 text-black text-[16px] px-2 font-[400] w-[90%] lg:w-[20rem] outline-none italic'
-                  placeholder='Enter email...'
+                  type="email"
+                  id="email"
+                  className="bg-gray-200 rounded-md py-2 text-black text-[16px] px-2 font-[400] w-[90%] lg:w-[20rem] outline-none italic"
+                  placeholder="Enter email..."
                   value={teacherDetails?.email}
                   onChange={(e) => {
                      setTeacherDetails({
@@ -127,18 +127,18 @@ const CreateTeacher = () => {
                />
             </div>
             {/* username */}
-            <div className='flex flex-col'>
+            <div className="flex flex-col">
                <label
-                  htmlFor='email'
-                  className='font-semibold italic text-xl flex items-center font-bona'
+                  htmlFor="email"
+                  className="font-semibold italic text-xl flex items-center font-bona"
                >
-                  <AtSign className='size-5' /> username
+                  <AtSign className="size-5" /> username
                </label>
                <input
-                  type='email'
-                  id='email'
-                  className='bg-gray-200 rounded-md italic py-2 text-black text-[16px] px-2 font-[400] w-[90%] lg:w-[20rem] outline-none'
-                  placeholder='Enter username...'
+                  type="email"
+                  id="email"
+                  className="bg-gray-200 rounded-md italic py-2 text-black text-[16px] px-2 font-[400] w-[90%] lg:w-[20rem] outline-none"
+                  placeholder="Enter username..."
                   value={teacherDetails?.username}
                   onChange={(e) => {
                      setTeacherDetails({
@@ -149,18 +149,18 @@ const CreateTeacher = () => {
                />
             </div>
             {/* password */}
-            <div className='flex flex-col'>
+            <div className="flex flex-col">
                <label
-                  htmlFor='pass'
-                  className='font-semibold text-xl font-bona'
+                  htmlFor="pass"
+                  className="font-semibold text-xl font-bona"
                >
                   Password
                </label>
                <input
-                  type='email'
-                  id='pass'
-                  className='bg-gray-200 rounded-md py-2 text-black text-[16px] px-2 font-[400] w-[90%] lg:w-[20rem] outline-none italic'
-                  placeholder='Enter password...'
+                  type="email"
+                  id="pass"
+                  className="bg-gray-200 rounded-md py-2 text-black text-[16px] px-2 font-[400] w-[90%] lg:w-[20rem] outline-none italic"
+                  placeholder="Enter password..."
                   value={teacherDetails?.password}
                   onChange={(e) => {
                      setTeacherDetails({
@@ -171,38 +171,38 @@ const CreateTeacher = () => {
                />
             </div>
             {/* Drop Down */}
-            <div className='flex flex-col'>
+            <div className="flex flex-col">
                <label
-                  htmlFor='stream'
-                  className='font-semibold text-xl font-bona'
+                  htmlFor="stream"
+                  className="font-semibold text-xl font-bona"
                >
                   Stream
                </label>
                <select
-                  id='stream'
-                  className='italic py-2 outline-none border rounded-md w-[90%] lg:w-[20rem]'
+                  id="stream"
+                  className="italic py-2 outline-none border rounded-md w-[90%] lg:w-[20rem]"
                   onChange={(e) => {
                      setTeacherDetails({
                         ...teacherDetails,
-                        stream: e.target.value.toUpperCase(),
+                        stream: e.target.value.toLowerCase(),
                      });
                   }}
                   value={teacherDetails?.stream}
                >
-                  <option value='bcs' defaultChecked>
+                  <option value="bcs" defaultChecked>
                      BCS
                   </option>
-                  <option value='bca' defaultChecked>
+                  <option value="bca" defaultChecked>
                      BCA
                   </option>
-                  <option value='bcom' defaultChecked>
+                  <option value="bcom" defaultChecked>
                      BCOM
                   </option>
                </select>
             </div>
          </div>
          <button
-            className='w-[10rem] mt-8 rounded-md tracking-wider text-xl font-medium border border-black hover:bg-white hover:text-black transition-all duration-300 font-bona py-2 bg-[#0F0F0F] text-white flex justify-center items-center gap-2 italic'
+            className="w-[10rem] mt-8 rounded-md tracking-wider text-xl font-medium border border-black hover:bg-white hover:text-black transition-all duration-300 font-bona py-2 bg-[#0F0F0F] text-white flex justify-center items-center gap-2 italic"
             onClick={handleCreateTeacher}
          >
             Create Teacher
