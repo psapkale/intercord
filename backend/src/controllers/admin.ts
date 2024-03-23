@@ -72,7 +72,7 @@ export const createTeacher = async (req: Request, res: Response) => {
       name,
       email,
       password: hashedPassword,
-      stream,
+      stream: stream.toLowerCase(),
       createdTests: [],
     });
 
