@@ -65,7 +65,7 @@ const createTest = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             subject,
             title,
             description,
-            stream,
+            stream: stream.toLowerCase(),
             forYear,
             totalQuestions,
             totalMarks,
@@ -395,8 +395,6 @@ const getUpComingTests = (req, res) => __awaiter(void 0, void 0, void 0, functio
     const currentDateTime = new Date();
     const options = { timeZone: "Asia/Kolkata", hour12: false };
     const indianTime = currentDateTime.toLocaleString("en-IN", options);
-    const parts = indianTime.slice(0, 8).split("/");
-    const currentDate = `${parts[2]}-${parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]}-${parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]}`;
     const upcoming = yield db_1.Test.find({
         $and: [
             { stream: teacher.stream },
@@ -404,14 +402,12 @@ const getUpComingTests = (req, res) => __awaiter(void 0, void 0, void 0, functio
                 $or: [
                     {
                         startDate: {
-                            // $gt: currentDateTime.toISOString().slice(0, 10),
-                            $gt: currentDate,
+                            $gt: currentDateTime.toISOString().slice(0, 10),
                         },
                     },
                     {
-                        // startDate: currentDateTime.toISOString().slice(0, 10),
-                        startDate: currentDate,
-                        time: { $gt: indianTime.slice(10, 15) },
+                        startDate: currentDateTime.toISOString().slice(0, 10),
+                        time: { $gt: indianTime.slice(11, 16) },
                     },
                 ],
             },
@@ -429,8 +425,6 @@ const getClosedTests = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const currentDateTime = new Date();
     const options = { timeZone: "Asia/Kolkata", hour12: false };
     const indianTime = currentDateTime.toLocaleString("en-IN", options);
-    const parts = indianTime.slice(0, 8).split("/");
-    const currentDate = `${parts[2]}-${parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]}-${parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]}`;
     const closed = yield db_1.Test.find({
         $and: [
             { stream: teacher.stream },
@@ -438,13 +432,12 @@ const getClosedTests = (req, res) => __awaiter(void 0, void 0, void 0, function*
                 $or: [
                     {
                         startDate: {
-                            // $lt: currentDateTime.toISOString().slice(0, 10),
-                            $lt: currentDate,
+                            $lt: currentDateTime.toISOString().slice(0, 10),
                         },
                     },
                     {
-                        startDate: currentDate,
-                        endTime: { $lt: indianTime.slice(10, 15) },
+                        startDate: currentDateTime.toISOString().slice(0, 10),
+                        endTime: { $lt: indianTime.slice(11, 16) },
                     },
                 ],
             },
@@ -462,14 +455,12 @@ const getLiveTests = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const currentDateTime = new Date();
     const options = { timeZone: "Asia/Kolkata", hour12: false };
     const indianTime = currentDateTime.toLocaleString("en-IN", options);
-    const parts = indianTime.slice(0, 8).split("/");
-    const currentDate = `${parts[2]}-${parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]}-${parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]}`;
     const live = yield db_1.Test.find({
         $and: [
             { stream: teacher.stream },
-            { startDate: currentDate },
-            { time: { $lte: indianTime.slice(10, 15) } },
-            { endTime: { $gte: indianTime.slice(10, 15) } },
+            { startDate: currentDateTime.toISOString().slice(0, 10) },
+            { time: { $lte: indianTime.slice(11, 16) } },
+            { endTime: { $gte: indianTime.slice(11, 16) } },
         ],
     });
     res.status(200).json({

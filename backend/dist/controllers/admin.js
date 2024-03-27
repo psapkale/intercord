@@ -74,7 +74,7 @@ const createTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             name,
             email,
             password: hashedPassword,
-            stream,
+            stream: stream.toLowerCase(),
             createdTests: [],
         });
         if (!teacher) {

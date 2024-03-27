@@ -1,14 +1,14 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import { Request, Response } from 'express';
-import { PendingStudent, Score, Student, Teacher, Test } from '../db';
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import { Request, Response } from "express";
+import { PendingStudent, Score, Student, Teacher, Test } from "../db";
 import {
    ScoreType,
    StudentType,
    SubjectScoreType,
    TeacherType,
    TestType,
-} from '../types';
+} from "../types";
 
 // Todo all mongo logic here
 // Todo restrict creating duplicate users
@@ -35,14 +35,14 @@ export const studentRegister = async (req: Request, res: Response) => {
       ) {
          return res
             .status(400)
-            .json({ message: 'Please provide all the details' });
+            .json({ message: "Please provide all the details" });
       }
 
       let student = await Student.findOne({ email });
 
       if (student) {
          return res.status(400).json({
-            message: 'Student already exists with this email',
+            message: "Student already exists with this email",
          });
       }
 
@@ -50,7 +50,7 @@ export const studentRegister = async (req: Request, res: Response) => {
 
       if (student) {
          return res.status(400).json({
-            message: 'Username already taken',
+            message: "Username already taken",
          });
       }
 
@@ -58,7 +58,7 @@ export const studentRegister = async (req: Request, res: Response) => {
 
       if (pendingStudent) {
          return res.status(400).json({
-            message: 'Request already exists',
+            message: "Request already exists",
          });
       }
 
@@ -73,11 +73,11 @@ export const studentRegister = async (req: Request, res: Response) => {
       });
 
       res.status(200).json({
-         message: 'Request sent successfully. Wait until it gets approved!',
+         message: "Request sent successfully. Wait until it gets approved!",
       });
    } catch (e) {
       // ! Remove 'e' which might potentially show authorised details
-      console.error('Error creating student:', e);
+      console.error("Error creating student:", e);
       res.status(500);
    }
 };
@@ -88,35 +88,35 @@ export const studentLogin = async (req: Request, res: Response) => {
       if (!email || !username || !password) {
          return res
             .status(400)
-            .json({ message: 'Please provide username, email and password' });
+            .json({ message: "Please provide username, email and password" });
       }
 
       const student: StudentType | null = await Student.findOne({ email });
 
       if (!student) {
-         return res.status(404).json({ message: 'Student not found' });
+         return res.status(404).json({ message: "Student not found" });
       }
 
       if (student.username !== username) {
-         return res.status(411).json({ message: 'Incorrect username' });
+         return res.status(411).json({ message: "Incorrect username" });
       }
 
       const isMatch = await bcrypt.compare(password, student.password);
 
       if (!isMatch) {
-         return res.status(411).json({ message: 'Incorrect password' });
+         return res.status(411).json({ message: "Incorrect password" });
       }
 
       const token = jwt.sign({ username }, process.env.JWT_SECRET);
 
       res.status(200).json({
          student,
-         message: 'Student logged in successfully',
+         message: "Student logged in successfully",
          token,
       });
    } catch (e) {
       // ! Remove 'e' which might potentially show authorised details
-      console.error('Error logging student:', e);
+      console.error("Error logging student:", e);
       res.status(500);
    }
 };
@@ -140,7 +140,7 @@ export const getTestById = async (req: Request, res: Response) => {
 
    if (!testId) {
       return res.status(400).json({
-         message: 'Please provide test id',
+         message: "Please provide test id",
       });
    }
 
@@ -148,7 +148,7 @@ export const getTestById = async (req: Request, res: Response) => {
 
    if (!test) {
       return res.status(404).json({
-         message: 'Test not found',
+         message: "Test not found",
       });
    }
 
@@ -164,19 +164,19 @@ export const getTestById = async (req: Request, res: Response) => {
 
    const currentDateTime = new Date();
    const options = {
-      timeZone: 'Asia/Kolkata',
+      timeZone: "Asia/Kolkata",
       hour12: false,
    };
-   const indianTime = currentDateTime.toLocaleString('en-US', options);
-   const formattedDate = new Date(indianTime).toISOString().split('T')[0];
+   const indianTime = currentDateTime.toLocaleString("en-IN", options);
+   const formattedDate = new Date(indianTime).toISOString().split("T")[0];
 
    if (
       isRepeat &&
       test?.startDate === formattedDate &&
-      indianTime.slice(10, 15) <= test?.endTime
+      indianTime.slice(11, 16) <= test?.endTime
    ) {
       return res.status(400).json({
-         message: 'Response already submitted',
+         message: "Response already submitted",
       });
    }
 
@@ -186,12 +186,12 @@ export const getTestById = async (req: Request, res: Response) => {
 
    if (!teacher) {
       return res.status(500).json({
-         message: 'Failed to find some test data',
+         message: "Failed to find some test data",
       });
    }
 
    res.status(200).json({
-      message: 'Done Successfully',
+      message: "Done Successfully",
       test,
       creator: teacher.username,
       sortedSubmissions,
@@ -206,13 +206,13 @@ export const testSubmission = async (req: Request, res: Response) => {
 
    if (!testId) {
       return res.status(400).json({
-         message: 'Please provide test id',
+         message: "Please provide test id",
       });
    }
 
    if (!submittedAnswersIndex) {
       return res.status(400).json({
-         message: 'Please provide test response',
+         message: "Please provide test response",
       });
    }
 
@@ -267,7 +267,7 @@ export const testSubmission = async (req: Request, res: Response) => {
 
    if (!student) {
       return res.status(500).json({
-         message: 'Internal server error',
+         message: "Internal server error",
       });
    }
 
@@ -289,7 +289,7 @@ export const testSubmission = async (req: Request, res: Response) => {
 
       await student.save();
    } else {
-      console.error('student.subjectScore is not an array');
+      console.error("student.subjectScore is not an array");
    }
 
    // Todo resove score data
@@ -305,7 +305,7 @@ export const testSubmission = async (req: Request, res: Response) => {
    );
 
    res.json({
-      message: 'Test submitted successfully',
+      message: "Test submitted successfully",
       test,
       student,
       score,
@@ -322,7 +322,7 @@ export const bookMarkTest = async (req: Request, res: Response) => {
 
    if (!student) {
       return res.status(500).json({
-         message: 'Internal server error',
+         message: "Internal server error",
       });
    }
 
@@ -337,11 +337,11 @@ export const bookMarkTest = async (req: Request, res: Response) => {
 
    if (indexOfTest == -1)
       return res.status(200).json({
-         message: 'Test Bookmark Succesfully',
+         message: "Test Bookmark Succesfully",
       });
 
    res.status(200).json({
-      message: 'Test remove from Bookmark Succesfully',
+      message: "Test remove from Bookmark Succesfully",
    });
 };
 
@@ -361,9 +361,9 @@ export const getAllBookMarkTest = async (req: Request, res: Response) => {
       });
    } catch (error) {
       res.status(500).json({
-         messsage: 'Some error occured',
+         messsage: "Some error occured",
       });
-      console.log(error, 'Error in GetAllBookMarkedTest');
+      console.log(error, "Error in GetAllBookMarkedTest");
    }
 };
 
@@ -385,7 +385,7 @@ export const updateStudentProfile = async (req: Request, res: Response) => {
 
       if (!student) {
          return res.status(200).json({
-            message: 'Student Not Found',
+            message: "Student Not Found",
          });
       }
 
@@ -406,14 +406,14 @@ export const updateStudentProfile = async (req: Request, res: Response) => {
       await student.save();
 
       res.status(200).json({
-         message: 'Student Profile Updated',
+         message: "Student Profile Updated",
          user: student,
       });
    } catch (error) {
       res.status(500).json({
-         message: 'Some Error occured!',
+         message: "Some Error occured!",
       });
-      console.log('Error in Update Student ', error);
+      console.log("Error in Update Student ", error);
    }
 };
 
@@ -425,14 +425,14 @@ export const updateSeenStudent = async (req: Request, res: Response) => {
             username,
          },
          {
-            $set: { 'announcements.$[].seen': true },
+            $set: { "announcements.$[].seen": true },
          }
       );
       res.status(200).json({
-         message: 'All Seen Successfully',
+         message: "All Seen Successfully",
       });
    } catch (error) {
-      console.log(error, 'Error in student updateSeen route');
+      console.log(error, "Error in student updateSeen route");
    }
 };
 
@@ -448,11 +448,11 @@ export const allStudents = async (req: Request, res: Response) => {
 
    if (!allStudents) {
       return res.status(500).json({
-         message: 'Failed to get all students',
+         message: "Failed to get all students",
       });
    }
 
-   res.status(200).json({ message: 'Done Successfully', allStudents });
+   res.status(200).json({ message: "Done Successfully", allStudents });
 };
 
 export const allTeachers = async (req: Request, res: Response) => {
@@ -466,11 +466,11 @@ export const allTeachers = async (req: Request, res: Response) => {
 
    if (!allTeachers) {
       return res.status(500).json({
-         message: 'Failed to get all teachers',
+         message: "Failed to get all teachers",
       });
    }
 
-   res.status(200).json({ message: 'Done Successfully', allTeachers });
+   res.status(200).json({ message: "Done Successfully", allTeachers });
 };
 
 export const serachStudent = async (req: Request, res: Response) => {
@@ -479,7 +479,7 @@ export const serachStudent = async (req: Request, res: Response) => {
 
    if (!username) {
       return res.status(400).json({
-         message: 'Please provide student name',
+         message: "Please provide student name",
       });
    }
 
@@ -495,7 +495,7 @@ export const serachStudent = async (req: Request, res: Response) => {
 
    if (!resStudent) {
       return res.status(404).json({
-         message: 'Student not found in the database',
+         message: "Student not found in the database",
       });
    }
 
@@ -510,7 +510,7 @@ export const serachTeacher = async (req: Request, res: Response) => {
 
    if (!username) {
       return res.status(400).json({
-         message: 'Please provide student name',
+         message: "Please provide student name",
       });
    }
 
@@ -525,7 +525,7 @@ export const serachTeacher = async (req: Request, res: Response) => {
 
    if (!teacher) {
       return res.status(404).json({
-         message: 'Teacher not found in the database',
+         message: "Teacher not found in the database",
       });
    }
 
@@ -554,7 +554,7 @@ export const getScoreBoard = async (req: Request, res: Response) => {
    }
 
    res.status(200).json({
-      message: 'Done Successfully',
+      message: "Done Successfully",
       scoreBoard,
    });
 };
@@ -568,7 +568,7 @@ export const getSubjectFilteredScoreBoard = async (
 
    if (!subject) {
       return res.status(400).json({
-         message: 'Please provide subject name',
+         message: "Please provide subject name",
       });
    }
 
@@ -582,7 +582,7 @@ export const getSubjectFilteredScoreBoard = async (
 
    if (!allStudents) {
       return res.status(500).json({
-         message: 'Failed to retrieve students',
+         message: "Failed to retrieve students",
       });
    }
 
@@ -623,7 +623,7 @@ export const getSubjectFilteredScoreBoard = async (
    });
 
    res.status(200).json({
-      message: 'Done Successfully',
+      message: "Done Successfully",
       formattedRes,
    });
 };
@@ -634,28 +634,28 @@ export const getSubjectFilteredTests = async (req: Request, res: Response) => {
 
    if (!subject) {
       return res.status(400).json({
-         message: 'Please provide subject name',
+         message: "Please provide subject name",
       });
    }
 
    const student: StudentType | null = await Student.findOne({ username });
 
    // replacing any special characters in the 'subject'
-   const escapedSubject = subject.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+   const escapedSubject = subject.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
    const tests: TestType[] | null = await Test.find({
-      subject: { $regex: new RegExp(escapedSubject, 'i') },
+      subject: { $regex: new RegExp(escapedSubject, "i") },
       stream: student.stream,
       forYear: student.pursuingYear,
    });
 
    if (!tests) {
       return res.status(500).json({
-         message: 'Failed to retrieve tests',
+         message: "Failed to retrieve tests",
       });
    }
 
    res.status(200).json({
-      message: 'Done Successfully',
+      message: "Done Successfully",
       tests,
    });
 };
@@ -666,29 +666,27 @@ export const getUpComingTests = async (req: Request, res: Response) => {
    const student: StudentType | null = await Student.findOne({ username });
 
    const currentDateTime = new Date();
-   const options = { timeZone: 'Asia/Kolkata', hour12: false };
-   const indianTime = new Date().toLocaleString('en-IN', options);
+   const options = { timeZone: "Asia/Kolkata", hour12: false };
+   const indianTime = new Date().toLocaleString("en-IN", options);
 
-   const parts = indianTime.slice(0, 8).split('/');
-   const currentDate = `${parts[2]}-${
-      parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]
-   }-${parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]}`;
+   console.log(indianTime.slice(11, 16));
 
    const upcoming: TestType[] | null = await Test.find({
       $and: [
-         { stream: student.stream, forYear: student.pursuingYear },
+         {
+            stream: student?.stream,
+            forYear: student?.pursuingYear,
+         },
          {
             $or: [
                {
                   startDate: {
-                     // $gt: currentDateTime.toISOString().slice(0, 10),
-                     $gt: currentDate,
+                     $gt: currentDateTime.toISOString().slice(0, 10),
                   },
                },
                {
-                  // startDate: currentDateTime.toISOString().slice(0, 10),
-                  startDate: currentDate,
-                  time: { $gt: indianTime.slice(10, 15) },
+                  startDate: currentDateTime.toISOString().slice(0, 10),
+                  time: { $gt: indianTime.slice(11, 16) },
                },
             ],
          },
@@ -696,7 +694,7 @@ export const getUpComingTests = async (req: Request, res: Response) => {
    });
 
    res.status(200).json({
-      message: 'Done Successfully',
+      message: "Done Successfully",
       upcoming,
    });
 };
@@ -707,13 +705,8 @@ export const getClosedTests = async (req: Request, res: Response) => {
    const student: StudentType | null = await Student.findOne({ username });
 
    const currentDateTime = new Date();
-   const options = { timeZone: 'Asia/Kolkata', hour12: false };
-   const indianTime = currentDateTime.toLocaleString('en-IN', options);
-
-   const parts = indianTime.slice(0, 8).split('/');
-   const currentDate = `${parts[2]}-${
-      parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]
-   }-${parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]}`;
+   const options = { timeZone: "Asia/Kolkata", hour12: false };
+   const indianTime = currentDateTime.toLocaleString("en-IN", options);
 
    const closed: TestType[] | null = await Test.find({
       $and: [
@@ -722,13 +715,12 @@ export const getClosedTests = async (req: Request, res: Response) => {
             $or: [
                {
                   startDate: {
-                     // $lt: currentDateTime.toISOString().slice(0, 10),
-                     $lt: currentDate,
+                     $lt: currentDateTime.toISOString().slice(0, 10),
                   },
                },
                {
-                  startDate: currentDate,
-                  endTime: { $lt: indianTime.slice(10, 15) },
+                  startDate: currentDateTime.toISOString().slice(0, 10),
+                  endTime: { $lt: indianTime.slice(11, 16) },
                },
             ],
          },
@@ -736,7 +728,7 @@ export const getClosedTests = async (req: Request, res: Response) => {
    });
 
    res.status(200).json({
-      message: 'Done Successfully',
+      message: "Done Successfully",
       closed,
    });
 };
@@ -747,25 +739,20 @@ export const getLiveTests = async (req: Request, res: Response) => {
    const student: StudentType | null = await Student.findOne({ username });
 
    const currentDateTime = new Date();
-   const options = { timeZone: 'Asia/Kolkata', hour12: false };
-   const indianTime = currentDateTime.toLocaleString('en-IN', options);
-
-   const parts = indianTime.slice(0, 8).split('/');
-   const currentDate = `${parts[2]}-${
-      parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]
-   }-${parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]}`;
+   const options = { timeZone: "Asia/Kolkata", hour12: false };
+   const indianTime = currentDateTime.toLocaleString("en-IN", options);
 
    const live: TestType[] | null = await Test.find({
       $and: [
          { stream: student.stream, forYear: student.pursuingYear },
-         { startDate: currentDate },
-         { time: { $lte: indianTime.slice(10, 15) } },
-         { endTime: { $gte: indianTime.slice(10, 15) } },
+         { startDate: currentDateTime.toISOString().slice(0, 10) },
+         { time: { $lte: indianTime.slice(11, 16) } },
+         { endTime: { $gte: indianTime.slice(11, 16) } },
       ],
    });
 
    res.status(200).json({
-      message: 'Successfully Fetched the live test',
+      message: "Successfully Fetched the live test",
       live,
    });
 };

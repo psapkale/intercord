@@ -30,24 +30,24 @@ const studentRegister = (req, res) => __awaiter(void 0, void 0, void 0, function
             !pursuingYear) {
             return res
                 .status(400)
-                .json({ message: 'Please provide all the details' });
+                .json({ message: "Please provide all the details" });
         }
         let student = yield db_1.Student.findOne({ email });
         if (student) {
             return res.status(400).json({
-                message: 'Student already exists with this email',
+                message: "Student already exists with this email",
             });
         }
         student = yield db_1.Student.findOne({ username });
         if (student) {
             return res.status(400).json({
-                message: 'Username already taken',
+                message: "Username already taken",
             });
         }
         let pendingStudent = yield db_1.PendingStudent.findOne({ username, email });
         if (pendingStudent) {
             return res.status(400).json({
-                message: 'Request already exists',
+                message: "Request already exists",
             });
         }
         pendingStudent = yield db_1.PendingStudent.create({
@@ -60,12 +60,12 @@ const studentRegister = (req, res) => __awaiter(void 0, void 0, void 0, function
             pursuingYear,
         });
         res.status(200).json({
-            message: 'Request sent successfully. Wait until it gets approved!',
+            message: "Request sent successfully. Wait until it gets approved!",
         });
     }
     catch (e) {
         // ! Remove 'e' which might potentially show authorised details
-        console.error('Error creating student:', e);
+        console.error("Error creating student:", e);
         res.status(500);
     }
 });
@@ -76,29 +76,29 @@ const studentLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         if (!email || !username || !password) {
             return res
                 .status(400)
-                .json({ message: 'Please provide username, email and password' });
+                .json({ message: "Please provide username, email and password" });
         }
         const student = yield db_1.Student.findOne({ email });
         if (!student) {
-            return res.status(404).json({ message: 'Student not found' });
+            return res.status(404).json({ message: "Student not found" });
         }
         if (student.username !== username) {
-            return res.status(411).json({ message: 'Incorrect username' });
+            return res.status(411).json({ message: "Incorrect username" });
         }
         const isMatch = yield bcrypt_1.default.compare(password, student.password);
         if (!isMatch) {
-            return res.status(411).json({ message: 'Incorrect password' });
+            return res.status(411).json({ message: "Incorrect password" });
         }
         const token = jsonwebtoken_1.default.sign({ username }, process.env.JWT_SECRET);
         res.status(200).json({
             student,
-            message: 'Student logged in successfully',
+            message: "Student logged in successfully",
             token,
         });
     }
     catch (e) {
         // ! Remove 'e' which might potentially show authorised details
-        console.error('Error logging student:', e);
+        console.error("Error logging student:", e);
         res.status(500);
     }
 });
@@ -119,13 +119,13 @@ const getTestById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const { username } = res.locals;
     if (!testId) {
         return res.status(400).json({
-            message: 'Please provide test id',
+            message: "Please provide test id",
         });
     }
     let test = yield db_1.Test.findOne({ _id: testId });
     if (!test) {
         return res.status(404).json({
-            message: 'Test not found',
+            message: "Test not found",
         });
     }
     const student = yield db_1.Student.findOne({ username });
@@ -133,16 +133,16 @@ const getTestById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const sortedSubmissions = test.submissions.sort((x, y) => y.obtainedMarks - x.obtainedMarks);
     const currentDateTime = new Date();
     const options = {
-        timeZone: 'Asia/Kolkata',
+        timeZone: "Asia/Kolkata",
         hour12: false,
     };
-    const indianTime = currentDateTime.toLocaleString('en-US', options);
-    const formattedDate = new Date(indianTime).toISOString().split('T')[0];
+    const indianTime = currentDateTime.toLocaleString("en-IN", options);
+    const formattedDate = new Date(indianTime).toISOString().split("T")[0];
     if (isRepeat &&
         (test === null || test === void 0 ? void 0 : test.startDate) === formattedDate &&
-        indianTime.slice(10, 15) <= (test === null || test === void 0 ? void 0 : test.endTime)) {
+        indianTime.slice(11, 16) <= (test === null || test === void 0 ? void 0 : test.endTime)) {
         return res.status(400).json({
-            message: 'Response already submitted',
+            message: "Response already submitted",
         });
     }
     const teacher = yield db_1.Teacher.findOne({
@@ -150,11 +150,11 @@ const getTestById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     });
     if (!teacher) {
         return res.status(500).json({
-            message: 'Failed to find some test data',
+            message: "Failed to find some test data",
         });
     }
     res.status(200).json({
-        message: 'Done Successfully',
+        message: "Done Successfully",
         test,
         creator: teacher.username,
         sortedSubmissions,
@@ -169,12 +169,12 @@ const testSubmission = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const { username } = res.locals;
     if (!testId) {
         return res.status(400).json({
-            message: 'Please provide test id',
+            message: "Please provide test id",
         });
     }
     if (!submittedAnswersIndex) {
         return res.status(400).json({
-            message: 'Please provide test response',
+            message: "Please provide test response",
         });
     }
     let student = yield db_1.Student.findOne({ username });
@@ -219,7 +219,7 @@ const testSubmission = (req, res) => __awaiter(void 0, void 0, void 0, function*
     //  );
     if (!student) {
         return res.status(500).json({
-            message: 'Internal server error',
+            message: "Internal server error",
         });
     }
     if (Array.isArray(student.subjectScore)) {
@@ -237,7 +237,7 @@ const testSubmission = (req, res) => __awaiter(void 0, void 0, void 0, function*
         yield student.save();
     }
     else {
-        console.error('student.subjectScore is not an array');
+        console.error("student.subjectScore is not an array");
     }
     // Todo resove score data
     const score = yield db_1.Score.findOneAndUpdate({ candidateId: student._id }, {
@@ -247,7 +247,7 @@ const testSubmission = (req, res) => __awaiter(void 0, void 0, void 0, function*
         submissions: (_f = student === null || student === void 0 ? void 0 : student.submissions) === null || _f === void 0 ? void 0 : _f.length,
     }, { new: true });
     res.json({
-        message: 'Test submitted successfully',
+        message: "Test submitted successfully",
         test,
         student,
         score,
@@ -262,7 +262,7 @@ const bookMarkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     });
     if (!student) {
         return res.status(500).json({
-            message: 'Internal server error',
+            message: "Internal server error",
         });
     }
     let indexOfTest = student.bookmark.indexOf(testId);
@@ -275,10 +275,10 @@ const bookMarkTest = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     yield student.save();
     if (indexOfTest == -1)
         return res.status(200).json({
-            message: 'Test Bookmark Succesfully',
+            message: "Test Bookmark Succesfully",
         });
     res.status(200).json({
-        message: 'Test remove from Bookmark Succesfully',
+        message: "Test remove from Bookmark Succesfully",
     });
 });
 exports.bookMarkTest = bookMarkTest;
@@ -297,9 +297,9 @@ const getAllBookMarkTest = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
     catch (error) {
         res.status(500).json({
-            messsage: 'Some error occured',
+            messsage: "Some error occured",
         });
-        console.log(error, 'Error in GetAllBookMarkedTest');
+        console.log(error, "Error in GetAllBookMarkedTest");
     }
 });
 exports.getAllBookMarkTest = getAllBookMarkTest;
@@ -312,7 +312,7 @@ const updateStudentProfile = (req, res) => __awaiter(void 0, void 0, void 0, fun
         });
         if (!student) {
             return res.status(200).json({
-                message: 'Student Not Found',
+                message: "Student Not Found",
             });
         }
         // changing password if it is provided
@@ -329,15 +329,15 @@ const updateStudentProfile = (req, res) => __awaiter(void 0, void 0, void 0, fun
         student.twitterUrl = twitterUrl || student.twitterUrl;
         yield student.save();
         res.status(200).json({
-            message: 'Student Profile Updated',
+            message: "Student Profile Updated",
             user: student,
         });
     }
     catch (error) {
         res.status(500).json({
-            message: 'Some Error occured!',
+            message: "Some Error occured!",
         });
-        console.log('Error in Update Student ', error);
+        console.log("Error in Update Student ", error);
     }
 });
 exports.updateStudentProfile = updateStudentProfile;
@@ -347,14 +347,14 @@ const updateSeenStudent = (req, res) => __awaiter(void 0, void 0, void 0, functi
         yield db_1.Student.updateOne({
             username,
         }, {
-            $set: { 'announcements.$[].seen': true },
+            $set: { "announcements.$[].seen": true },
         });
         res.status(200).json({
-            message: 'All Seen Successfully',
+            message: "All Seen Successfully",
         });
     }
     catch (error) {
-        console.log(error, 'Error in student updateSeen route');
+        console.log(error, "Error in student updateSeen route");
     }
 });
 exports.updateSeenStudent = updateSeenStudent;
@@ -367,10 +367,10 @@ const allStudents = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     });
     if (!allStudents) {
         return res.status(500).json({
-            message: 'Failed to get all students',
+            message: "Failed to get all students",
         });
     }
-    res.status(200).json({ message: 'Done Successfully', allStudents });
+    res.status(200).json({ message: "Done Successfully", allStudents });
 });
 exports.allStudents = allStudents;
 const allTeachers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -381,10 +381,10 @@ const allTeachers = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     });
     if (!allTeachers) {
         return res.status(500).json({
-            message: 'Failed to get all teachers',
+            message: "Failed to get all teachers",
         });
     }
-    res.status(200).json({ message: 'Done Successfully', allTeachers });
+    res.status(200).json({ message: "Done Successfully", allTeachers });
 });
 exports.allTeachers = allTeachers;
 const serachStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -392,7 +392,7 @@ const serachStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const currentStudentUsername = res.locals.username;
     if (!username) {
         return res.status(400).json({
-            message: 'Please provide student name',
+            message: "Please provide student name",
         });
     }
     const currentStudent = yield db_1.Student.findOne({
@@ -405,7 +405,7 @@ const serachStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     });
     if (!resStudent) {
         return res.status(404).json({
-            message: 'Student not found in the database',
+            message: "Student not found in the database",
         });
     }
     res.status(200).json({
@@ -418,7 +418,7 @@ const serachTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const currentStudentUsername = res.locals.username;
     if (!username) {
         return res.status(400).json({
-            message: 'Please provide student name',
+            message: "Please provide student name",
         });
     }
     const currentStudent = yield db_1.Student.findOne({
@@ -430,7 +430,7 @@ const serachTeacher = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     });
     if (!teacher) {
         return res.status(404).json({
-            message: 'Teacher not found in the database',
+            message: "Teacher not found in the database",
         });
     }
     res.status(200).json({
@@ -455,7 +455,7 @@ const getScoreBoard = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     res.status(200).json({
-        message: 'Done Successfully',
+        message: "Done Successfully",
         scoreBoard,
     });
 });
@@ -465,7 +465,7 @@ const getSubjectFilteredScoreBoard = (req, res) => __awaiter(void 0, void 0, voi
     const { username } = res.locals;
     if (!subject) {
         return res.status(400).json({
-            message: 'Please provide subject name',
+            message: "Please provide subject name",
         });
     }
     const student = yield db_1.Student.findOne({ username });
@@ -476,7 +476,7 @@ const getSubjectFilteredScoreBoard = (req, res) => __awaiter(void 0, void 0, voi
     });
     if (!allStudents) {
         return res.status(500).json({
-            message: 'Failed to retrieve students',
+            message: "Failed to retrieve students",
         });
     }
     const filteredStudents = allStudents.filter((student) => {
@@ -507,7 +507,7 @@ const getSubjectFilteredScoreBoard = (req, res) => __awaiter(void 0, void 0, voi
         };
     });
     res.status(200).json({
-        message: 'Done Successfully',
+        message: "Done Successfully",
         formattedRes,
     });
 });
@@ -517,24 +517,24 @@ const getSubjectFilteredTests = (req, res) => __awaiter(void 0, void 0, void 0, 
     const { username } = res.locals;
     if (!subject) {
         return res.status(400).json({
-            message: 'Please provide subject name',
+            message: "Please provide subject name",
         });
     }
     const student = yield db_1.Student.findOne({ username });
     // replacing any special characters in the 'subject'
-    const escapedSubject = subject.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const escapedSubject = subject.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const tests = yield db_1.Test.find({
-        subject: { $regex: new RegExp(escapedSubject, 'i') },
+        subject: { $regex: new RegExp(escapedSubject, "i") },
         stream: student.stream,
         forYear: student.pursuingYear,
     });
     if (!tests) {
         return res.status(500).json({
-            message: 'Failed to retrieve tests',
+            message: "Failed to retrieve tests",
         });
     }
     res.status(200).json({
-        message: 'Done Successfully',
+        message: "Done Successfully",
         tests,
     });
 });
@@ -543,32 +543,32 @@ const getUpComingTests = (req, res) => __awaiter(void 0, void 0, void 0, functio
     const { username } = res.locals;
     const student = yield db_1.Student.findOne({ username });
     const currentDateTime = new Date();
-    const options = { timeZone: 'Asia/Kolkata', hour12: false };
-    const indianTime = new Date().toLocaleString('en-IN', options);
-    const parts = indianTime.slice(0, 8).split('/');
-    const currentDate = `${parts[2]}-${parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]}-${parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]}`;
+    const options = { timeZone: "Asia/Kolkata", hour12: false };
+    const indianTime = new Date().toLocaleString("en-IN", options);
+    console.log(indianTime.slice(11, 16));
     const upcoming = yield db_1.Test.find({
         $and: [
-            { stream: student.stream, forYear: student.pursuingYear },
+            {
+                stream: student === null || student === void 0 ? void 0 : student.stream,
+                forYear: student === null || student === void 0 ? void 0 : student.pursuingYear,
+            },
             {
                 $or: [
                     {
                         startDate: {
-                            // $gt: currentDateTime.toISOString().slice(0, 10),
-                            $gt: currentDate,
+                            $gt: currentDateTime.toISOString().slice(0, 10),
                         },
                     },
                     {
-                        // startDate: currentDateTime.toISOString().slice(0, 10),
-                        startDate: currentDate,
-                        time: { $gt: indianTime.slice(10, 15) },
+                        startDate: currentDateTime.toISOString().slice(0, 10),
+                        time: { $gt: indianTime.slice(11, 16) },
                     },
                 ],
             },
         ],
     });
     res.status(200).json({
-        message: 'Done Successfully',
+        message: "Done Successfully",
         upcoming,
     });
 });
@@ -577,10 +577,8 @@ const getClosedTests = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const { username } = res.locals;
     const student = yield db_1.Student.findOne({ username });
     const currentDateTime = new Date();
-    const options = { timeZone: 'Asia/Kolkata', hour12: false };
-    const indianTime = currentDateTime.toLocaleString('en-IN', options);
-    const parts = indianTime.slice(0, 8).split('/');
-    const currentDate = `${parts[2]}-${parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]}-${parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]}`;
+    const options = { timeZone: "Asia/Kolkata", hour12: false };
+    const indianTime = currentDateTime.toLocaleString("en-IN", options);
     const closed = yield db_1.Test.find({
         $and: [
             { stream: student.stream, forYear: student.pursuingYear },
@@ -588,20 +586,19 @@ const getClosedTests = (req, res) => __awaiter(void 0, void 0, void 0, function*
                 $or: [
                     {
                         startDate: {
-                            // $lt: currentDateTime.toISOString().slice(0, 10),
-                            $lt: currentDate,
+                            $lt: currentDateTime.toISOString().slice(0, 10),
                         },
                     },
                     {
-                        startDate: currentDate,
-                        endTime: { $lt: indianTime.slice(10, 15) },
+                        startDate: currentDateTime.toISOString().slice(0, 10),
+                        endTime: { $lt: indianTime.slice(11, 16) },
                     },
                 ],
             },
         ],
     });
     res.status(200).json({
-        message: 'Done Successfully',
+        message: "Done Successfully",
         closed,
     });
 });
@@ -610,20 +607,18 @@ const getLiveTests = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const { username } = res.locals;
     const student = yield db_1.Student.findOne({ username });
     const currentDateTime = new Date();
-    const options = { timeZone: 'Asia/Kolkata', hour12: false };
-    const indianTime = currentDateTime.toLocaleString('en-IN', options);
-    const parts = indianTime.slice(0, 8).split('/');
-    const currentDate = `${parts[2]}-${parseInt(parts[1]) < 10 ? `0${parts[1]}` : parts[1]}-${parseInt(parts[0]) < 10 ? `0${parts[0]}` : parts[0]}`;
+    const options = { timeZone: "Asia/Kolkata", hour12: false };
+    const indianTime = currentDateTime.toLocaleString("en-IN", options);
     const live = yield db_1.Test.find({
         $and: [
             { stream: student.stream, forYear: student.pursuingYear },
-            { startDate: currentDate },
-            { time: { $lte: indianTime.slice(10, 15) } },
-            { endTime: { $gte: indianTime.slice(10, 15) } },
+            { startDate: currentDateTime.toISOString().slice(0, 10) },
+            { time: { $lte: indianTime.slice(11, 16) } },
+            { endTime: { $gte: indianTime.slice(11, 16) } },
         ],
     });
     res.status(200).json({
-        message: 'Successfully Fetched the live test',
+        message: "Successfully Fetched the live test",
         live,
     });
 });
