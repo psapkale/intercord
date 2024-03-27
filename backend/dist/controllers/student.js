@@ -136,7 +136,7 @@ const getTestById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         timeZone: "Asia/Kolkata",
         hour12: false,
     };
-    const indianTime = currentDateTime.toLocaleString("en-IN", options);
+    const indianTime = currentDateTime.toLocaleString("en-US", options);
     const formattedDate = new Date(indianTime).toISOString().split("T")[0];
     if (isRepeat &&
         (test === null || test === void 0 ? void 0 : test.startDate) === formattedDate &&

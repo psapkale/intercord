@@ -167,7 +167,7 @@ export const getTestById = async (req: Request, res: Response) => {
       timeZone: "Asia/Kolkata",
       hour12: false,
    };
-   const indianTime = currentDateTime.toLocaleString("en-IN", options);
+   const indianTime = currentDateTime.toLocaleString("en-US", options);
    const formattedDate = new Date(indianTime).toISOString().split("T")[0];
 
    if (
